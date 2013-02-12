@@ -1,4 +1,4 @@
 git-etc
 =======
 
-git-etc is a simple daemon that automaticaly create git repository in the given directory and create commit at the specified time interval.
+git-etc is a simple daemon that automatically creates git repository in the given directory and creates commit at the specified time interval.
