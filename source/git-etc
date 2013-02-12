@@ -1,0 +1,80 @@
+#!/bin/bash
+
+isnum () {
+    (t=$(( 0$1+0 ))) 2>/dev/null
+}
+
+if [[ -z "$1" || -z "$2" ]]; then
+  echo "[EE]: Parametrs aren't set"
+  exit 1
+else
+  DIRECTORY=$1
+  TIMESLEEP=$2
+fi
+
+if [[ -z "$3" ]]; then
+  IGNORELIST=NULL
+else
+  IGNORELIST=`echo $3 | sed -e 's/;;/ /g'`
+fi
+
+if [ ! -d "$DIRECTORY" ]; then
+  echo "[EE]: Directory '$DIRECTORY' doesn't exist"
+  exit 1
+fi
+
+if isnum $TIMESLEEP; then
+  if [ $TIMESLEEP -ge 1 ]; then
+    echo "[II]: Set DURECTORY to '$DIRECTORY'"
+    TIMESLEEP=$(( $TIMESLEEP*3600 ))
+    echo "[II]: Set TIMESLEEP to '$TIMESLEEP' sec"
+  else
+    echo "[EE]: '$TIMESLEEP' isn't valid number"
+    exit 1
+  fi
+else
+  echo "[EE]: '$TIMESLEEP' isn't a number"
+  exit 1
+fi
+
+
+# Change cwd
+cd /
+
+# Output to /dev/null
+< /dev/null > /dev/null 2>&1 &
+
+# Creating git repository
+GITDIR=$DIRECTORY/.git
+if [ ! -d "$GITDIR" ]; then
+  echo "[II]: Creating git repository"
+  cd $DIRECTORY
+  git init
+  cd /
+  if [[ $IGNORELIST != NULL ]]; then
+    echo "[II]: Adding files in ingore-list"
+    for IGNORE in $( echo $IGNORELIST ); do
+      echo $IGNORE >> $GITDIR/info/exclude
+    done
+  else
+    echo "[WW]: IGNORELIST isn't set"
+  fi
+fi
+
+# Forking
+(
+  while true; do
+# Creating commit
+    cd $DIRECTORY
+    echo "[II]: Adding files"
+    git add .
+    echo "[II]: Creating new commit"
+    git commit -m `date +%Y%m%d%H%M%S-%N`
+    cd /
+
+# Waiting $TIMESLEEP hours
+    echo "[II]: Waiting '$TIMESLEEP' sec"
+    exit 1
+    sleep $TIMESLEEP
+  done
+) &
