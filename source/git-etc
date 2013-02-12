@@ -87,8 +87,8 @@ fi
   while true; do
 # Creating commit
     cd $DIRECTORY
-    echo "[II]: Adding files"
-    git add .
+    echo "[II]: Adding files" 
+    git add -A .
     echo "[II]: Creating new commit"
     git commit -m `date +%Y%m%d%H%M%S-%N`
     cd /
