@@ -3,7 +3,7 @@ Description=git-etc daemon
 
 [Service]
 EnvironmentFile=/etc/conf.d/git-etc.conf
-Type=Forking
+Type=forking
 ExecStart=/usr/bin/git-etc $DIRECTORY $TIMESLEEP $IGNORELIST
 RemainAfterExit=yes
 

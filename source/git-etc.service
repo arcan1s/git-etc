@@ -3,7 +3,7 @@ Description=git-etc daemon
 
 [Service]
 EnvironmentFile=/home/arcanis/Documents/git-etc/source/git-etc.conf
-Type=Forking
+Type=forking
 ExecStart=/home/arcanis/Documents/git-etc/source/git-etc $DIRECTORY $TIMESLEEP $IGNORELIST
 RemainAfterExit=yes
 
