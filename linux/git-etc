@@ -95,7 +95,6 @@ fi
 
 # Waiting $TIMESLEEP hours
     echo "[II]: Waiting '$TIMESLEEP' sec"
-    exit 1
     sleep $TIMESLEEP
   done
 ) &
