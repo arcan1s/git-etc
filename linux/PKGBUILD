@@ -8,7 +8,8 @@ url="https://github.com/arcan1s/git-etc"
 license=("GPL")
 arch=('i686' 'x86_64')
 depends=('git' 'bash')
-makedepends=('git')
+
+backup=('/etc/conf.d/git-etc.conf')
 
 _gitroot="git://github.com/arcan1s/git-etc.git"
 _gitname="git-etc"
