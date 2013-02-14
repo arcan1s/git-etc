@@ -10,6 +10,7 @@ from PyQt4 import QtCore, QtGui
 
 from commitwin import Ui_CommitWindow
 from configwin import Ui_ConfigureWindow
+from settingswin import Ui_SettingsWindow
 from mainwin import Ui_MainWindow
 
 
@@ -49,6 +50,7 @@ class Ui_NotFound(object):
         QtCore.QMetaObject.connectSlotsByName(NotFound)
 
 
+
 class CommitWindow(QtGui.QMainWindow):
     def __init__(self, parent=None, commit=None):
         QtGui.QMainWindow.__init__(self, parent)
@@ -61,32 +63,86 @@ class CommitWindow(QtGui.QMainWindow):
 
         QtCore.QObject.connect(self.ui.box_file, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_diff)        
         QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close)
-        QtCore.QObject.connect(self.ui.button_open, QtCore.SIGNAL("clicked()"), self.openfile)
+        QtCore.QObject.connect(self.ui.button_open, QtCore.SIGNAL("clicked()"), self.open_file)
     
-    def openfile(self):
-        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+    def open_file(self):
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
         editor = "gvim"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+                    if (line.split("==")[0] == "EDITOR"):
+                        editor = line.split("==")[1]
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
         
         with open(config, 'r') as config_file:
             for line in config_file:
                 if (line.split("=")[0] == "DIRECTORY"):
-                    directory = str(line.split("=")[1][:-1])
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
         
-        directory = "/etc"
+        if (os.path.exists(directory) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        label = 0
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            if os.path.exists(os.path.join(path, editor)):
+                label = 1
+                break
+        if (label == 0):
+            text_error = u"<html><head/><body><p align=\"center\">Указанного редактора не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
         command_line = editor+" "+directory+"/"+str(self.ui.box_file.currentText())
         os.system(command_line)
     
     def set_diff(self):
-        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
         file_name = str(self.ui.box_file.currentText())
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
         
         with open(config, 'r') as config_file:
             for line in config_file:
                 if (line.split("=")[0] == "DIRECTORY"):
-                    directory = str(line.split("=")[1][:-1])
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+        
+        if (os.path.exists(directory) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        if (os.path.exists(directory+"/.git") == False):
+            text_error = u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
         
         current_directory = os.getcwd()
-        directory = "/etc"
         os.chdir(directory)
         command_line = "sudo git show "+self._commit+" "+file_name
         file_diff = commands.getoutput(command_line)
@@ -119,15 +175,38 @@ p, li { white-space: pre-wrap; }
         os.chdir(current_directory)
     
     def set_text(self):
-        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):        
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
         
         with open(config, 'r') as config_file:
             for line in config_file:
                 if (line.split("=")[0] == "DIRECTORY"):
-                    directory = str(line.split("=")[1][:-1])
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+        
+        if (os.path.exists(directory) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        if (os.path.exists(directory+"/.git") == False):
+            text_error = u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
         
         current_directory = os.getcwd()
-        directory = "/etc"
         os.chdir(directory)
         command_line = "sudo git show "+self._commit+" --name-only"
         commit_file = commands.getoutput(command_line)
@@ -158,11 +237,27 @@ class ConfigWindow(QtGui.QMainWindow):
         self.read_config()
         
         QtCore.QObject.connect(self.ui.button_apply, QtCore.SIGNAL("clicked()"), self.setup_config)
-        QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close)        
+        QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close_win)        
         QtCore.QObject.connect(self.ui.button_refresh, QtCore.SIGNAL("clicked()"), self.read_config)
+    
+    def close_win(self):
+        self.read_config()
+        self.close()
         
     def read_config(self):
-        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
         
         self.ui.lineEdit_directory.clear()
         self.ui.lineEdit_timeSleep.clear()
@@ -171,7 +266,7 @@ class ConfigWindow(QtGui.QMainWindow):
         with open(config, 'r') as config_file:
             for line in config_file:
                 if (line.split("=")[0] == "DIRECTORY"):
-                    directory = str(line.split("=")[1][:-1])
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
                     self.ui.lineEdit_directory.setText(directory)
                 elif (line.split("=")[0] == "TIMESLEEP"):
                     timesleep = str(line.split("=")[1][:-1])
@@ -181,7 +276,13 @@ class ConfigWindow(QtGui.QMainWindow):
                     self.ui.lineEdit_ignoreList.setText(ignorelist)
     
     def setup_config(self):
-        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
         
         if (len(self.ui.lineEdit_directory.text()) == 0):
             text_error = u"<html><head/><body><p align=\"center\">Не указана рабочая директория</p></body></html>"
@@ -198,13 +299,13 @@ class ConfigWindow(QtGui.QMainWindow):
             return
         else:
             if (self.ui.lineEdit_timeSleep.text().toInt()[1] == False):
-                text_error = u"<html><head/><body><p align=\"center\">" + self.ui.lineEdit_timeSleep.text() + u" не число</p></body></html>"
+                text_error = u"<html><head/><body><p align=\"center\">" + self.ui.lineEdit_timeSleep.text() + u" не целое число</p></body></html>"
                 not_found = NotFound(parent=self, text=text_error)
                 not_found.show()
                 return
             else:
                 if (self.ui.lineEdit_timeSleep.text().toInt()[0] < 1):
-                    text_error = u"<html><head/><body><p align=\"center\">" + self.ui.lineEdit_timeSleep.text() + u" отрицательное</p></body></html>"
+                    text_error = u"<html><head/><body><p align=\"center\">" + self.ui.lineEdit_timeSleep.text() + u" < 1</p></body></html>"
                     not_found = NotFound(parent=self, text=text_error)
                     not_found.show()
                     return
@@ -213,14 +314,22 @@ class ConfigWindow(QtGui.QMainWindow):
         
         ignorelist = self.ui.lineEdit_ignoreList.text()
         
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
         with open(config, 'w') as config_file:
             config_file.write("DIRECTORY="+directory)
             config_file.write("\nTIMESLEEP="+str(timesleep))
             config_file.write("\nIGNORELIST="+ignorelist)
+        
+        self.close()
     
     def keyPressEvent(self, event):
         if (event.key() == QtCore.Qt.Key_Escape):
-            self.close()
+            self.close_win()
 
 
 class NotFound(QtGui.QMainWindow):
@@ -240,19 +349,113 @@ class NotFound(QtGui.QMainWindow):
         self.ui.button_ok.setText(u"Ok")
 
 
+class SettingsWindow(QtGui.QMainWindow):
+    def __init__(self, parent=None):
+        QtGui.QMainWindow.__init__(self, parent)
+        self.ui = Ui_SettingsWindow()
+        self.ui.setupUi(self)
+        
+        self._parent = parent        
+        self.set_text()
+        
+        QtCore.QObject.connect(self.ui.button_apply, QtCore.SIGNAL("clicked()"), self.save_config)        
+        QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close_win)
+        QtCore.QObject.connect(self.ui.button_default, QtCore.SIGNAL("clicked()"), self.create_config)
+    
+    def close_win(self):
+        self.set_text()
+        self.close()
+    
+    def create_config(self):
+        self.ui.lineEdit_service.setText("git-etc.service")
+        self.ui.lineEdit_config.setText("/etc/conf.d/git-etc.conf")
+        self.ui.lineEdit_editor.setText("gvim")
+        self.ui.box_lang.setCurrentIndex(0)
+        
+        self.save_config()
+    
+    def save_config(self):
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        if (os.path.exists(config_gui)):
+            os.remove(config_gui)
+        
+        if (len(self.ui.lineEdit_service.text()) == 0):
+            text_error = u"<html><head/><body><p align=\"center\">Не указано имя сервиса</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        else:
+            service = self.ui.lineEdit_service.text()
+        
+        if (len(self.ui.lineEdit_config.text()) == 0):
+            text_error = u"<html><head/><body><p align=\"center\">Не указано имя файла с настройками</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        else:
+            config = self.ui.lineEdit_config.text()
+        
+        if (len(self.ui.lineEdit_editor.text()) == 0):
+            text_error = u"<html><head/><body><p align=\"center\">Не указан текстовый редактор</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        else:
+            editor = self.ui.lineEdit_editor.text()
+        
+        with open(config_gui, 'w') as config_gui_file:
+            config_gui_file.write("SERVICE=="+service+"==\n")
+            config_gui_file.write("CONFIG=="+config+"==\n")
+            config_gui_file.write("EDITOR=="+editor+"==\n")
+            if (self.ui.box_lang.currentIndex() == 0):
+                config_gui_file.write("LANGUAGE==ENG==\n")
+            else:
+                config_gui_file.write("LANGUAGE==RUS==\n")
+        
+        self._parent.set_status()
+        self._parent.ui.list_commit.clear()
+        self.close()
+
+    def set_text(self):
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "SERVICE"):
+                        self.ui.lineEdit_service.setText(line.split("==")[1])
+                    if (line.split("==")[0] == "CONFIG"):
+                        self.ui.lineEdit_config.setText(line.split("==")[1])
+                    if (line.split("==")[0] == "EDITOR"):
+                        self.ui.lineEdit_editor.setText(line.split("==")[1])
+                    if (line.split("==")[0] == "LANGUAGE"):
+                        if (line.split("==")[1] == "RUS"):
+                            self.ui.box_lang.setCurrentIndex(1)
+                        else:
+                            self.ui.box_lang.setCurrentIndex(0)
+        else:
+            self.create_config()
+    
+    def keyPressEvent(self, event):
+        if (event.key() == QtCore.Qt.Key_Escape):
+            self.close_win()
+
+
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
         QtGui.QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
+        self.setup()
         self.set_status()
         self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
         self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
         
         config_window = ConfigWindow(parent=self)
+        settings_window = SettingsWindow(parent=self)
         
         QtCore.QObject.connect(self.ui.action_configure, QtCore.SIGNAL("triggered()"), config_window.show)
+        QtCore.QObject.connect(self.ui.action_settings, QtCore.SIGNAL("triggered()"), settings_window.show)
         QtCore.QObject.connect(self.ui.action_exit, QtCore.SIGNAL("triggered()"), self.close)
         QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
         QtCore.QObject.connect(self.ui.button_startService, QtCore.SIGNAL("clicked()"), self.start_service)
@@ -267,12 +470,36 @@ class MainWindow(QtGui.QMainWindow):
     
     def get_text(self):
         self.ui.list_commit.clear()
-        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return        
         
         with open(config, 'r') as config_file:
             for line in config_file:
                 if (line.split("=")[0] == "DIRECTORY"):
-                    directory = str(line.split("=")[1][:-1])
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+        
+        if (os.path.exists(directory) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        if (os.path.exists(directory+"/.git") == False):
+            text_error = u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
                 
         time_now = datetime.datetime.now()        
         time_to = self.ui.timeEdit_to.dateTime().toPyDateTime()
@@ -286,7 +513,6 @@ class MainWindow(QtGui.QMainWindow):
         tif = [str(time_interval_from.days), str((time_interval_from.seconds-(time_interval_from.seconds%3600))/3600), str(((time_interval_from.seconds%3600)-(time_interval_from.seconds%3600)%60)/60)]
         
         current_directory = os.getcwd()
-        directory = "/etc"
         os.chdir(directory)
         command_line = "sudo git log --oneline "
         command_line = command_line+"--since=\""+tif[0]+" days "+tif[1]+" hours "+tif[2]+" minutes\" "
@@ -302,20 +528,58 @@ class MainWindow(QtGui.QMainWindow):
         os.chdir(current_directory)
     
     def set_status(self):
-        status_service = commands.getoutput("systemctl status test_git-etc.service | grep Active | awk {'print $2;'}")
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        service = "git-etc.service"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "SERVICE"):
+                        service = line.split("==")[1]
+        
+        command_line = "systemctl status "+service+" | grep Active | awk {'print $2;'}"
+        status_service = commands.getoutput(command_line)
         status_service = status_service + ' '
-        status_service = status_service + commands.getoutput("systemctl status test_git-etc.service | grep Active | awk {'print $3;'}")
+        command_line = "systemctl status "+service+" | grep Active | awk {'print $3;'}"
+        status_service = status_service + commands.getoutput(command_line)
         
         self.ui.label_statusService.setText(status_service)
     
+    def setup(self):
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        if (os.path.exists(config_gui)):
+            return
+        
+        with open(config_gui, 'w') as config_gui_file:
+            config_gui_file.write("# Automatically generated by git2etc\n")
+            config_gui_file.write("SERVICE==git-etc.service==\n")
+            config_gui_file.write("CONFIG==/etc/conf.d/git-etc.conf==\n")
+            config_gui_file.write("EDITOR==gvim==\n")
+            config_gui_file.write("LANGUAGE==ENG==\n")
+    
     def start_service(self):
-        print "Starting service"
-        os.system('sudo systemctl start test_git-etc.service')
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        service = "git-etc.service"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "SERVICE"):
+                        service = line.split("==")[1]
+        
+        command_line = "sudo systemctl start "+service
+        os.system(command_line)
         self.set_status()
     
     def stop_service(self):
-        print "Stoping service"
-        os.system('sudo systemctl stop test_git-etc.service')
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        service = "git-etc.service"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "SERVICE"):
+                        service = line.split("==")[1]
+        
+        command_line = "sudo systemctl stop "+service
+        os.system(command_line)
         self.set_status()
 
 

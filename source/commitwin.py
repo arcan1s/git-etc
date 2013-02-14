@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'commitwin.ui'
 #
-# Created: Thu Feb 14 20:23:43 2013
+# Created: Fri Feb 15 03:42:14 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -98,6 +98,7 @@ class Ui_CommitWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.button_open.sizePolicy().hasHeightForWidth())
         self.button_open.setSizePolicy(sizePolicy)
+        self.button_open.setDefault(True)
         self.button_open.setObjectName(_fromUtf8("button_open"))
         self.button_close = QtGui.QPushButton(self.centralwidget)
         self.button_close.setGeometry(QtCore.QRect(550, 325, 101, 24))
@@ -106,6 +107,7 @@ class Ui_CommitWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.button_close.sizePolicy().hasHeightForWidth())
         self.button_close.setSizePolicy(sizePolicy)
+        self.button_close.setDefault(True)
         self.button_close.setObjectName(_fromUtf8("button_close"))
         CommitWindow.setCentralWidget(self.centralwidget)
 

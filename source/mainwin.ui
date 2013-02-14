@@ -240,16 +240,10 @@
     <property name="title">
      <string>&amp;Меню</string>
     </property>
-    <addaction name="action_configfile"/>
     <addaction name="action_configure"/>
+    <addaction name="action_settings"/>
     <addaction name="separator"/>
     <addaction name="action_exit"/>
-   </widget>
-   <widget class="QMenu" name="menu_config">
-    <property name="title">
-     <string>&amp;Настройки</string>
-    </property>
-    <addaction name="action_language"/>
    </widget>
    <widget class="QMenu" name="menu_help">
     <property name="title">
@@ -259,7 +253,6 @@
     <addaction name="action_about"/>
    </widget>
    <addaction name="menu_main"/>
-   <addaction name="menu_config"/>
    <addaction name="menu_help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -297,6 +290,14 @@
   <action name="action_configure">
    <property name="text">
     <string>Настроить &amp;сервис</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_settings">
+   <property name="text">
+    <string>&amp;Настроить git2etc</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>

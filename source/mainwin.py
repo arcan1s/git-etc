@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwin.ui'
 #
-# Created: Thu Feb 14 18:28:01 2013
+# Created: Fri Feb 15 00:43:25 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -113,8 +113,6 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menu_main = QtGui.QMenu(self.menubar)
         self.menu_main.setObjectName(_fromUtf8("menu_main"))
-        self.menu_config = QtGui.QMenu(self.menubar)
-        self.menu_config.setObjectName(_fromUtf8("menu_config"))
         self.menu_help = QtGui.QMenu(self.menubar)
         self.menu_help.setObjectName(_fromUtf8("menu_help"))
         MainWindow.setMenuBar(self.menubar)
@@ -133,15 +131,15 @@ class Ui_MainWindow(object):
         self.action_about.setObjectName(_fromUtf8("action_about"))
         self.action_configure = QtGui.QAction(MainWindow)
         self.action_configure.setObjectName(_fromUtf8("action_configure"))
-        self.menu_main.addAction(self.action_configfile)
+        self.action_settings = QtGui.QAction(MainWindow)
+        self.action_settings.setObjectName(_fromUtf8("action_settings"))
         self.menu_main.addAction(self.action_configure)
+        self.menu_main.addAction(self.action_settings)
         self.menu_main.addSeparator()
         self.menu_main.addAction(self.action_exit)
-        self.menu_config.addAction(self.action_language)
         self.menu_help.addAction(self.action_help)
         self.menu_help.addAction(self.action_about)
         self.menubar.addAction(self.menu_main.menuAction())
-        self.menubar.addAction(self.menu_config.menuAction())
         self.menubar.addAction(self.menu_help.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -164,7 +162,6 @@ class Ui_MainWindow(object):
         self.button_startService.setText(_translate("MainWindow", "Запуск", None))
         self.button_stopService.setText(_translate("MainWindow", "Стоп", None))
         self.menu_main.setTitle(_translate("MainWindow", "&Меню", None))
-        self.menu_config.setTitle(_translate("MainWindow", "&Настройки", None))
         self.menu_help.setTitle(_translate("MainWindow", "&Справка", None))
         self.action_configfile.setText(_translate("MainWindow", "Выбрать файл &настроек", None))
         self.action_exit.setText(_translate("MainWindow", "&Выход", None))
@@ -174,5 +171,7 @@ class Ui_MainWindow(object):
         self.action_help.setShortcut(_translate("MainWindow", "F1", None))
         self.action_about.setText(_translate("MainWindow", "&О программе", None))
         self.action_configure.setText(_translate("MainWindow", "Настроить &сервис", None))
-        self.action_configure.setShortcut(_translate("MainWindow", "Ctrl+P", None))
+        self.action_configure.setShortcut(_translate("MainWindow", "Ctrl+S", None))
+        self.action_settings.setText(_translate("MainWindow", "&Настроить git2etc", None))
+        self.action_settings.setShortcut(_translate("MainWindow", "Ctrl+P", None))
 

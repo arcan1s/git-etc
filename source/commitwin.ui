@@ -180,6 +180,9 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>Открыть в редакторе</string>
     </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="button_close">
     <property name="geometry">
@@ -198,6 +201,9 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text">
      <string>Закрыть</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingsWindow</class>
+ <widget class="QMainWindow" name="SettingsWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>391</width>
+    <height>152</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Настройки</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_service">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Service</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_config">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>65</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Настройки git-etc</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_apply">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>120</y>
+      <width>91</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string>Применить</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_lang">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Язык</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_editor">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>90</y>
+      <width>221</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_editor">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Текстовый редактор</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_default">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>120</y>
+      <width>111</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string>По умолчанию</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="box_lang">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>10</y>
+      <width>211</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <item>
+     <property name="text">
+      <string>English</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Русский</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_config">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>65</y>
+      <width>241</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_close">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>120</y>
+      <width>91</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string>Закрыть</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_service">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>40</y>
+      <width>241</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>box_lang</tabstop>
+  <tabstop>lineEdit_service</tabstop>
+  <tabstop>lineEdit_config</tabstop>
+  <tabstop>lineEdit_editor</tabstop>
+  <tabstop>button_default</tabstop>
+  <tabstop>button_apply</tabstop>
+  <tabstop>button_close</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
