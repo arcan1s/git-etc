@@ -1,10 +1,10 @@
 [Unit]
-Description=git-etc daemon
+Description=git-etc test daemon
 
 [Service]
-EnvironmentFile=/home/arcanis/Documents/git-etc/source/git-etc.conf
+EnvironmentFile=/home/arcanis/Documents/github/git-etc/source/git-etc.conf
 Type=forking
-ExecStart=/home/arcanis/Documents/git-etc/source/git-etc $DIRECTORY $TIMESLEEP $IGNORELIST
+ExecStart=/home/arcanis/Documents/github/git-etc/source/git-etc $DIRECTORY $TIMESLEEP $IGNORELIST
 RemainAfterExit=yes
 
 [Install]

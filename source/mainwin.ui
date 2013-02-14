@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>391</width>
-    <height>422</height>
+    <height>332</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>170</y>
+      <y>42</y>
       <width>141</width>
       <height>23</height>
      </rect>
@@ -56,7 +56,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>170</y>
+      <y>42</y>
       <width>31</width>
       <height>21</height>
      </rect>
@@ -69,7 +69,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>170</y>
+      <y>42</y>
       <width>31</width>
       <height>21</height>
      </rect>
@@ -82,7 +82,7 @@
     <property name="geometry">
      <rect>
       <x>240</x>
-      <y>170</y>
+      <y>42</y>
       <width>141</width>
       <height>23</height>
      </rect>
@@ -114,7 +114,7 @@
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>195</y>
+      <y>67</y>
       <width>101</width>
       <height>24</height>
      </rect>
@@ -132,145 +132,11 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBox_get">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>220</y>
-      <width>371</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_directory">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>141</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Рабочая директория:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_ignoreList">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>371</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_timeSleep">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>35</y>
-      <width>181</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Интервал обновления, ч:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_timeSleep">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>35</y>
-      <width>181</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_ignoreList">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>201</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Список игнорируемых файлов:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_directory">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>10</y>
-      <width>211</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_refresh">
-    <property name="geometry">
-     <rect>
-      <x>175</x>
-      <y>105</y>
-      <width>101</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>Обновить</string>
-    </property>
-    <property name="default">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_statusText">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>138</y>
+      <y>10</y>
       <width>61</width>
       <height>21</height>
      </rect>
@@ -283,7 +149,7 @@
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>138</y>
+      <y>10</y>
       <width>121</width>
       <height>21</height>
      </rect>
@@ -299,7 +165,7 @@
     <property name="geometry">
      <rect>
       <x>215</x>
-      <y>138</y>
+      <y>10</y>
       <width>81</width>
       <height>24</height>
      </rect>
@@ -321,7 +187,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>138</y>
+      <y>10</y>
       <width>81</width>
       <height>24</height>
      </rect>
@@ -339,13 +205,13 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_apply">
+   <widget class="QListWidget" name="list_commit">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>105</y>
-      <width>101</width>
-      <height>24</height>
+      <x>10</x>
+      <y>100</y>
+      <width>371</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -353,12 +219,6 @@
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
-    </property>
-    <property name="text">
-     <string>Применить</string>
-    </property>
-    <property name="default">
-     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -376,6 +236,7 @@
      <string>&amp;Меню</string>
     </property>
     <addaction name="action_configfile"/>
+    <addaction name="action_configure"/>
     <addaction name="separator"/>
     <addaction name="action_exit"/>
    </widget>
@@ -400,9 +261,6 @@
   <action name="action_configfile">
    <property name="text">
     <string>Выбрать файл &amp;настроек</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+P</string>
    </property>
   </action>
   <action name="action_exit">
@@ -429,6 +287,14 @@
   <action name="action_about">
    <property name="text">
     <string>&amp;О программе</string>
+   </property>
+  </action>
+  <action name="action_configure">
+   <property name="text">
+    <string>Настроить &amp;сервис</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>

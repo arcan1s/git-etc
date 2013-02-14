@@ -5,9 +5,10 @@
 # Magick!
 
  
-import commands, os, shutil, sys
+import commands, datetime, os, shutil, sys
 from PyQt4 import QtCore, QtGui
 
+from configwin import Ui_ConfigureWindow
 from mainwin import Ui_MainWindow
 
 
@@ -43,15 +44,83 @@ class Ui_NotFound(object):
         self.button_ok.setObjectName(_fromUtf8("button_ok"))
         NotFound.setCentralWidget(self.centralwidget)
 
-        #self.retranslateUi(NotFound)
         QtCore.QObject.connect(self.button_ok, QtCore.SIGNAL(_fromUtf8("clicked()")), NotFound.close)
         QtCore.QMetaObject.connectSlotsByName(NotFound)
 
-    def retranslateUi(self, NotFound):
-        NotFound.setWindowTitle(_translate("NotFound", "Ошибка!", None))
-        self.label_textError.setText(_translate("NotFound", "<html><head/><body><p align=\"justify\">Продукт %s не найден в базе данных</p></body></html>", None))
-        self.button_ok.setText(_translate("NotFound", "Ok", None))
 
+
+class ConfigWindow(QtGui.QMainWindow):
+    def __init__(self, parent=None):
+        QtGui.QMainWindow.__init__(self, parent)
+        self.ui = Ui_ConfigureWindow()
+        self.ui.setupUi(self)
+        
+        self.read_config()
+        
+        QtCore.QObject.connect(self.ui.button_apply, QtCore.SIGNAL("clicked()"), self.setup_config)
+        QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close)        
+        QtCore.QObject.connect(self.ui.button_refresh, QtCore.SIGNAL("clicked()"), self.read_config)
+        
+    def read_config(self):
+        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        
+        self.ui.lineEdit_directory.clear()
+        self.ui.lineEdit_timeSleep.clear()
+        self.ui.lineEdit_ignoreList.clear()
+        
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = str(line.split("=")[1][:-1])
+                    self.ui.lineEdit_directory.setText(directory)
+                elif (line.split("=")[0] == "TIMESLEEP"):
+                    timesleep = str(line.split("=")[1][:-1])
+                    self.ui.lineEdit_timeSleep.setText(timesleep)
+                elif (line.split("=")[0] == "IGNORELIST"):
+                    ignorelist = line.split("=")[1]
+                    self.ui.lineEdit_ignoreList.setText(ignorelist)
+    
+    def setup_config(self):
+        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        
+        if (len(self.ui.lineEdit_directory.text()) == 0):
+            text_error = u"<html><head/><body><p align=\"center\">Не указана рабочая директория</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        else:
+            directory = self.ui.lineEdit_directory.text()
+        
+        if (len(self.ui.lineEdit_timeSleep.text()) == 0):
+            text_error = u"<html><head/><body><p align=\"center\">Не указан интервал обновления</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        else:
+            if (self.ui.lineEdit_timeSleep.text().toInt()[1] == False):
+                text_error = u"<html><head/><body><p align=\"center\">" + self.ui.lineEdit_timeSleep.text() + u" не число</p></body></html>"
+                not_found = NotFound(parent=self, text=text_error)
+                not_found.show()
+                return
+            else:
+                if (self.ui.lineEdit_timeSleep.text().toInt()[0] < 1):
+                    text_error = u"<html><head/><body><p align=\"center\">" + self.ui.lineEdit_timeSleep.text() + u" отрицательное</p></body></html>"
+                    not_found = NotFound(parent=self, text=text_error)
+                    not_found.show()
+                    return
+                else:
+                    timesleep = self.ui.lineEdit_timeSleep.text().toInt()[0]
+        
+        ignorelist = self.ui.lineEdit_ignoreList.text()
+        
+        with open(config, 'w') as config_file:
+            config_file.write("DIRECTORY="+directory)
+            config_file.write("\nTIMESLEEP="+str(timesleep))
+            config_file.write("\nIGNORELIST="+ignorelist)
+    
+    def keyPressEvent(self, event):
+        if (event.key() == QtCore.Qt.Key_Escape):
+            self.close()
 
 
 class NotFound(QtGui.QMainWindow):
@@ -77,103 +146,60 @@ class MainWindow(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
-        self.read_config()
         self.set_status()
         self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
         self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
         
+        config_window = ConfigWindow(parent=self)
+        
+        QtCore.QObject.connect(self.ui.action_configure, QtCore.SIGNAL("triggered()"), config_window.show)
         QtCore.QObject.connect(self.ui.action_exit, QtCore.SIGNAL("triggered()"), self.close)
-        QtCore.QObject.connect(self.ui.button_apply, QtCore.SIGNAL("clicked()"), self.setup_config)
         QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
-        QtCore.QObject.connect(self.ui.button_refresh, QtCore.SIGNAL("clicked()"), self.read_config)
         QtCore.QObject.connect(self.ui.button_startService, QtCore.SIGNAL("clicked()"), self.start_service)
         QtCore.QObject.connect(self.ui.button_stopService, QtCore.SIGNAL("clicked()"), self.stop_service)
-        #QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
     
     def get_text(self):
-        config = "/home/arcanis/Documents/git-etc/source/git-etc.conf"
+        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
         
         with open(config, 'r') as config_file:
             for line in config_file:
                 if (line.split("=")[0] == "DIRECTORY"):
-                    directory = line.split("=")[1]
+                    directory = str(line.split("=")[1][:-1])
+                
+        time_now = datetime.datetime.now()        
+        time_to = self.ui.timeEdit_to.dateTime().toPyDateTime()
+        time_from = self.ui.timeEdit_from.dateTime().toPyDateTime()
+        time_interval_to = time_now - time_to
+        time_interval_from = time_now - time_from
         
-        time_from = str(self.ui.timeEdit_from.time().toString())
-        date_from = self.ui.timeEdit_from.date().getDate()
-        time_to = str(self.ui.timeEdit_to.time().toString())
-        date_to = self.ui.timeEdit_to.date().getDate()
+        # [days, hours, minutes]
+        # ti[t/f] = time_interval_[to/from]
+        tit = [str(time_interval_to.days), str((time_interval_to.seconds-(time_interval_to.seconds%3600))/3600), str(((time_interval_to.seconds%3600)-(time_interval_to.seconds%3600)%60)/60)]       
+        tif = [str(time_interval_from.days), str((time_interval_from.seconds-(time_interval_from.seconds%3600))/3600), str(((time_interval_from.seconds%3600)-(time_interval_from.seconds%3600)%60)/60)]
         
-    
-    def read_config(self):
-        config = "/home/arcanis/Documents/git-etc/source/git-etc.conf"
-        
-        self.ui.lineEdit_directory.clear()
-        self.ui.lineEdit_timeSleep.clear()
-        self.ui.lineEdit_ignoreList.clear()
-        
-        with open(config, 'r') as config_file:
-            for line in config_file:
-                if (line.split("=")[0] == "DIRECTORY"):
-                    directory = line.split("=")[1]
-                    self.ui.lineEdit_directory.setText(directory)
-                elif (line.split("=")[0] == "TIMESLEEP"):
-                    timesleep = line.split("=")[1]
-                    self.ui.lineEdit_timeSleep.setText(timesleep)
-                elif (line.split("=")[0] == "IGNORELIST"):
-                    ignorelist = line.split("=")[1]
-                    self.ui.lineEdit_ignoreList.setText(ignorelist)
+        os.chdir(directory)
+        print os.getcwd()
+        command_line = "git log --oneline "
+        command_line = command_line+"--since=\""+tif[0]+" days "+tif[1]+" hours "+tif[2]+" minutes\" "
+        command_line = command_line+"--until=\""+tit[0]+" days "+tit[1]+" hours "+tit[2]+" minutes\""
+        #for line in commands.getoutput(command_line):
+            #print line
     
     def set_status(self):
-        status_service = commands.getoutput("systemctl status git-etc.service | grep Active | awk {'print $2;'}")
+        status_service = commands.getoutput("systemctl status test_git-etc.service | grep Active | awk {'print $2;'}")
         status_service = status_service + ' '
-        status_service = status_service + commands.getoutput("systemctl status git-etc.service | grep Active | awk {'print $3;'}")
+        status_service = status_service + commands.getoutput("systemctl status test_git-etc.service | grep Active | awk {'print $3;'}")
         
         self.ui.label_statusService.setText(status_service)
     
-    def setup_config(self):
-        config = "/home/arcanis/Documents/git-etc/source/git-etc.conf"
-        
-        if (len(self.ui.lineEdit_directory.text()) == 0):
-            text_error = u"<html><head/><body><p align=\"center\">Не указана рабочая директория</p></body></html>"
-            not_found = NotFound(parent=self, text=text_error)
-            not_found.show()
-            return
-        else:
-            directory = self.ui.lineEdit_directory.text()
-        
-        if (len(self.ui.lineEdit_timeSleep.text()) == 0):
-            text_error = u"<html><head/><body><p align=\"center\">Не указан интервал обновления</p></body></html>"
-            not_found = NotFound(parent=self, text=text_error)
-            not_found.show()
-            return
-        else:
-            if (self.ui.lineEdit_timeSleep.text().toFloat()[1] == False):
-                text_error = u"<html><head/><body><p align=\"center\">" + self.ui.lineEdit_timeSleep.text() + u" не число</p></body></html>"
-                not_found = NotFound(parent=self, text=text_error)
-                not_found.show()
-                return
-            else:
-                if (self.ui.lineEdit_timeSleep.text().toFloat()[0] < 0):
-                    text_error = u"<html><head/><body><p align=\"center\">" + self.ui.lineEdit_timeSleep.text() + u" отрицательное</p></body></html>"
-                    not_found = NotFound(parent=self, text=text_error)
-                    not_found.show()
-                    return
-                else:
-                    timesleep = self.ui.lineEdit_timeSleep.text().toFloat()[0]
-        
-        ignorelist = self.ui.lineEdit_ignoreList.text()
-        
-        with open(config, 'w') as config_file:
-            config_file.write("DIRECTORY=" + directory + "TIMESLEEP=" + str(round(timesleep, 1)) + "\nIGNORELIST=" + ignorelist)
-    
     def start_service(self):
         print "Starting service"
-        os.system('sudo systemctl start git-etc.service')
+        os.system('sudo systemctl start test_git-etc.service')
         self.set_status()
     
     def stop_service(self):
         print "Stoping service"
-        os.system('sudo systemctl stop git-etc.service')
+        os.system('sudo systemctl stop test_git-etc.service')
         self.set_status()
 
 
