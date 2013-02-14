@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwin.ui'
 #
-# Created: Thu Feb 14 03:45:44 2013
+# Created: Thu Feb 14 18:28:01 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -103,6 +103,9 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.list_commit.sizePolicy().hasHeightForWidth())
         self.list_commit.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Monospace"))
+        self.list_commit.setFont(font)
         self.list_commit.setObjectName(_fromUtf8("list_commit"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
@@ -143,6 +146,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        MainWindow.setTabOrder(self.button_startService, self.button_stopService)
+        MainWindow.setTabOrder(self.button_stopService, self.timeEdit_from)
+        MainWindow.setTabOrder(self.timeEdit_from, self.timeEdit_to)
+        MainWindow.setTabOrder(self.timeEdit_to, self.button_get)
+        MainWindow.setTabOrder(self.button_get, self.list_commit)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "git2etc", None))

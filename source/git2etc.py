@@ -8,6 +8,7 @@
 import commands, datetime, os, shutil, sys
 from PyQt4 import QtCore, QtGui
 
+from commitwin import Ui_CommitWindow
 from configwin import Ui_ConfigureWindow
 from mainwin import Ui_MainWindow
 
@@ -47,6 +48,105 @@ class Ui_NotFound(object):
         QtCore.QObject.connect(self.button_ok, QtCore.SIGNAL(_fromUtf8("clicked()")), NotFound.close)
         QtCore.QMetaObject.connectSlotsByName(NotFound)
 
+
+class CommitWindow(QtGui.QMainWindow):
+    def __init__(self, parent=None, commit=None):
+        QtGui.QMainWindow.__init__(self, parent)
+        self.ui = Ui_CommitWindow()
+        self.ui.setupUi(self)
+        
+        self._commit = commit
+        self.setWindowTitle("Commit: "+commit)
+        self.set_text()
+
+        QtCore.QObject.connect(self.ui.box_file, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_diff)        
+        QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close)
+        QtCore.QObject.connect(self.ui.button_open, QtCore.SIGNAL("clicked()"), self.openfile)
+    
+    def openfile(self):
+        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        editor = "gvim"
+        
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = str(line.split("=")[1][:-1])
+        
+        directory = "/etc"
+        command_line = editor+" "+directory+"/"+str(self.ui.box_file.currentText())
+        os.system(command_line)
+    
+    def set_diff(self):
+        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        file_name = str(self.ui.box_file.currentText())
+        
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = str(line.split("=")[1][:-1])
+        
+        current_directory = os.getcwd()
+        directory = "/etc"
+        os.chdir(directory)
+        command_line = "sudo git show "+self._commit+" "+file_name
+        file_diff = commands.getoutput(command_line)
+        
+        output_text = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'Monospace'; font-size:10pt; font-weight:400; font-style:normal;">"""+"\n"
+        label = 0
+        for line in file_diff.split("\n"):
+            if (label == 1):
+                if (line[0] == "+"):
+                    output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#008000;\">"+line+"</span></p>\n"
+                elif (line[0] == "-"):
+                    output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ff0000;\">"+line+"</span></p>\n"
+                else:
+                    output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">"+line+"</p>\n"
+            if (line[0:3] == "---"):
+                output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#0000ff;\">"+line+"</span></p>\n"
+            if (line[0:3] == "+++"):
+                output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#0000ff;\">"+line+"</span></p>\n"
+            if (line[0:2] == "@@"):
+                label = 1
+                output_text = output_text+"<hr align=\"center\">\n"
+            if (line[0:12] == "Binary files"):
+                output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#0000ff;\">"+"Binary file"+"</span></p>\n"
+        output_text = output_text+"</body></html>"
+            
+        self.ui.text_filediff.setHtml(output_text)
+        os.chdir(current_directory)
+    
+    def set_text(self):
+        config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
+        
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = str(line.split("=")[1][:-1])
+        
+        current_directory = os.getcwd()
+        directory = "/etc"
+        os.chdir(directory)
+        command_line = "sudo git show "+self._commit+" --name-only"
+        commit_file = commands.getoutput(command_line)
+        
+        for line in commit_file.split("\n"):
+            if (line[0:6] == "commit"):
+                self.ui.label_commit.setText(line[7:])
+            if (line[0:5] == "Date:"):
+                self.ui.label_date.setText(line[8:])
+        
+        for line in commit_file.split("\n")[6:]:
+            self.ui.box_file.addItem(line)
+        
+        os.chdir(current_directory)
+        self.set_diff()
+    
+    def keyPressEvent(self, event):
+        if (event.key() == QtCore.Qt.Key_Escape):
+            self.close()
 
 
 class ConfigWindow(QtGui.QMainWindow):
@@ -157,8 +257,16 @@ class MainWindow(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
         QtCore.QObject.connect(self.ui.button_startService, QtCore.SIGNAL("clicked()"), self.start_service)
         QtCore.QObject.connect(self.ui.button_stopService, QtCore.SIGNAL("clicked()"), self.stop_service)
+        QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
+    
+    def commit_details(self):
+        commit = str(self.ui.list_commit.currentItem().text())[8:15]
+        
+        commit_window = CommitWindow(parent=self, commit=commit)
+        commit_window.show()
     
     def get_text(self):
+        self.ui.list_commit.clear()
         config = "/home/arcanis/Documents/github/git-etc/source/git-etc.conf"
         
         with open(config, 'r') as config_file:
@@ -177,13 +285,21 @@ class MainWindow(QtGui.QMainWindow):
         tit = [str(time_interval_to.days), str((time_interval_to.seconds-(time_interval_to.seconds%3600))/3600), str(((time_interval_to.seconds%3600)-(time_interval_to.seconds%3600)%60)/60)]       
         tif = [str(time_interval_from.days), str((time_interval_from.seconds-(time_interval_from.seconds%3600))/3600), str(((time_interval_from.seconds%3600)-(time_interval_from.seconds%3600)%60)/60)]
         
+        current_directory = os.getcwd()
+        directory = "/etc"
         os.chdir(directory)
-        print os.getcwd()
-        command_line = "git log --oneline "
+        command_line = "sudo git log --oneline "
         command_line = command_line+"--since=\""+tif[0]+" days "+tif[1]+" hours "+tif[2]+" minutes\" "
-        command_line = command_line+"--until=\""+tit[0]+" days "+tit[1]+" hours "+tit[2]+" minutes\""
-        #for line in commands.getoutput(command_line):
-            #print line
+        command_line = command_line+"--until=\""+tit[0]+" days "+tit[1]+" hours "+tit[2]+" minutes\" "
+        gitlog_file = commands.getoutput(command_line)
+      
+        for line in gitlog_file.split("\n"):
+            output_line = "Commit: "+line[0:7]
+            output_line = output_line+". Date: "+line[8:12]+"-"+line[12:14]+"-"+line[14:16]
+            output_line = output_line+" "+line[16:18]+":"+line[18:20]
+            self.ui.list_commit.addItem(output_line)
+               
+        os.chdir(current_directory)
     
     def set_status(self):
         status_service = commands.getoutput("systemctl status test_git-etc.service | grep Active | awk {'print $2;'}")

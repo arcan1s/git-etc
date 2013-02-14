@@ -220,6 +220,11 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="font">
+     <font>
+      <family>Monospace</family>
+     </font>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -298,6 +303,14 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>button_startService</tabstop>
+  <tabstop>button_stopService</tabstop>
+  <tabstop>timeEdit_from</tabstop>
+  <tabstop>timeEdit_to</tabstop>
+  <tabstop>button_get</tabstop>
+  <tabstop>list_commit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
