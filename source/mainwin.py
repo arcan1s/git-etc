@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwin.ui'
 #
-# Created: Fri Feb 15 00:43:25 2013
+# Created: Fri Feb 15 16:03:32 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -133,11 +133,14 @@ class Ui_MainWindow(object):
         self.action_configure.setObjectName(_fromUtf8("action_configure"))
         self.action_settings = QtGui.QAction(MainWindow)
         self.action_settings.setObjectName(_fromUtf8("action_settings"))
+        self.action_git = QtGui.QAction(MainWindow)
+        self.action_git.setObjectName(_fromUtf8("action_git"))
+        self.menu_main.addAction(self.action_git)
+        self.menu_main.addSeparator()
         self.menu_main.addAction(self.action_configure)
         self.menu_main.addAction(self.action_settings)
         self.menu_main.addSeparator()
         self.menu_main.addAction(self.action_exit)
-        self.menu_help.addAction(self.action_help)
         self.menu_help.addAction(self.action_about)
         self.menubar.addAction(self.menu_main.menuAction())
         self.menubar.addAction(self.menu_help.menuAction())
@@ -174,4 +177,6 @@ class Ui_MainWindow(object):
         self.action_configure.setShortcut(_translate("MainWindow", "Ctrl+S", None))
         self.action_settings.setText(_translate("MainWindow", "&Настроить git2etc", None))
         self.action_settings.setShortcut(_translate("MainWindow", "Ctrl+P", None))
+        self.action_git.setText(_translate("MainWindow", "Работа с &git", None))
+        self.action_git.setShortcut(_translate("MainWindow", "Ctrl+G", None))
 

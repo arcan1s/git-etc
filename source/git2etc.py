@@ -10,6 +10,7 @@ from PyQt4 import QtCore, QtGui
 
 from commitwin import Ui_CommitWindow
 from configwin import Ui_ConfigureWindow
+from gitwin import Ui_GitWindow
 from settingswin import Ui_SettingsWindow
 from mainwin import Ui_MainWindow
 
@@ -332,6 +333,176 @@ class ConfigWindow(QtGui.QMainWindow):
             self.close_win()
 
 
+class GitWindow(QtGui.QMainWindow):
+    def __init__(self, parent=None):
+        QtGui.QMainWindow.__init__(self, parent)
+        self.ui = Ui_GitWindow()
+        self.ui.setupUi(self)
+        
+        self.set_mode()
+        
+        QtCore.QObject.connect(self.ui.box_mode, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_mode)
+        QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
+        QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
+    
+    def commit_details(self):
+        commit = str(self.ui.list_commit.currentItem().text())[8:15]
+        
+        commit_window = CommitWindow(parent=self, commit=commit)
+        commit_window.show()
+    
+    def close_win(self):
+        self.ui.timeEdit_from.setDate(QtCore.QDate(2013, 1, 1))
+        self.ui.timeEdit_from.setTime(QtCore.QTime(0, 0))
+        self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
+        self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
+        self.ui.spinBox_times.setValue(1)
+        self.ui.dateEdit_date.setDate(QtCore.QDate.currentDate())
+        
+        self.close()
+    
+    def get_text(self):
+        self.ui.list_commit.clear()
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return        
+        
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+        
+        if (os.path.exists(directory) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        if (os.path.exists(directory+"/.git") == False):
+            text_error = u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        if (self.ui.box_mode.currentIndex() == 0):
+            time_now = datetime.datetime.now()        
+            time_to = self.ui.timeEdit_to.dateTime().toPyDateTime()
+            time_from = self.ui.timeEdit_from.dateTime().toPyDateTime()
+            time_interval_to = time_now - time_to
+            time_interval_from = time_now - time_from
+            
+            # [days, hours, minutes]
+            # ti[t/f] = time_interval_[to/from]
+            tit = [str(time_interval_to.days), str((time_interval_to.seconds-(time_interval_to.seconds%3600))/3600), str(((time_interval_to.seconds%3600)-(time_interval_to.seconds%3600)%60)/60)]       
+            tif = [str(time_interval_from.days), str((time_interval_from.seconds-(time_interval_from.seconds%3600))/3600), str(((time_interval_from.seconds%3600)-(time_interval_from.seconds%3600)%60)/60)]
+        
+            current_directory = os.getcwd()
+            os.chdir(directory)
+            command_line = "sudo git log --oneline "
+            command_line = command_line+"--since=\""+tif[0]+" days "+tif[1]+" hours "+tif[2]+" minutes\" "
+            command_line = command_line+"--until=\""+tit[0]+" days "+tit[1]+" hours "+tit[2]+" minutes\" "
+            gitlog_file = commands.getoutput(command_line)
+            
+            for line in gitlog_file.split("\n"):
+                output_line = "Commit: "+line[0:7]
+                output_line = output_line+". Date: "+line[8:12]+"-"+line[12:14]+"-"+line[14:16]
+                output_line = output_line+" "+line[16:18]+":"+line[18:20]
+                self.ui.list_commit.addItem(output_line)
+                
+            os.chdir(current_directory)
+        elif (self.ui.box_mode.currentIndex() == 1):
+            times = str(self.ui.spinBox_times.value())
+            
+            current_directory = os.getcwd()
+            os.chdir(directory)
+            command_line = "sudo git log --oneline -"+times
+            gitlog_file = commands.getoutput(command_line)
+            
+            for line in gitlog_file.split("\n"):
+                output_line = "Commit: "+line[0:7]
+                output_line = output_line+". Date: "+line[8:12]+"-"+line[12:14]+"-"+line[14:16]
+                output_line = output_line+" "+line[16:18]+":"+line[18:20]
+                self.ui.list_commit.addItem(output_line)
+                
+            os.chdir(current_directory)
+        elif (self.ui.box_mode.currentIndex() == 2):
+            date_now = datetime.date.today()        
+            date_interval = date_now - self.ui.dateEdit_date.date().toPyDate()
+        
+            current_directory = os.getcwd()
+            os.chdir(directory)
+            command_line = "sudo git log --oneline "
+            command_line = command_line+"--since=\""+str(date_interval.days+1)+" days\" "
+            command_line = command_line+"--until=\""+str(date_interval.days)+" days\""
+            gitlog_file = commands.getoutput(command_line)
+            
+            if (len(gitlog_file) == 0):
+                text_error = u"<html><head/><body><p align=\"center\">В указанный день коммитов не найдено</p></body></html>"
+                not_found = NotFound(parent=self, text=text_error)
+                not_found.show()
+                return
+            
+            for line in gitlog_file.split("\n"):
+                output_line = "Commit: "+line[0:7]
+                output_line = output_line+". Date: "+line[8:12]+"-"+line[12:14]+"-"+line[14:16]
+                output_line = output_line+" "+line[16:18]+":"+line[18:20]
+                self.ui.list_commit.addItem(output_line)
+                
+            os.chdir(current_directory)
+    
+    def set_mode(self):
+        if (self.ui.box_mode.currentIndex() == 0):
+            self.ui.label_times.hide()
+            self.ui.spinBox_times.hide()
+            self.ui.label_date.hide()
+            self.ui.dateEdit_date.hide()
+            
+            self.ui.timeEdit_from.setDate(QtCore.QDate(2013, 1, 1))
+            self.ui.timeEdit_from.setTime(QtCore.QTime(0, 0))
+            self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
+            self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
+            self.ui.label_timeFrom.show()
+            self.ui.label_timeTo.show()
+            self.ui.timeEdit_from.show()
+            self.ui.timeEdit_to.show()
+        elif (self.ui.box_mode.currentIndex() == 1):
+            self.ui.label_timeFrom.hide()
+            self.ui.label_timeTo.hide()
+            self.ui.timeEdit_from.hide()
+            self.ui.timeEdit_to.hide()
+            self.ui.label_date.hide()
+            self.ui.dateEdit_date.hide()
+            
+            self.ui.spinBox_times.setValue(1)            
+            self.ui.label_times.show()
+            self.ui.spinBox_times.show()
+        elif (self.ui.box_mode.currentIndex() == 2):
+            self.ui.label_times.hide()
+            self.ui.spinBox_times.hide()
+            self.ui.label_timeFrom.hide()
+            self.ui.label_timeTo.hide()
+            self.ui.timeEdit_from.hide()
+            self.ui.timeEdit_to.hide()
+            
+            self.ui.dateEdit_date.setDate(QtCore.QDate.currentDate())
+            self.ui.label_date.show()
+            self.ui.dateEdit_date.show()
+    
+    def keyPressEvent(self, event):
+        if (event.key() == QtCore.Qt.Key_Escape):
+            self.close_win()
+
+
 class NotFound(QtGui.QMainWindow):
     def __init__(self, parent=None, text=None):
         QtGui.QMainWindow.__init__(self, parent)
@@ -452,9 +623,11 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
         
         config_window = ConfigWindow(parent=self)
+        git_window = GitWindow(parent=self)
         settings_window = SettingsWindow(parent=self)
         
         QtCore.QObject.connect(self.ui.action_configure, QtCore.SIGNAL("triggered()"), config_window.show)
+        QtCore.QObject.connect(self.ui.action_git, QtCore.SIGNAL("triggered()"), git_window.show)
         QtCore.QObject.connect(self.ui.action_settings, QtCore.SIGNAL("triggered()"), settings_window.show)
         QtCore.QObject.connect(self.ui.action_exit, QtCore.SIGNAL("triggered()"), self.close)
         QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)

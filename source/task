@@ -1,0 +1,4 @@
+git checkout -p <commit> 
+git checkout .
+git reset -p <commit>
+git branch/merge ()

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>GitWindow</class>
+ <widget class="QMainWindow" name="GitWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>391</width>
-    <height>332</height>
+    <width>431</width>
+    <height>409</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,14 +17,55 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>git2etc</string>
+   <string>Работа с git</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QDateTimeEdit" name="timeEdit_from">
+   <widget class="QLabel" name="label_mode">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>42</y>
+      <x>10</x>
+      <y>10</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Показать коммиты</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="box_mode">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>10</y>
+      <width>241</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>По дате</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>По количеству</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>В определенный день</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QDateTimeEdit" name="timeEdit_from">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>40</y>
       <width>141</width>
       <height>23</height>
      </rect>
@@ -53,10 +94,13 @@
     </property>
    </widget>
    <widget class="QLabel" name="label_timeFrom">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>42</y>
+      <x>30</x>
+      <y>40</y>
       <width>31</width>
       <height>21</height>
      </rect>
@@ -65,24 +109,14 @@
      <string>с</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_timeTo">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>42</y>
-      <width>31</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>по</string>
-    </property>
-   </widget>
    <widget class="QDateTimeEdit" name="timeEdit_to">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>42</y>
+      <x>260</x>
+      <y>40</y>
       <width>141</width>
       <height>23</height>
      </rect>
@@ -110,11 +144,90 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="label_timeTo">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>40</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>по</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBox_times">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>40</y>
+      <width>111</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>999</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_times">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>40</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string>Число коммитов</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_date">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>40</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string>Дата коммита</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="button_get">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>67</y>
+      <x>300</x>
+      <y>70</y>
       <width>101</width>
       <height>24</height>
      </rect>
@@ -132,85 +245,12 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_statusText">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>61</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Статус:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_statusService">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>10</y>
-      <width>121</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>(unknown)</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_startService">
-    <property name="geometry">
-     <rect>
-      <x>215</x>
-      <y>10</y>
-      <width>81</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>Запуск</string>
-    </property>
-    <property name="default">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_stopService">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>10</y>
-      <width>81</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>Стоп</string>
-    </property>
-    <property name="default">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QListWidget" name="list_commit">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>100</y>
-      <width>371</width>
+      <width>411</width>
       <height>181</height>
      </rect>
     </property>
@@ -226,98 +266,46 @@
      </font>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>391</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menu_main">
-    <property name="title">
-     <string>&amp;Меню</string>
+   <widget class="QDateEdit" name="dateEdit_date">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>40</y>
+      <width>110</width>
+      <height>23</height>
+     </rect>
     </property>
-    <addaction name="action_git"/>
-    <addaction name="separator"/>
-    <addaction name="action_configure"/>
-    <addaction name="action_settings"/>
-    <addaction name="separator"/>
-    <addaction name="action_exit"/>
-   </widget>
-   <widget class="QMenu" name="menu_help">
-    <property name="title">
-     <string>&amp;Справка</string>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
-    <addaction name="action_about"/>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="date">
+     <date>
+      <year>2013</year>
+      <month>1</month>
+      <day>1</day>
+     </date>
+    </property>
+    <property name="displayFormat">
+     <string>dd.MM.yyyy</string>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
    </widget>
-   <addaction name="menu_main"/>
-   <addaction name="menu_help"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
-  <action name="action_configfile">
-   <property name="text">
-    <string>Выбрать файл &amp;настроек</string>
-   </property>
-  </action>
-  <action name="action_exit">
-   <property name="text">
-    <string>&amp;Выход</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
-  </action>
-  <action name="action_language">
-   <property name="text">
-    <string>Выбор &amp;языка</string>
-   </property>
-  </action>
-  <action name="action_help">
-   <property name="text">
-    <string>&amp;Помощь</string>
-   </property>
-   <property name="shortcut">
-    <string>F1</string>
-   </property>
-  </action>
-  <action name="action_about">
-   <property name="text">
-    <string>&amp;О программе</string>
-   </property>
-  </action>
-  <action name="action_configure">
-   <property name="text">
-    <string>Настроить &amp;сервис</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
-  </action>
-  <action name="action_settings">
-   <property name="text">
-    <string>&amp;Настроить git2etc</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+P</string>
-   </property>
-  </action>
-  <action name="action_git">
-   <property name="text">
-    <string>Работа с &amp;git</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+G</string>
-   </property>
-  </action>
  </widget>
  <tabstops>
-  <tabstop>button_startService</tabstop>
-  <tabstop>button_stopService</tabstop>
+  <tabstop>box_mode</tabstop>
   <tabstop>timeEdit_from</tabstop>
   <tabstop>timeEdit_to</tabstop>
+  <tabstop>spinBox_times</tabstop>
+  <tabstop>dateEdit_date</tabstop>
   <tabstop>button_get</tabstop>
   <tabstop>list_commit</tabstop>
  </tabstops>
