@@ -52,6 +52,58 @@ class Ui_NotFound(object):
 
 
 
+def read_settings(string):
+    config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+    config = "/etc/conf.d/git-etc.conf"
+    editor = "gvim"
+    service = "git-etc.service"
+    lang = "ENG"
+    
+    if (os.path.exists(config_gui)):
+        with open(config_gui, 'r') as config_gui_file:
+            for line in config_gui_file:
+                if (line.split("==")[0] == "CONFIG"):
+                    config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+                if (line.split("==")[0] == "EDITOR"):
+                    editor = line.split("==")[1]
+                if (line.split("==")[0] == "SERVICE"):
+                    service = line.split("==")[1]
+                if (line.split("==")[0] == "LANGUAGE"):
+                    lang = line.split("==")[1]
+    
+    if (string == "config"):
+        return config
+    elif (string == "editor"):
+        return editor
+    elif (string == "service"):
+        return service
+    elif (string == "lang"):
+        return lang
+
+
+def read_config(self, string):
+    config = read_settings("config")
+    if (config == 0):
+        return 0
+    
+    with open(config, 'r') as config_file:
+        for line in config_file:
+            if (line.split("=")[0] == "DIRECTORY"):
+                directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+            elif (line.split("=")[0] == "TIMESLEEP"):
+                timesleep = str(line.split("=")[1][:-1])
+            elif (line.split("=")[0] == "IGNORELIST"):
+                ignorelist = line.split("=")[1]
+    
+    if (string == "directory"):
+        return directory
+    elif (string == "timesleep"):
+        return timesleep
+    elif (string == "ignorelist"):
+        return ignorelist
+
+
+
 class CommitWindow(QtGui.QMainWindow):
     def __init__(self, parent=None, commit=None):
         QtGui.QMainWindow.__init__(self, parent)
@@ -552,12 +604,6 @@ class GitWindow(QtGui.QMainWindow):
             command_line = command_line+"--until=\""+str(date_interval.days)+" days\""
             gitlog_file = commands.getoutput(command_line)
             
-            if (len(gitlog_file) == 0):
-                text_error = u"<html><head/><body><p align=\"center\">В указанный день коммитов не найдено</p></body></html>"
-                not_found = NotFound(parent=self, text=text_error)
-                not_found.show()
-                return
-            
             for line in gitlog_file.split("\n"):
                 output_line = "Commit: "+line[0:7]
                 output_line = output_line+". Date: "+line[8:12]+"-"+line[12:14]+"-"+line[14:16]
@@ -807,15 +853,37 @@ class NotFound(QtGui.QMainWindow):
         self.ui = Ui_NotFound()
         self.ui.setupUi(self)
         
-        self.load_text()
-        
-        if (text != None):
-            self.ui.label_textError.setText(text)
+        self.load_text(text)
 
-    def load_text(self):
-        self.setWindowTitle(u"Ошибка!")
-        self.ui.label_textError.setText(u"<html><head/><body><p align=\"justify\"><br></p></body></html>")
-        self.ui.button_ok.setText(u"Ok")
+    def load_text(self, text):
+        lang = read_settings("lang")
+        if (lang == "RUS"):
+            self.setWindowTitle(u"Ошибка!")
+            self.ui.button_ok.setText(u"Ok")
+            if (text == "conf"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>")
+            elif (text == "dir"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>")
+            elif (text == "gitdir"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>")
+            elif (text == "noservice"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Не указано имя сервиса</p></body></html>")
+            elif (text == "id"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Задан слишком короткий идентификатор</p></body></html>")
+            elif (text == "editor"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанного редактора не существует</p></body></html>")
+            elif (text == "nodir"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Не указана рабочая директория</p></body></html>")
+            elif (text == "notime"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Не указан интервал обновления</p></body></html>")
+            elif (text == "commitnf"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанный коммит не найден</p></body></html>")
+            elif (text == "noconfig"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Не указано имя файла с настройками</p></body></html>")
+            elif (text == "noeditor"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Не указан текстовый редактор</p></body></html>")
+            else:
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Неизвестная ошибка</p></body></html>")
 
 
 class SettingsWindow(QtGui.QMainWindow):
@@ -941,19 +1009,7 @@ class MainWindow(QtGui.QMainWindow):
     
     def get_text(self):
         self.ui.list_commit.clear()
-        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
-        config = "/etc/conf.d/git-etc.conf"
-        if (os.path.exists(config_gui)):
-            with open(config_gui, 'r') as config_gui_file:
-                for line in config_gui_file:
-                    if (line.split("==")[0] == "CONFIG"):
-                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
-        
-        if (os.path.exists(config) == False):
-            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
-            not_found = NotFound(parent=self, text=text_error)
-            not_found.show()
-            return        
+        config = read_settings("config")
         
         with open(config, 'r') as config_file:
             for line in config_file:
