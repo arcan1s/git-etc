@@ -319,22 +319,97 @@ class GitWindow(QtGui.QMainWindow):
         self.ui.tabWidget.setCurrentIndex(0)
         self.set_tab()
         
+        QtCore.QObject.connect(self.ui.box_merge, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_merge)
         QtCore.QObject.connect(self.ui.box_mode, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_mode)
+        QtCore.QObject.connect(self.ui.box_old, QtCore.SIGNAL("currentIndexChanged(int)"), self.setup_box_files)
         QtCore.QObject.connect(self.ui.box_typeReset, QtCore.SIGNAL("currentIndexChanged(int)"), self.reset_setup)
+        QtCore.QObject.connect(self.ui.button_applyPatch, QtCore.SIGNAL("clicked()"), self.apply_patch)
+        QtCore.QObject.connect(self.ui.button_browseNew, QtCore.SIGNAL("clicked()"), self.browse_new)
+        QtCore.QObject.connect(self.ui.button_browseOld, QtCore.SIGNAL("clicked()"), self.browse_old)
         QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close_win)
         QtCore.QObject.connect(self.ui.button_createCommit, QtCore.SIGNAL("clicked()"), self.create_commit)
         QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
+        QtCore.QObject.connect(self.ui.button_patch, QtCore.SIGNAL("clicked()"), self.create_patch)
         QtCore.QObject.connect(self.ui.button_refresh, QtCore.SIGNAL("clicked()"), self.reset_setup)
         QtCore.QObject.connect(self.ui.button_reset, QtCore.SIGNAL("clicked()"), self.reset_commit)
         QtCore.QObject.connect(self.ui.button_status, QtCore.SIGNAL("clicked()"), self.get_status)
         QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
         QtCore.QObject.connect(self.ui.tabWidget, QtCore.SIGNAL("currentChanged(int)"), self.set_tab)
     
-    def commit_details(self):
-        commit = str(self.ui.list_commit.currentItem().text())[8:15]
+    def apply_patch(self):
+        config = read_settings("config")
+        if (os.path.exists(config) == False):
+            not_found = NotFound(parent=self, text="conf")
+            not_found.show()
+            return
+        directory = read_config("directory")        
+        if (os.path.exists(directory) == False):
+            not_found = NotFound(parent=self, text="dir")
+            not_found.show()
+            return
+        if (os.path.exists(directory+"/.git") == False):
+            not_found = NotFound(parent=self, text="gitdir")
+            not_found.show()
+            return
         
-        commit_window = CommitWindow(parent=self, commit=commit)
-        commit_window.show()
+        current_directory = os.getcwd()
+        os.chdir(directory)
+        command_line = "sudo git apply < "+self._patch_name
+        os.system(command_line)
+        os.remove(self._patch_name)
+        command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
+        os.system(command_line)
+        os.chdir(current_directory)
+        
+        self.set_tab()
+    
+    def browse_new(self):
+        lang = read_settings("lang")
+        config = read_settings("config")
+        if (os.path.exists(config) == False):
+            not_found = NotFound(parent=self, text="conf")
+            not_found.show()
+            return
+        directory = read_config("directory")        
+        if (os.path.exists(directory) == False):
+            not_found = NotFound(parent=self, text="dir")
+            not_found.show()
+            return
+        if (os.path.exists(directory+"/.git") == False):
+            not_found = NotFound(parent=self, text="gitdir")
+            not_found.show()
+            return
+        
+        if (lang == 'RUS'):
+            new_file = QtGui.QFileDialog.getOpenFileNames(self, u'Новый файл',directory,'Все файлы (*)')
+        else:
+            new_file = QtGui.QFileDialog.getOpenFileNames(self, u'New file',directory,'All files (*)')
+        if (len(new_file) > 0):
+            self.ui.lineEdit_new.setText(new_file)
+    
+    def browse_old(self):
+        lang = read_settings("lang")
+        config = read_settings("config")
+        if (os.path.exists(config) == False):
+            not_found = NotFound(parent=self, text="conf")
+            not_found.show()
+            return
+        directory = read_config("directory")        
+        if (os.path.exists(directory) == False):
+            not_found = NotFound(parent=self, text="dir")
+            not_found.show()
+            return
+        if (os.path.exists(directory+"/.git") == False):
+            not_found = NotFound(parent=self, text="gitdir")
+            not_found.show()
+            return
+        
+        if (lang == 'RUS'):
+            old_file = QtGui.QFileDialog.getOpenFileName(self, u'Старый файл',directory,'Все файлы (*)')
+        else:
+            old_file = QtGui.QFileDialog.getOpenFileName(self, u'Old file',directory,'All files (*)')
+        if (len(old_file) > 0):
+            self.ui.lineEdit_old.setText(old_file)
     
     def close_win(self):
         self.ui.tabWidget.setCurrentIndex(0)        
@@ -350,6 +425,17 @@ class GitWindow(QtGui.QMainWindow):
         
         self.ui.text_status.clear()
         
+        self.ui.box_merge.setCurrentIndex(0)
+        self.ui.box_old.clear()
+        self.ui.box_new.clear()
+        self.ui.lineEdit_old.clear()
+        self.ui.lineEdit_new.clear()
+        self.ui.lineEdit_old.hide()
+        self.ui.lineEdit_new.hide()
+        self.ui.button_browseOld.hide()
+        self.ui.button_browseNew.hide()
+        self.ui.button_applyPatch.setDisabled(1)
+        
         self.ui.label_filename.hide()
         self.ui.box_filename.hide()        
         self.ui.box_typeReset.setCurrentIndex(0)
@@ -358,6 +444,12 @@ class GitWindow(QtGui.QMainWindow):
         self.ui.text_reset.clear()
         
         self.close()
+    
+    def commit_details(self):
+        commit = str(self.ui.list_commit.currentItem().text())[8:15]
+        
+        commit_window = CommitWindow(parent=self, commit=commit)
+        commit_window.show()
     
     def create_commit(self):
         config = read_settings("config")
@@ -384,6 +476,69 @@ class GitWindow(QtGui.QMainWindow):
         self.ui.text_status.setText(gitlog_file)
                 
         os.chdir(current_directory)
+    
+    def create_patch(self):
+        now = datetime.datetime.now()
+        self._patch_name = os.path.abspath(os.path.expanduser('~/'))
+        self._patch_name = self._patch_name+"/tmp."+str(now.hour)+str(now.minute)+str(now.second)+str(now.microsecond)+".patch"
+        config = read_settings("config")
+        if (os.path.exists(config) == False):
+            not_found = NotFound(parent=self, text="conf")
+            not_found.show()
+            return
+        directory = read_config("directory")        
+        if (os.path.exists(directory) == False):
+            not_found = NotFound(parent=self, text="dir")
+            not_found.show()
+            return
+        if (os.path.exists(directory+"/.git") == False):
+            not_found = NotFound(parent=self, text="gitdir")
+            not_found.show()
+            return
+        editor = read_settings("editor")
+        label = 0
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            if os.path.exists(os.path.join(path, editor)):
+                label = 1
+                break
+        if (label == 0):
+            not_found = NotFound(parent=self, text="editor")
+            not_found.show()
+            return
+        
+        if (self.ui.box_merge.currentIndex() == 0):
+            new_file = str(self.ui.box_new.currentText())
+            old_file = str(self.ui.box_old.currentText())
+        elif (self.ui.box_merge.currentIndex() == 1):
+            new_file = str(self.ui.lineEdit_new.text())
+            old_file = str(self.ui.lineEdit_old.text())
+            if ((len(new_file) == 0) or (len(old_file) == 0)):
+                not_found = NotFound(parent=self, text="nofile")
+                not_found.show()
+                return
+            if ((os.path.exists(new_file) == False) or (os.path.exists(old_file) == False)):
+                not_found = NotFound(parent=self, text="fnf")
+                not_found.show()
+                return
+                    
+        current_directory = os.getcwd()
+        os.chdir(directory)
+        os.system("sudo git checkout master > /dev/null")
+        command_line = "sudo git add -A . && sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
+        os.system(command_line)
+        last_commit = commands.getoutput("sudo git log -1 | grep commit | awk {'print $2'}")
+        os.system("sudo git checkout experimental > /dev/null")
+        command_line = "sudo cp "+old_file+" "+new_file
+        os.system(command_line)
+        command_line = "sudo git add -A . && sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
+        os.system(command_line)
+        command_line = "sudo git diff "+last_commit+" HEAD "+new_file+" > "+self._patch_name
+        os.system(command_line)
+        os.system("sudo git checkout master > /dev/null")
+        os.system(editor+" "+self._patch_name)
+        os.chdir(current_directory)
+        self.ui.button_applyPatch.setEnabled(1)
     
     def get_status(self):
         self.ui.text_status.clear()
@@ -523,8 +678,7 @@ class GitWindow(QtGui.QMainWindow):
             
             self.ui.lineEdit_id.clear()
             if (output[0:6] == "fatal:"):
-                text_error = u"<html><head/><body><p align=\"center\">Указанный коммит не найден</p></body></html>"
-                not_found = NotFound(parent=self, text=text_error)
+                not_found = NotFound(parent=self, text="commitnf")
                 not_found.show()
                 os.chdir(current_directory)
                 return
@@ -589,8 +743,7 @@ class GitWindow(QtGui.QMainWindow):
                 self.ui.box_typeReset.setCurrentIndex(0)
                 return
             if (len(str(self.ui.lineEdit_id.text())) < 7):
-                text_error = u"<html><head/><body><p align=\"center\">Задан слишком короткий идентификатор</p></body></html>"
-                not_found = NotFound(parent=self, text=text_error)
+                not_found = NotFound(parent=self, text="id")
                 not_found.show()
                 
                 self.ui.lineEdit_id.clear()
@@ -620,6 +773,69 @@ class GitWindow(QtGui.QMainWindow):
             
             self.ui.box_filename.show()
             self.ui.label_filename.show()
+    
+    def setup_box_files(self):
+        current_item = str(self.ui.box_old.currentText())
+        if ((current_item[-7:] == ".pacnew") or (current_item[-8:] == ".pacsave") or (current_item[-8:] == ".pacorig") or (current_item[-4:] == ".new") or (current_item[-4:] == ".old") or (current_item[-5:] == ".bckp")):
+            current_item = '.'.join(current_item.split('.')[:-1])
+            index = self.ui.box_new.findText(current_item)
+            self.ui.box_new.setCurrentIndex(index)
+    
+    def set_merge(self):
+        if (self.ui.box_merge.currentIndex() == 0):
+            self.ui.lineEdit_new.hide()
+            self.ui.lineEdit_old.hide()
+            self.ui.button_browseNew.hide()
+            self.ui.button_browseOld.hide()
+            
+            self.ui.box_new.clear()
+            self.ui.box_old.clear()
+            config = read_settings("config")
+            if (os.path.exists(config) == False):
+                not_found = NotFound(parent=self, text="conf")
+                not_found.show()
+                return
+            directory = read_config("directory")        
+            if (os.path.exists(directory) == False):
+                not_found = NotFound(parent=self, text="dir")
+                not_found.show()
+                return
+            if (os.path.exists(directory+"/.git") == False):
+                not_found = NotFound(parent=self, text="gitdir")
+                not_found.show()
+                return
+            command_line = "sudo ls -lARp --format=single-column "+directory
+            list_files = commands.getoutput(command_line)
+            preffix = directory
+            for files in list_files.split("\n"):
+                if (files != ""):
+                    if (files[-1] != "/"):
+                        if (files[0] == "/"):
+                            preffix = files[:-1]+"/"
+                        else:
+                            if ((files[-7:] == ".pacnew") or (files[-8:] == ".pacsave") or (files[-8:] == ".pacorig") or (files[-4:] == ".new") or (files[-4:] == ".old") or (files[-5:] == ".bckp")):
+                                line = preffix + files
+                                output = line.replace(directory, "")[1:]
+                                self.ui.box_new.addItem(output)
+                                self.ui.box_old.addItem(output)
+                                output = '.'.join(output.split('.')[:-1])
+                                self.ui.box_new.addItem(output)
+                                self.ui.box_old.addItem(output)
+            
+            self.setup_box_files()
+            
+            self.ui.box_new.show()
+            self.ui.box_old.show()
+        elif (self.ui.box_merge.currentIndex() == 1):
+            self.ui.box_new.hide()
+            self.ui.box_old.hide()
+            
+            self.ui.lineEdit_old.clear()
+            self.ui.lineEdit_new.clear()
+            self.ui.lineEdit_old.show()
+            self.ui.lineEdit_new.show()
+            self.ui.button_browseNew.show()
+            self.ui.button_browseOld.show()
     
     def set_mode(self):
         self.ui.list_commit.clear()
@@ -662,10 +878,15 @@ class GitWindow(QtGui.QMainWindow):
     
     def set_tab(self):
         if (self.ui.tabWidget.currentIndex() == 0):
+            self.ui.box_mode.setCurrentIndex(0)
             self.set_mode()
         elif (self.ui.tabWidget.currentIndex() == 1):
             self.ui.text_status.clear()
         elif (self.ui.tabWidget.currentIndex() == 2):
+            self.ui.button_applyPatch.setDisabled(1)
+            self.ui.box_merge.setCurrentIndex(0)
+            self.set_merge()
+        elif (self.ui.tabWidget.currentIndex() == 3):
             self.ui.box_typeReset.setCurrentIndex(0)
             self.ui.label_filename.hide()
             self.ui.box_filename.hide()
@@ -699,6 +920,8 @@ class NotFound(QtGui.QMainWindow):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>")
             elif (text == "editor"):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанного редактора не существует</p></body></html>")
+            elif (text == "fnf"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанный файл не найден</p></body></html>")
             elif (text == "gitdir"):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>")
             elif (text == "id"):
@@ -711,6 +934,8 @@ class NotFound(QtGui.QMainWindow):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Не указана рабочая директория</p></body></html>")
             elif (text == "noeditor"):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Не указан текстовый редактор</p></body></html>")
+            elif (text == "nofile"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Файл не указан</p></body></html>")
             elif (text == "noservice"):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Не указано имя сервиса</p></body></html>")
             elif (text == "notime"):

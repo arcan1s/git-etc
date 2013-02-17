@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwin.ui'
 #
-# Created: Fri Feb 15 16:03:32 2013
+# Created: Sun Feb 17 16:57:49 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -119,14 +119,8 @@ class Ui_MainWindow(object):
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
-        self.action_configfile = QtGui.QAction(MainWindow)
-        self.action_configfile.setObjectName(_fromUtf8("action_configfile"))
         self.action_exit = QtGui.QAction(MainWindow)
         self.action_exit.setObjectName(_fromUtf8("action_exit"))
-        self.action_language = QtGui.QAction(MainWindow)
-        self.action_language.setObjectName(_fromUtf8("action_language"))
-        self.action_help = QtGui.QAction(MainWindow)
-        self.action_help.setObjectName(_fromUtf8("action_help"))
         self.action_about = QtGui.QAction(MainWindow)
         self.action_about.setObjectName(_fromUtf8("action_about"))
         self.action_configure = QtGui.QAction(MainWindow)
@@ -166,12 +160,8 @@ class Ui_MainWindow(object):
         self.button_stopService.setText(_translate("MainWindow", "Стоп", None))
         self.menu_main.setTitle(_translate("MainWindow", "&Меню", None))
         self.menu_help.setTitle(_translate("MainWindow", "&Справка", None))
-        self.action_configfile.setText(_translate("MainWindow", "Выбрать файл &настроек", None))
         self.action_exit.setText(_translate("MainWindow", "&Выход", None))
         self.action_exit.setShortcut(_translate("MainWindow", "Ctrl+Q", None))
-        self.action_language.setText(_translate("MainWindow", "Выбор &языка", None))
-        self.action_help.setText(_translate("MainWindow", "&Помощь", None))
-        self.action_help.setShortcut(_translate("MainWindow", "F1", None))
         self.action_about.setText(_translate("MainWindow", "&О программе", None))
         self.action_configure.setText(_translate("MainWindow", "Настроить &сервис", None))
         self.action_configure.setShortcut(_translate("MainWindow", "Ctrl+S", None))
