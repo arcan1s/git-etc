@@ -154,7 +154,7 @@ p, li { white-space: pre-wrap; }
 </style></head><body style=" font-family:'Monospace'; font-size:10pt; font-weight:400; font-style:normal;">"""+"\n"
         label = 0
         for line in file_diff.split("\n"):
-            if (label == 1):
+            if (label == 1 and line[0:2] != "@@"):
                 if (line[0] == "+"):
                     output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#008000;\">"+line+"</span></p>\n"
                 elif (line[0] == "-"):
@@ -165,9 +165,11 @@ p, li { white-space: pre-wrap; }
                 output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#0000ff;\">"+line+"</span></p>\n"
             if (line[0:3] == "+++"):
                 output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#0000ff;\">"+line+"</span></p>\n"
-            if (line[0:2] == "@@"):
-                label = 1
                 output_text = output_text+"<hr align=\"center\">\n"
+                label = 1
+            if (line[0:2] == "@@"):
+                output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#00c0c0;\">@@"+line.split("@@")[1]+"@@</span></p>\n"
+                output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">"+line.split("@@")[2]+"</p>\n"
             if (line[0:12] == "Binary files"):
                 output_text = output_text+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#0000ff;\">"+"Binary file"+"</span></p>\n"
         output_text = output_text+"</body></html>"
@@ -339,11 +341,19 @@ class GitWindow(QtGui.QMainWindow):
         self.ui = Ui_GitWindow()
         self.ui.setupUi(self)
         
-        self.set_mode()
+        self.ui.tabWidget.setCurrentIndex(0)
+        self.set_tab()
         
         QtCore.QObject.connect(self.ui.box_mode, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_mode)
+        QtCore.QObject.connect(self.ui.box_typeReset, QtCore.SIGNAL("currentIndexChanged(int)"), self.reset_setup)
+        QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close_win)
+        QtCore.QObject.connect(self.ui.button_createCommit, QtCore.SIGNAL("clicked()"), self.create_commit)
         QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
+        QtCore.QObject.connect(self.ui.button_refresh, QtCore.SIGNAL("clicked()"), self.reset_setup)
+        QtCore.QObject.connect(self.ui.button_reset, QtCore.SIGNAL("clicked()"), self.reset_commit)
+        QtCore.QObject.connect(self.ui.button_status, QtCore.SIGNAL("clicked()"), self.get_status)
         QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
+        QtCore.QObject.connect(self.ui.tabWidget, QtCore.SIGNAL("currentChanged(int)"), self.set_tab)
     
     def commit_details(self):
         commit = str(self.ui.list_commit.currentItem().text())[8:15]
@@ -352,14 +362,110 @@ class GitWindow(QtGui.QMainWindow):
         commit_window.show()
     
     def close_win(self):
+        self.ui.tabWidget.setCurrentIndex(0)        
+        
+        self.ui.box_mode.setCurrentIndex(0)
         self.ui.timeEdit_from.setDate(QtCore.QDate(2013, 1, 1))
         self.ui.timeEdit_from.setTime(QtCore.QTime(0, 0))
         self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
         self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
         self.ui.spinBox_times.setValue(1)
         self.ui.dateEdit_date.setDate(QtCore.QDate.currentDate())
+        self.ui.list_commit.clear()
+        
+        self.ui.text_status.clear()
+        
+        self.ui.label_filename.hide()
+        self.ui.box_filename.hide()        
+        self.ui.box_typeReset.setCurrentIndex(0)
+        self.ui.box_filename.clear()
+        self.ui.lineEdit_id.clear()
+        self.ui.text_reset.clear()
         
         self.close()
+    
+    def create_commit(self):
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return        
+        
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+        
+        if (os.path.exists(directory) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        if (os.path.exists(directory+"/.git") == False):
+            text_error = u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        current_directory = os.getcwd()
+        os.chdir(directory)
+        command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
+        os.system(command_line)
+        command_line = "sudo git status --column"
+        gitlog_file = commands.getoutput(command_line)
+        self.ui.text_status.setText(gitlog_file)
+                
+        os.chdir(current_directory)
+    
+    def get_status(self):
+        self.ui.text_status.clear()
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return        
+        
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+        
+        if (os.path.exists(directory) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        if (os.path.exists(directory+"/.git") == False):
+            text_error = u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        current_directory = os.getcwd()
+        os.chdir(directory)
+        command_line = "sudo git status --column"
+        gitlog_file = commands.getoutput(command_line)
+        self.ui.text_status.setText(gitlog_file)
+                
+        os.chdir(current_directory)
     
     def get_text(self):
         self.ui.list_commit.clear()
@@ -460,7 +566,186 @@ class GitWindow(QtGui.QMainWindow):
                 
             os.chdir(current_directory)
     
+    def reset_commit(self):
+        self.ui.text_reset.clear()
+        if (len(str(self.ui.lineEdit_id.text())) < 7):
+            text_error = u"<html><head/><body><p align=\"center\">Задан слишком короткий идентификатор</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            
+            self.ui.lineEdit_id.clear()
+            self.ui.box_typeReset.setCurrentIndex(0)
+            
+            return
+        else:
+            commit = str(self.ui.lineEdit_id.text())
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config = "/etc/conf.d/git-etc.conf"
+        if (os.path.exists(config_gui)):
+            with open(config_gui, 'r') as config_gui_file:
+                for line in config_gui_file:
+                    if (line.split("==")[0] == "CONFIG"):
+                        config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+        
+        if (os.path.exists(config) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return        
+        
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+        
+        if (os.path.exists(directory) == False):
+            text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        if (os.path.exists(directory+"/.git") == False):
+            text_error = u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>"
+            not_found = NotFound(parent=self, text=text_error)
+            not_found.show()
+            return
+        
+        current_directory = os.getcwd()
+        os.chdir(directory)
+        
+        if (self.ui.box_typeReset.currentIndex() == 0):
+            command_line = "sudo git log --oneline"
+            list_commit = commands.getoutput(command_line)
+            command_line = "sudo git reset --hard "+commit
+            output = commands.getoutput(command_line)
+            
+            self.ui.lineEdit_id.clear()
+            if (output[0:6] == "fatal:"):
+                text_error = u"<html><head/><body><p align=\"center\">Указанный коммит не найден</p></body></html>"
+                not_found = NotFound(parent=self, text=text_error)
+                not_found.show()
+                os.chdir(current_directory)
+                return
+            
+            self.ui.text_reset.setText(list_commit+"/n/n"+output)
+        elif (self.ui.box_typeReset.currentIndex() == 1):
+            filename = str(self.ui.box_filename.currentText())
+            now = datetime.datetime.now()
+            patch = "tmp."+str(now.hour)+str(now.minute)+str(now.second)+str(now.microsecond)+".patch"
+            
+            self.ui.text_reset.setText("[II] Creating commit")
+            command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N`"
+            output = commands.getoutput(command_line)
+            self.ui.text_reset.append(output)
+            
+            self.ui.text_reset.append("[II] Creating patch")
+            command_line = "sudo git diff HEAD "+commit+" "+filename+" > "+patch
+            os.system(command_line)
+            
+            self.ui.text_reset.append("[II] Patching")
+            command_line = "sudo git apply < "+patch
+            output = commands.getoutput(command_line)
+            os.remove(patch)
+            self.ui.text_reset.append(output+"[II] Done!")
+            
+            self.ui.text_reset.append("[II] Creating commit")
+            command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N`"
+            output = commands.getoutput(command_line)
+            self.ui.text_reset.append(output)
+            
+            self.ui.lineEdit_id.clear()
+            self.ui.box_filename.clear()
+            self.ui.box_typeReset.setCurrentIndex(0)
+        
+        os.chdir(current_directory)
+            
+    def reset_setup(self):
+        self.ui.box_filename.clear()
+        
+        if (self.ui.box_typeReset.currentIndex() == 0):
+            self.ui.box_filename.hide()
+            self.ui.label_filename.hide()
+        elif (self.ui.box_typeReset.currentIndex() == 1):
+            if (len(str(self.ui.lineEdit_id.text())) < 7):
+                text_error = u"<html><head/><body><p align=\"center\">Задан слишком короткий идентификатор</p></body></html>"
+                not_found = NotFound(parent=self, text=text_error)
+                not_found.show()
+                
+                self.ui.lineEdit_id.clear()
+                self.ui.box_typeReset.setCurrentIndex(0)
+                
+                return
+            else:
+                commit = str(self.ui.lineEdit_id.text())
+            config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+            config = "/etc/conf.d/git-etc.conf"
+            if (os.path.exists(config_gui)):        
+                with open(config_gui, 'r') as config_gui_file:
+                    for line in config_gui_file:
+                        if (line.split("==")[0] == "CONFIG"):
+                            config = os.path.abspath(os.path.expanduser(line.split("==")[1]))
+            
+            if (os.path.exists(config) == False):
+                text_error = u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>"
+                not_found = NotFound(parent=self, text=text_error)
+                not_found.show()
+                
+                self.ui.lineEdit_id.clear()
+                self.ui.box_typeReset.setCurrentIndex(0)
+                
+                return
+            
+            with open(config, 'r') as config_file:
+                for line in config_file:
+                    if (line.split("=")[0] == "DIRECTORY"):
+                        directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+            
+            if (os.path.exists(directory) == False):
+                text_error = u"<html><head/><body><p align=\"center\">Указанная директория не существует</p></body></html>"
+                not_found = NotFound(parent=self, text=text_error)
+                not_found.show()
+                
+                self.ui.lineEdit_id.clear()
+                self.ui.box_typeReset.setCurrentIndex(0)
+                
+                return
+            
+            if (os.path.exists(directory+"/.git") == False):
+                text_error = u"<html><head/><body><p align=\"center\">Git репозиторий не найден</p></body></html>"
+                not_found = NotFound(parent=self, text=text_error)
+                not_found.show()
+                
+                self.ui.lineEdit_id.clear()
+                self.ui.box_typeReset.setCurrentIndex(0)
+                
+                return
+            
+            current_directory = os.getcwd()
+            os.chdir(directory)
+            command_line = "sudo git show "+commit+" --name-only"
+            commit_file = commands.getoutput(command_line)
+            
+            if (commit_file[0:6] == "fatal:"):
+                text_error = u"<html><head/><body><p align=\"center\">Указанный коммит не найден</p></body></html>"
+                not_found = NotFound(parent=self, text=text_error)
+                not_found.show()
+                
+                os.chdir(current_directory)
+                self.ui.lineEdit_id.clear()
+                self.ui.box_typeReset.setCurrentIndex(0)
+                
+                return
+            
+            for line in commit_file.split("\n")[6:]:
+                self.ui.box_filename.addItem(line)
+            
+            os.chdir(current_directory)
+            
+            self.ui.box_filename.show()
+            self.ui.label_filename.show()
+    
     def set_mode(self):
+        self.ui.list_commit.clear()
         if (self.ui.box_mode.currentIndex() == 0):
             self.ui.label_times.hide()
             self.ui.spinBox_times.hide()
@@ -497,6 +782,19 @@ class GitWindow(QtGui.QMainWindow):
             self.ui.dateEdit_date.setDate(QtCore.QDate.currentDate())
             self.ui.label_date.show()
             self.ui.dateEdit_date.show()
+    
+    def set_tab(self):
+        if (self.ui.tabWidget.currentIndex() == 0):
+            self.set_mode()
+        elif (self.ui.tabWidget.currentIndex() == 1):
+            self.ui.text_status.clear()
+        elif (self.ui.tabWidget.currentIndex() == 2):
+            self.ui.box_typeReset.setCurrentIndex(0)
+            self.ui.label_filename.hide()
+            self.ui.box_filename.hide()
+            self.ui.box_filename.clear()
+            self.ui.lineEdit_id.clear()
+            self.ui.text_reset.clear()
     
     def keyPressEvent(self, event):
         if (event.key() == QtCore.Qt.Key_Escape):
