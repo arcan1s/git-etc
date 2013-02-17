@@ -262,8 +262,8 @@ class ConfigWindow(QtGui.QMainWindow):
             return
         
         self.ui.lineEdit_directory.setText(read_config("directory"))
-        self.ui.lineEdit_timeSleep.setText(read_config("directory"))
-        self.ui.lineEdit_ignoreList.setText(read_config("directory"))
+        self.ui.lineEdit_timeSleep.setText(read_config("timesleep"))
+        self.ui.lineEdit_ignoreList.setText(read_config("ignorelist"))
     
     def setup_config(self):
         config = read_settings("config")
@@ -319,8 +319,6 @@ class GitWindow(QtGui.QMainWindow):
         self.ui.tabWidget.setCurrentIndex(0)
         self.set_tab()
         
-        QtCore.QObject.connect(self.ui.box_merge, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_merge)
-        QtCore.QObject.connect(self.ui.box_mode, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_mode)
         QtCore.QObject.connect(self.ui.box_old, QtCore.SIGNAL("currentIndexChanged(int)"), self.setup_box_files)
         QtCore.QObject.connect(self.ui.box_typeReset, QtCore.SIGNAL("currentIndexChanged(int)"), self.reset_setup)
         QtCore.QObject.connect(self.ui.button_applyPatch, QtCore.SIGNAL("clicked()"), self.apply_patch)
@@ -335,6 +333,8 @@ class GitWindow(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.button_status, QtCore.SIGNAL("clicked()"), self.get_status)
         QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
         QtCore.QObject.connect(self.ui.tabWidget, QtCore.SIGNAL("currentChanged(int)"), self.set_tab)
+        QtCore.QObject.connect(self.ui.tabWidget_merge, QtCore.SIGNAL("currentChanged(int)"), self.set_merge)
+        QtCore.QObject.connect(self.ui.tabWidget_search, QtCore.SIGNAL("currentChanged(int)"), self.set_mode)
     
     def apply_patch(self):
         config = read_settings("config")
@@ -381,9 +381,9 @@ class GitWindow(QtGui.QMainWindow):
             return
         
         if (lang == 'RUS'):
-            new_file = QtGui.QFileDialog.getOpenFileNames(self, u'Новый файл',directory,'Все файлы (*)')
+            new_file = QtGui.QFileDialog.getOpenFileName(self, u'Новый файл',directory,'Все файлы (*)')
         else:
-            new_file = QtGui.QFileDialog.getOpenFileNames(self, u'New file',directory,'All files (*)')
+            new_file = QtGui.QFileDialog.getOpenFileName(self, u'New file',directory,'All files (*)')
         if (len(new_file) > 0):
             self.ui.lineEdit_new.setText(new_file)
     
@@ -414,7 +414,7 @@ class GitWindow(QtGui.QMainWindow):
     def close_win(self):
         self.ui.tabWidget.setCurrentIndex(0)        
         
-        self.ui.box_mode.setCurrentIndex(0)
+        self.ui.tabWidget_search.setCurrentIndex(0)
         self.ui.timeEdit_from.setDate(QtCore.QDate(2013, 1, 1))
         self.ui.timeEdit_from.setTime(QtCore.QTime(0, 0))
         self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
@@ -425,15 +425,11 @@ class GitWindow(QtGui.QMainWindow):
         
         self.ui.text_status.clear()
         
-        self.ui.box_merge.setCurrentIndex(0)
+        self.ui.tabWidget_merge.setCurrentIndex(0)
         self.ui.box_old.clear()
         self.ui.box_new.clear()
         self.ui.lineEdit_old.clear()
         self.ui.lineEdit_new.clear()
-        self.ui.lineEdit_old.hide()
-        self.ui.lineEdit_new.hide()
-        self.ui.button_browseOld.hide()
-        self.ui.button_browseNew.hide()
         self.ui.button_applyPatch.setDisabled(1)
         
         self.ui.label_filename.hide()
@@ -507,10 +503,10 @@ class GitWindow(QtGui.QMainWindow):
             not_found.show()
             return
         
-        if (self.ui.box_merge.currentIndex() == 0):
+        if (self.ui.tabWidget_merge.currentIndex() == 0):
             new_file = str(self.ui.box_new.currentText())
             old_file = str(self.ui.box_old.currentText())
-        elif (self.ui.box_merge.currentIndex() == 1):
+        elif (self.ui.tabWidget_merge.currentIndex() == 1):
             new_file = str(self.ui.lineEdit_new.text())
             old_file = str(self.ui.lineEdit_old.text())
             if ((len(new_file) == 0) or (len(old_file) == 0)):
@@ -582,7 +578,7 @@ class GitWindow(QtGui.QMainWindow):
             not_found.show()
             return
         
-        if (self.ui.box_mode.currentIndex() == 0):
+        if (self.ui.tabWidget_search.currentIndex() == 0):
             time_now = datetime.datetime.now()        
             time_to = self.ui.timeEdit_to.dateTime().toPyDateTime()
             time_from = self.ui.timeEdit_from.dateTime().toPyDateTime()
@@ -608,7 +604,7 @@ class GitWindow(QtGui.QMainWindow):
                 self.ui.list_commit.addItem(output_line)
                 
             os.chdir(current_directory)
-        elif (self.ui.box_mode.currentIndex() == 1):
+        elif (self.ui.tabWidget_search.currentIndex() == 1):
             times = str(self.ui.spinBox_times.value())
             
             current_directory = os.getcwd()
@@ -623,7 +619,7 @@ class GitWindow(QtGui.QMainWindow):
                 self.ui.list_commit.addItem(output_line)
                 
             os.chdir(current_directory)
-        elif (self.ui.box_mode.currentIndex() == 2):
+        elif (self.ui.tabWidget_search.currentIndex() == 2):
             date_now = datetime.date.today()        
             date_interval = date_now - self.ui.dateEdit_date.date().toPyDate()
         
@@ -782,12 +778,7 @@ class GitWindow(QtGui.QMainWindow):
             self.ui.box_new.setCurrentIndex(index)
     
     def set_merge(self):
-        if (self.ui.box_merge.currentIndex() == 0):
-            self.ui.lineEdit_new.hide()
-            self.ui.lineEdit_old.hide()
-            self.ui.button_browseNew.hide()
-            self.ui.button_browseOld.hide()
-            
+        if (self.ui.tabWidget_merge.currentIndex() == 0):            
             self.ui.box_new.clear()
             self.ui.box_old.clear()
             config = read_settings("config")
@@ -823,68 +814,31 @@ class GitWindow(QtGui.QMainWindow):
                                 self.ui.box_old.addItem(output)
             
             self.setup_box_files()
-            
-            self.ui.box_new.show()
-            self.ui.box_old.show()
-        elif (self.ui.box_merge.currentIndex() == 1):
-            self.ui.box_new.hide()
-            self.ui.box_old.hide()
-            
+        elif (self.ui.tabWidget_merge.currentIndex() == 1):
             self.ui.lineEdit_old.clear()
             self.ui.lineEdit_new.clear()
-            self.ui.lineEdit_old.show()
-            self.ui.lineEdit_new.show()
-            self.ui.button_browseNew.show()
-            self.ui.button_browseOld.show()
     
     def set_mode(self):
         self.ui.list_commit.clear()
-        if (self.ui.box_mode.currentIndex() == 0):
-            self.ui.label_times.hide()
-            self.ui.spinBox_times.hide()
-            self.ui.label_date.hide()
-            self.ui.dateEdit_date.hide()
-            
+        if (self.ui.tabWidget_search.currentIndex() == 0):
             self.ui.timeEdit_from.setDate(QtCore.QDate(2013, 1, 1))
             self.ui.timeEdit_from.setTime(QtCore.QTime(0, 0))
             self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
             self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
-            self.ui.label_timeFrom.show()
-            self.ui.label_timeTo.show()
-            self.ui.timeEdit_from.show()
-            self.ui.timeEdit_to.show()
-        elif (self.ui.box_mode.currentIndex() == 1):
-            self.ui.label_timeFrom.hide()
-            self.ui.label_timeTo.hide()
-            self.ui.timeEdit_from.hide()
-            self.ui.timeEdit_to.hide()
-            self.ui.label_date.hide()
-            self.ui.dateEdit_date.hide()
-            
+        elif (self.ui.tabWidget_search.currentIndex() == 1):
             self.ui.spinBox_times.setValue(1)            
-            self.ui.label_times.show()
-            self.ui.spinBox_times.show()
-        elif (self.ui.box_mode.currentIndex() == 2):
-            self.ui.label_times.hide()
-            self.ui.spinBox_times.hide()
-            self.ui.label_timeFrom.hide()
-            self.ui.label_timeTo.hide()
-            self.ui.timeEdit_from.hide()
-            self.ui.timeEdit_to.hide()
-            
+        elif (self.ui.tabWidget_search.currentIndex() == 2):            
             self.ui.dateEdit_date.setDate(QtCore.QDate.currentDate())
-            self.ui.label_date.show()
-            self.ui.dateEdit_date.show()
     
     def set_tab(self):
         if (self.ui.tabWidget.currentIndex() == 0):
-            self.ui.box_mode.setCurrentIndex(0)
+            self.ui.tabWidget.setCurrentIndex(0)
             self.set_mode()
         elif (self.ui.tabWidget.currentIndex() == 1):
             self.ui.text_status.clear()
         elif (self.ui.tabWidget.currentIndex() == 2):
             self.ui.button_applyPatch.setDisabled(1)
-            self.ui.box_merge.setCurrentIndex(0)
+            self.ui.tabWidget_merge.setCurrentIndex(0)
             self.set_merge()
         elif (self.ui.tabWidget.currentIndex() == 3):
             self.ui.box_typeReset.setCurrentIndex(0)
@@ -955,9 +909,19 @@ class SettingsWindow(QtGui.QMainWindow):
         self._parent = parent        
         self.set_text()
         
-        QtCore.QObject.connect(self.ui.button_apply, QtCore.SIGNAL("clicked()"), self.save_config)        
+        QtCore.QObject.connect(self.ui.button_apply, QtCore.SIGNAL("clicked()"), self.save_config)
+        QtCore.QObject.connect(self.ui.button_browse, QtCore.SIGNAL("clicked()"), self.browse_config)
         QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close_win)
         QtCore.QObject.connect(self.ui.button_default, QtCore.SIGNAL("clicked()"), self.create_config)
+    
+    def browse_config(self):
+        lang = read_settings("lang")
+        if (lang == 'RUS'):
+            config = QtGui.QFileDialog.getOpenFileName(self, u'Configuration file','','Все файлы (*)')
+        else:
+            config = QtGui.QFileDialog.getOpenFileName(self, u'Файл настроек','','All files (*)')
+        if (len(config) > 0):
+            self.ui.lineEdit_config.setText(config)
     
     def close_win(self):
         self.set_text()
