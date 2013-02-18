@@ -2795,7 +2795,7 @@ class MainWindow(QtGui.QMainWindow):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='GUI interface for git-etc daemon', 
-            epilog='See "man git2etc" for more details')
+            epilog='See "man 1 git2etc" for more details')
     parser.add_argument('-v','--version', dest='ver',
             help = 'Show version and exit',
             action='store_true', default = False)
