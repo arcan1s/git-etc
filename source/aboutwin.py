@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'aboutwin.ui'
 #
-# Created: Mon Feb 18 02:20:08 2013
+# Created: Mon Feb 18 04:26:37 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_AboutWindow(object):
     def setupUi(self, AboutWindow):
         AboutWindow.setObjectName(_fromUtf8("AboutWindow"))
-        AboutWindow.resize(321, 243)
+        AboutWindow.resize(418, 298)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -50,6 +50,7 @@ class Ui_AboutWindow(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
         self.text_about = QtGui.QTextBrowser(self.centralwidget)
+        self.text_about.setMinimumSize(QtCore.QSize(410, 260))
         self.text_about.setObjectName(_fromUtf8("text_about"))
         self.gridLayout.addWidget(self.text_about, 0, 0, 1, 3)
         AboutWindow.setCentralWidget(self.centralwidget)
@@ -61,4 +62,17 @@ class Ui_AboutWindow(object):
     def retranslateUi(self, AboutWindow):
         AboutWindow.setWindowTitle(_translate("AboutWindow", "About", None))
         self.button_close.setText(_translate("AboutWindow", "Закрыть", None))
+        self.text_about.setHtml(_translate("AboutWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Droid Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">git2etc 2.0.0</p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Лицензия: GPL</p>\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">GUI интерфейс к демону git-etc, написанный на python2.7/PyQt4. Позволяет посмотреть список коммитов и изменения в файлах, записанные в коммитах. Также данное приложение позволяет откатить к определенному коммиту все файлы (git reset --hard) или отдельно взятые (git diff &amp;&amp; git apply). Дополнительно предусмотрена возможность слияния старых и новых конфигурационных файлов (используются две ветки репозитория - master и experimental).</p>\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Автор: Евгений Алексеев aka arcanis</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">e-mail: esalexeev@gmail.com</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Jabber: arcanis@jabber.ru</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">ICQ: 407-398-235</p></body></html>", None))
 
