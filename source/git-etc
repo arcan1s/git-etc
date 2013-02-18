@@ -51,7 +51,6 @@ until [ -z $1 ]; do
     IGNORELIST=`echo $2 | sed -e 's/;;/ /g'`
     shift; fi
   if [ "$1" = "--ignorelist" ]; then
-    echo "good"
     IGNORELIST=`echo $2 | sed -e 's/;;/ /g'`
     shift; fi
   if [ "$1" = "--for-all" ]; then
