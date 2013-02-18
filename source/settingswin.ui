@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>429</width>
-    <height>203</height>
+    <width>410</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,10 +26,16 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>410</width>
+     <height>250</height>
+    </size>
+   </property>
    <property name="maximumSize">
     <size>
      <width>16777215</width>
-     <height>203</height>
+     <height>250</height>
     </size>
    </property>
    <layout class="QGridLayout" name="gridLayout_3">
@@ -39,312 +45,7 @@
     <property name="horizontalSpacing">
      <number>-1</number>
     </property>
-    <item row="0" column="0">
-     <widget class="QWidget" name="widget_lang" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_lang">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Язык</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="box_lang">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>275</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <item>
-          <property name="text">
-           <string>English</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Русский</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QWidget" name="widget_service" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QFormLayout" name="formLayout_2">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::ExpandingFieldsGrow</enum>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_service">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Service</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_service">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>275</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QWidget" name="widget_config" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QFormLayout" name="formLayout_6">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_config">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>125</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>125</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Настройки git-etc</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_config">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>170</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QWidget" name="widget_browse" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer02">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="button_browse">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Обзор</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QWidget" name="widget_editor" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QFormLayout" name="formLayout_5">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::ExpandingFieldsGrow</enum>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_editor">
-         <property name="minimumSize">
-          <size>
-           <width>140</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>140</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Текстовый редактор</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_editor">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="5" column="0">
+    <item row="6" column="0">
      <widget class="QWidget" name="widget_buttons" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -453,6 +154,379 @@
       </layout>
      </widget>
     </item>
+    <item row="0" column="0">
+     <widget class="QWidget" name="widget_lang" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_lang">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Язык</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="box_lang">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>275</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>25</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>English</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Русский</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QWidget" name="widget_browse" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer02">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="button_browse">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Обзор</string>
+         </property>
+         <property name="default">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QWidget" name="widget_service" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QFormLayout" name="formLayout_2">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_service">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Service</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_service">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>275</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QWidget" name="widget_editor" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QFormLayout" name="formLayout_5">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_editor">
+         <property name="minimumSize">
+          <size>
+           <width>140</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>140</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Текстовый редактор</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_editor">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>250</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QWidget" name="widget_config" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QFormLayout" name="formLayout_6">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_config">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>125</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>125</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Настройки git-etc</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_config">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>170</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QWidget" name="widget_system" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_system">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>141</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Системные настройки</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="checkBox_sudo">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>160</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>160</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Использовать sudo</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
@@ -461,6 +535,7 @@
   <tabstop>lineEdit_service</tabstop>
   <tabstop>lineEdit_config</tabstop>
   <tabstop>button_browse</tabstop>
+  <tabstop>checkBox_sudo</tabstop>
   <tabstop>lineEdit_editor</tabstop>
   <tabstop>button_default</tabstop>
   <tabstop>button_apply</tabstop>

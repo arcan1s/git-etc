@@ -371,6 +371,25 @@ class Ui_GitWindow(object):
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.widget_buttonClose = QtGui.QWidget(self.centralwidget)
+        self.widget_buttonClose.setObjectName(_fromUtf8("widget_buttonClose"))
+        self.gridLayout_2 = QtGui.QGridLayout(self.widget_buttonClose)
+        self.gridLayout_2.setMargin(0)
+        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
+        spacerItem = QtGui.QSpacerItem(40, 21, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem, 0, 0, 1, 1)
+        self.button_close = QtGui.QPushButton(self.widget_buttonClose)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_close.sizePolicy().hasHeightForWidth())
+        self.button_close.setSizePolicy(sizePolicy)
+        self.button_close.setMinimumSize(QtCore.QSize(100, 25))
+        self.button_close.setMaximumSize(QtCore.QSize(100, 25))
+        self.button_close.setDefault(True)
+        self.button_close.setObjectName(_fromUtf8("button_close"))
+        self.gridLayout_2.addWidget(self.button_close, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.widget_buttonClose, 1, 0, 1, 1)
         self.tabWidget = QtGui.QTabWidget(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -598,8 +617,8 @@ class Ui_GitWindow(object):
         self.gridLayout_22 = QtGui.QGridLayout(self.widget_buttonGet)
         self.gridLayout_22.setMargin(0)
         self.gridLayout_22.setObjectName(_fromUtf8("gridLayout_22"))
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_22.addItem(spacerItem, 0, 0, 1, 1)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_22.addItem(spacerItem1, 0, 0, 1, 1)
         self.button_get = QtGui.QPushButton(self.widget_buttonGet)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -638,8 +657,8 @@ class Ui_GitWindow(object):
         self.button_createCommit.setDefault(True)
         self.button_createCommit.setObjectName(_fromUtf8("button_createCommit"))
         self.gridLayout_3.addWidget(self.button_createCommit, 0, 0, 1, 1)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem1, 0, 1, 1, 1)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_3.addItem(spacerItem2, 0, 1, 1, 1)
         self.button_status = QtGui.QPushButton(self.widget_buttonsStatus)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -662,6 +681,94 @@ class Ui_GitWindow(object):
         self.text_status.setObjectName(_fromUtf8("text_status"))
         self.gridLayout_4.addWidget(self.text_status, 1, 0, 1, 1)
         self.tabWidget.addTab(self.tab_status, _fromUtf8(""))
+        self.tab_ignore = QtGui.QWidget()
+        self.tab_ignore.setObjectName(_fromUtf8("tab_ignore"))
+        self.gridLayout_28 = QtGui.QGridLayout(self.tab_ignore)
+        self.gridLayout_28.setObjectName(_fromUtf8("gridLayout_28"))
+        self.widget_buttonRefresh = QtGui.QWidget(self.tab_ignore)
+        self.widget_buttonRefresh.setObjectName(_fromUtf8("widget_buttonRefresh"))
+        self.gridLayout_24 = QtGui.QGridLayout(self.widget_buttonRefresh)
+        self.gridLayout_24.setMargin(0)
+        self.gridLayout_24.setObjectName(_fromUtf8("gridLayout_24"))
+        spacerItem3 = QtGui.QSpacerItem(362, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_24.addItem(spacerItem3, 0, 0, 1, 1)
+        self.button_refreshIgnore = QtGui.QPushButton(self.widget_buttonRefresh)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_refreshIgnore.sizePolicy().hasHeightForWidth())
+        self.button_refreshIgnore.setSizePolicy(sizePolicy)
+        self.button_refreshIgnore.setMinimumSize(QtCore.QSize(100, 25))
+        self.button_refreshIgnore.setMaximumSize(QtCore.QSize(100, 25))
+        self.button_refreshIgnore.setDefault(True)
+        self.button_refreshIgnore.setObjectName(_fromUtf8("button_refreshIgnore"))
+        self.gridLayout_24.addWidget(self.button_refreshIgnore, 0, 1, 1, 1)
+        self.gridLayout_28.addWidget(self.widget_buttonRefresh, 0, 0, 1, 1)
+        self.widget_addIgnore = QtGui.QWidget(self.tab_ignore)
+        self.widget_addIgnore.setObjectName(_fromUtf8("widget_addIgnore"))
+        self.gridLayout_25 = QtGui.QGridLayout(self.widget_addIgnore)
+        self.gridLayout_25.setMargin(0)
+        self.gridLayout_25.setObjectName(_fromUtf8("gridLayout_25"))
+        self.lineEdit_addIgnore = QtGui.QLineEdit(self.widget_addIgnore)
+        self.lineEdit_addIgnore.setMinimumSize(QtCore.QSize(200, 25))
+        self.lineEdit_addIgnore.setMaximumSize(QtCore.QSize(16777215, 25))
+        self.lineEdit_addIgnore.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.lineEdit_addIgnore.setObjectName(_fromUtf8("lineEdit_addIgnore"))
+        self.gridLayout_25.addWidget(self.lineEdit_addIgnore, 0, 0, 1, 1)
+        self.button_addIgnore = QtGui.QPushButton(self.widget_addIgnore)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_addIgnore.sizePolicy().hasHeightForWidth())
+        self.button_addIgnore.setSizePolicy(sizePolicy)
+        self.button_addIgnore.setMinimumSize(QtCore.QSize(100, 25))
+        self.button_addIgnore.setMaximumSize(QtCore.QSize(100, 25))
+        self.button_addIgnore.setDefault(True)
+        self.button_addIgnore.setObjectName(_fromUtf8("button_addIgnore"))
+        self.gridLayout_25.addWidget(self.button_addIgnore, 0, 1, 1, 1)
+        self.gridLayout_28.addWidget(self.widget_addIgnore, 1, 0, 1, 1)
+        self.list_ignoreList = QtGui.QListWidget(self.tab_ignore)
+        self.list_ignoreList.setObjectName(_fromUtf8("list_ignoreList"))
+        self.gridLayout_28.addWidget(self.list_ignoreList, 2, 0, 1, 1)
+        self.widget_buttonDelete = QtGui.QWidget(self.tab_ignore)
+        self.widget_buttonDelete.setObjectName(_fromUtf8("widget_buttonDelete"))
+        self.gridLayout_26 = QtGui.QGridLayout(self.widget_buttonDelete)
+        self.gridLayout_26.setMargin(0)
+        self.gridLayout_26.setObjectName(_fromUtf8("gridLayout_26"))
+        self.button_deleteIgnore = QtGui.QPushButton(self.widget_buttonDelete)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_deleteIgnore.sizePolicy().hasHeightForWidth())
+        self.button_deleteIgnore.setSizePolicy(sizePolicy)
+        self.button_deleteIgnore.setMinimumSize(QtCore.QSize(130, 25))
+        self.button_deleteIgnore.setMaximumSize(QtCore.QSize(130, 25))
+        self.button_deleteIgnore.setDefault(True)
+        self.button_deleteIgnore.setObjectName(_fromUtf8("button_deleteIgnore"))
+        self.gridLayout_26.addWidget(self.button_deleteIgnore, 1, 1, 1, 1)
+        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_26.addItem(spacerItem4, 1, 0, 1, 1)
+        self.gridLayout_28.addWidget(self.widget_buttonDelete, 3, 0, 1, 1)
+        self.widget_buttonApply = QtGui.QWidget(self.tab_ignore)
+        self.widget_buttonApply.setObjectName(_fromUtf8("widget_buttonApply"))
+        self.gridLayout_27 = QtGui.QGridLayout(self.widget_buttonApply)
+        self.gridLayout_27.setMargin(0)
+        self.gridLayout_27.setObjectName(_fromUtf8("gridLayout_27"))
+        spacerItem5 = QtGui.QSpacerItem(362, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_27.addItem(spacerItem5, 0, 0, 1, 1)
+        self.button_applyIgnore = QtGui.QPushButton(self.widget_buttonApply)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_applyIgnore.sizePolicy().hasHeightForWidth())
+        self.button_applyIgnore.setSizePolicy(sizePolicy)
+        self.button_applyIgnore.setMinimumSize(QtCore.QSize(100, 25))
+        self.button_applyIgnore.setMaximumSize(QtCore.QSize(100, 25))
+        self.button_applyIgnore.setDefault(True)
+        self.button_applyIgnore.setObjectName(_fromUtf8("button_applyIgnore"))
+        self.gridLayout_27.addWidget(self.button_applyIgnore, 0, 1, 1, 1)
+        self.gridLayout_28.addWidget(self.widget_buttonApply, 4, 0, 1, 1)
+        self.tabWidget.addTab(self.tab_ignore, _fromUtf8(""))
         self.tab_merge = QtGui.QWidget()
         self.tab_merge.setObjectName(_fromUtf8("tab_merge"))
         self.gridLayout_13 = QtGui.QGridLayout(self.tab_merge)
@@ -847,8 +954,8 @@ class Ui_GitWindow(object):
         self.gridLayout_15.addWidget(self.widget_browse, 0, 0, 1, 1)
         self.tabWidget_merge.addTab(self.tab_merge_02, _fromUtf8(""))
         self.gridLayout_13.addWidget(self.tabWidget_merge, 1, 0, 1, 1)
-        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout_13.addItem(spacerItem2, 2, 0, 1, 1)
+        spacerItem6 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_13.addItem(spacerItem6, 2, 0, 1, 1)
         self.widget_buttonsApply = QtGui.QWidget(self.tab_merge)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -861,8 +968,8 @@ class Ui_GitWindow(object):
         self.gridLayout_10 = QtGui.QGridLayout(self.widget_buttonsApply)
         self.gridLayout_10.setMargin(0)
         self.gridLayout_10.setObjectName(_fromUtf8("gridLayout_10"))
-        spacerItem3 = QtGui.QSpacerItem(36, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_10.addItem(spacerItem3, 1, 0, 1, 1)
+        spacerItem7 = QtGui.QSpacerItem(36, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_10.addItem(spacerItem7, 1, 0, 1, 1)
         self.button_patch = QtGui.QPushButton(self.widget_buttonsApply)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -874,8 +981,8 @@ class Ui_GitWindow(object):
         self.button_patch.setDefault(True)
         self.button_patch.setObjectName(_fromUtf8("button_patch"))
         self.gridLayout_10.addWidget(self.button_patch, 1, 1, 1, 2)
-        spacerItem4 = QtGui.QSpacerItem(86, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_10.addItem(spacerItem4, 2, 0, 1, 2)
+        spacerItem8 = QtGui.QSpacerItem(86, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_10.addItem(spacerItem8, 2, 0, 1, 2)
         self.button_applyPatch = QtGui.QPushButton(self.widget_buttonsApply)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -1043,8 +1150,8 @@ class Ui_GitWindow(object):
         self.button_refresh.setDefault(True)
         self.button_refresh.setObjectName(_fromUtf8("button_refresh"))
         self.gridLayout_5.addWidget(self.button_refresh, 0, 0, 1, 1)
-        spacerItem5 = QtGui.QSpacerItem(18, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_5.addItem(spacerItem5, 0, 1, 1, 1)
+        spacerItem9 = QtGui.QSpacerItem(18, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_5.addItem(spacerItem9, 0, 1, 1, 1)
         self.button_reset = QtGui.QPushButton(self.widget_buttonsReset)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -1068,25 +1175,6 @@ class Ui_GitWindow(object):
         self.gridLayout_9.addWidget(self.text_reset, 8, 0, 1, 1)
         self.tabWidget.addTab(self.tab_reset, _fromUtf8(""))
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
-        self.widget_buttonClose = QtGui.QWidget(self.centralwidget)
-        self.widget_buttonClose.setObjectName(_fromUtf8("widget_buttonClose"))
-        self.gridLayout_2 = QtGui.QGridLayout(self.widget_buttonClose)
-        self.gridLayout_2.setMargin(0)
-        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
-        spacerItem6 = QtGui.QSpacerItem(40, 21, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem6, 0, 0, 1, 1)
-        self.button_close = QtGui.QPushButton(self.widget_buttonClose)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.button_close.sizePolicy().hasHeightForWidth())
-        self.button_close.setSizePolicy(sizePolicy)
-        self.button_close.setMinimumSize(QtCore.QSize(100, 25))
-        self.button_close.setMaximumSize(QtCore.QSize(100, 25))
-        self.button_close.setDefault(True)
-        self.button_close.setObjectName(_fromUtf8("button_close"))
-        self.gridLayout_2.addWidget(self.button_close, 0, 1, 1, 1)
-        self.gridLayout.addWidget(self.widget_buttonClose, 1, 0, 1, 1)
         GitWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(GitWindow)
@@ -1105,7 +1193,13 @@ class Ui_GitWindow(object):
         GitWindow.setTabOrder(self.list_commit, self.button_createCommit)
         GitWindow.setTabOrder(self.button_createCommit, self.button_status)
         GitWindow.setTabOrder(self.button_status, self.text_status)
-        GitWindow.setTabOrder(self.text_status, self.tabWidget_merge)
+        GitWindow.setTabOrder(self.text_status, self.button_refreshIgnore)
+        GitWindow.setTabOrder(self.button_refreshIgnore, self.lineEdit_addIgnore)
+        GitWindow.setTabOrder(self.lineEdit_addIgnore, self.button_addIgnore)
+        GitWindow.setTabOrder(self.button_addIgnore, self.list_ignoreList)
+        GitWindow.setTabOrder(self.list_ignoreList, self.button_deleteIgnore)
+        GitWindow.setTabOrder(self.button_deleteIgnore, self.button_applyIgnore)
+        GitWindow.setTabOrder(self.button_applyIgnore, self.tabWidget_merge)
         GitWindow.setTabOrder(self.tabWidget_merge, self.box_old)
         GitWindow.setTabOrder(self.box_old, self.box_new)
         GitWindow.setTabOrder(self.box_new, self.lineEdit_old)
@@ -1124,6 +1218,7 @@ class Ui_GitWindow(object):
 
     def retranslateUi(self, GitWindow):
         GitWindow.setWindowTitle(_translate("GitWindow", "Работа с git", None))
+        self.button_close.setText(_translate("GitWindow", "Закрыть", None))
         self.label_timeFrom.setText(_translate("GitWindow", "с", None))
         self.timeEdit_from.setDisplayFormat(_translate("GitWindow", "HH:mm dd.MM.yyyy", None))
         self.label_timeTo.setText(_translate("GitWindow", "по", None))
@@ -1142,6 +1237,11 @@ class Ui_GitWindow(object):
         self.button_createCommit.setText(_translate("GitWindow", "Создать коммит", None))
         self.button_status.setText(_translate("GitWindow", "Показать статус", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_status), _translate("GitWindow", "Статус", None))
+        self.button_refreshIgnore.setText(_translate("GitWindow", "Обновить", None))
+        self.button_addIgnore.setText(_translate("GitWindow", "Добавить", None))
+        self.button_deleteIgnore.setText(_translate("GitWindow", "Удалить строку", None))
+        self.button_applyIgnore.setText(_translate("GitWindow", "Применить", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_ignore), _translate("GitWindow", "Игнор-лист", None))
         self.label_merge.setText(_translate("GitWindow", "<html><head/><body><p align=\"center\">Изменения будут применены от <span style=\" font-weight:600; color:#ff0000;\">СТАРОГО</span> файла к <span style=\" font-weight:600; color:#ff0000;\">НОВОМУ</span>.</p><p align=\"center\"><span style=\" font-weight:600; color:#ff0000;\">НОВЫЙ</span> файл будет <span style=\" font-weight:600;\">ПЕРЕЗАПИСАН</span>.</p></body></html>", None))
         self.label_titleSearch.setText(_translate("GitWindow", "Поиск файлов", None))
         self.label_old01.setText(_translate("GitWindow", "Старый файл", None))
@@ -1168,13 +1268,12 @@ class Ui_GitWindow(object):
         self.button_refresh.setText(_translate("GitWindow", "Обновить список", None))
         self.button_reset.setText(_translate("GitWindow", "Откатить", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_reset), _translate("GitWindow", "Откат изменений", None))
-        self.button_close.setText(_translate("GitWindow", "Закрыть", None))
 
 
 class Ui_SettingsWindow(object):
     def setupUi(self, SettingsWindow):
         SettingsWindow.setObjectName(_fromUtf8("SettingsWindow"))
-        SettingsWindow.resize(429, 203)
+        SettingsWindow.resize(410, 250)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -1186,11 +1285,58 @@ class Ui_SettingsWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
         self.centralwidget.setSizePolicy(sizePolicy)
-        self.centralwidget.setMaximumSize(QtCore.QSize(16777215, 203))
+        self.centralwidget.setMinimumSize(QtCore.QSize(410, 250))
+        self.centralwidget.setMaximumSize(QtCore.QSize(16777215, 250))
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout_3 = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout_3.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
         self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
+        self.widget_buttons = QtGui.QWidget(self.centralwidget)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_buttons.sizePolicy().hasHeightForWidth())
+        self.widget_buttons.setSizePolicy(sizePolicy)
+        self.widget_buttons.setObjectName(_fromUtf8("widget_buttons"))
+        self.gridLayout = QtGui.QGridLayout(self.widget_buttons)
+        self.gridLayout.setMargin(0)
+        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.button_default = QtGui.QPushButton(self.widget_buttons)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_default.sizePolicy().hasHeightForWidth())
+        self.button_default.setSizePolicy(sizePolicy)
+        self.button_default.setMinimumSize(QtCore.QSize(125, 25))
+        self.button_default.setMaximumSize(QtCore.QSize(125, 25))
+        self.button_default.setDefault(True)
+        self.button_default.setObjectName(_fromUtf8("button_default"))
+        self.gridLayout.addWidget(self.button_default, 0, 0, 1, 1)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 1, 1, 1)
+        self.button_apply = QtGui.QPushButton(self.widget_buttons)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_apply.sizePolicy().hasHeightForWidth())
+        self.button_apply.setSizePolicy(sizePolicy)
+        self.button_apply.setMinimumSize(QtCore.QSize(100, 25))
+        self.button_apply.setMaximumSize(QtCore.QSize(25, 100))
+        self.button_apply.setDefault(True)
+        self.button_apply.setObjectName(_fromUtf8("button_apply"))
+        self.gridLayout.addWidget(self.button_apply, 0, 2, 1, 1)
+        self.button_close = QtGui.QPushButton(self.widget_buttons)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_close.sizePolicy().hasHeightForWidth())
+        self.button_close.setSizePolicy(sizePolicy)
+        self.button_close.setMinimumSize(QtCore.QSize(100, 25))
+        self.button_close.setMaximumSize(QtCore.QSize(100, 25))
+        self.button_close.setDefault(True)
+        self.button_close.setObjectName(_fromUtf8("button_close"))
+        self.gridLayout.addWidget(self.button_close, 0, 3, 1, 1)
+        self.gridLayout_3.addWidget(self.widget_buttons, 6, 0, 1, 1)
         self.widget_lang = QtGui.QWidget(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -1224,6 +1370,30 @@ class Ui_SettingsWindow(object):
         self.box_lang.addItem(_fromUtf8(""))
         self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.box_lang)
         self.gridLayout_3.addWidget(self.widget_lang, 0, 0, 1, 1)
+        self.widget_browse = QtGui.QWidget(self.centralwidget)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_browse.sizePolicy().hasHeightForWidth())
+        self.widget_browse.setSizePolicy(sizePolicy)
+        self.widget_browse.setObjectName(_fromUtf8("widget_browse"))
+        self.gridLayout_2 = QtGui.QGridLayout(self.widget_browse)
+        self.gridLayout_2.setMargin(0)
+        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem1, 0, 0, 1, 1)
+        self.button_browse = QtGui.QPushButton(self.widget_browse)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.button_browse.sizePolicy().hasHeightForWidth())
+        self.button_browse.setSizePolicy(sizePolicy)
+        self.button_browse.setMinimumSize(QtCore.QSize(100, 25))
+        self.button_browse.setMaximumSize(QtCore.QSize(100, 25))
+        self.button_browse.setDefault(True)
+        self.button_browse.setObjectName(_fromUtf8("button_browse"))
+        self.gridLayout_2.addWidget(self.button_browse, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.widget_browse, 3, 0, 1, 1)
         self.widget_service = QtGui.QWidget(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -1257,6 +1427,34 @@ class Ui_SettingsWindow(object):
         self.lineEdit_service.setObjectName(_fromUtf8("lineEdit_service"))
         self.formLayout_2.setWidget(0, QtGui.QFormLayout.FieldRole, self.lineEdit_service)
         self.gridLayout_3.addWidget(self.widget_service, 1, 0, 1, 1)
+        self.widget_editor = QtGui.QWidget(self.centralwidget)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_editor.sizePolicy().hasHeightForWidth())
+        self.widget_editor.setSizePolicy(sizePolicy)
+        self.widget_editor.setObjectName(_fromUtf8("widget_editor"))
+        self.formLayout_5 = QtGui.QFormLayout(self.widget_editor)
+        self.formLayout_5.setFieldGrowthPolicy(QtGui.QFormLayout.ExpandingFieldsGrow)
+        self.formLayout_5.setMargin(0)
+        self.formLayout_5.setObjectName(_fromUtf8("formLayout_5"))
+        self.label_editor = QtGui.QLabel(self.widget_editor)
+        self.label_editor.setMinimumSize(QtCore.QSize(140, 25))
+        self.label_editor.setMaximumSize(QtCore.QSize(140, 25))
+        self.label_editor.setObjectName(_fromUtf8("label_editor"))
+        self.formLayout_5.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_editor)
+        self.lineEdit_editor = QtGui.QLineEdit(self.widget_editor)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lineEdit_editor.sizePolicy().hasHeightForWidth())
+        self.lineEdit_editor.setSizePolicy(sizePolicy)
+        self.lineEdit_editor.setMinimumSize(QtCore.QSize(250, 25))
+        self.lineEdit_editor.setMaximumSize(QtCore.QSize(16777215, 25))
+        self.lineEdit_editor.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.lineEdit_editor.setObjectName(_fromUtf8("lineEdit_editor"))
+        self.formLayout_5.setWidget(0, QtGui.QFormLayout.FieldRole, self.lineEdit_editor)
+        self.gridLayout_3.addWidget(self.widget_editor, 5, 0, 1, 1)
         self.widget_config = QtGui.QWidget(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -1289,103 +1487,38 @@ class Ui_SettingsWindow(object):
         self.lineEdit_config.setObjectName(_fromUtf8("lineEdit_config"))
         self.formLayout_6.setWidget(0, QtGui.QFormLayout.FieldRole, self.lineEdit_config)
         self.gridLayout_3.addWidget(self.widget_config, 2, 0, 1, 1)
-        self.widget_browse = QtGui.QWidget(self.centralwidget)
+        self.widget_system = QtGui.QWidget(self.centralwidget)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_browse.sizePolicy().hasHeightForWidth())
-        self.widget_browse.setSizePolicy(sizePolicy)
-        self.widget_browse.setObjectName(_fromUtf8("widget_browse"))
-        self.gridLayout_2 = QtGui.QGridLayout(self.widget_browse)
-        self.gridLayout_2.setMargin(0)
-        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem, 0, 0, 1, 1)
-        self.button_browse = QtGui.QPushButton(self.widget_browse)
+        sizePolicy.setHeightForWidth(self.widget_system.sizePolicy().hasHeightForWidth())
+        self.widget_system.setSizePolicy(sizePolicy)
+        self.widget_system.setObjectName(_fromUtf8("widget_system"))
+        self.gridLayout_4 = QtGui.QGridLayout(self.widget_system)
+        self.gridLayout_4.setMargin(0)
+        self.gridLayout_4.setObjectName(_fromUtf8("gridLayout_4"))
+        self.label_system = QtGui.QLabel(self.widget_system)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_system.sizePolicy().hasHeightForWidth())
+        self.label_system.setSizePolicy(sizePolicy)
+        self.label_system.setMinimumSize(QtCore.QSize(141, 25))
+        self.label_system.setMaximumSize(QtCore.QSize(16777215, 25))
+        self.label_system.setObjectName(_fromUtf8("label_system"))
+        self.gridLayout_4.addWidget(self.label_system, 0, 0, 1, 1)
+        self.checkBox_sudo = QtGui.QCheckBox(self.widget_system)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.button_browse.sizePolicy().hasHeightForWidth())
-        self.button_browse.setSizePolicy(sizePolicy)
-        self.button_browse.setMinimumSize(QtCore.QSize(100, 25))
-        self.button_browse.setMaximumSize(QtCore.QSize(100, 25))
-        self.button_browse.setObjectName(_fromUtf8("button_browse"))
-        self.gridLayout_2.addWidget(self.button_browse, 0, 1, 1, 1)
-        self.gridLayout_3.addWidget(self.widget_browse, 3, 0, 1, 1)
-        self.widget_editor = QtGui.QWidget(self.centralwidget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_editor.sizePolicy().hasHeightForWidth())
-        self.widget_editor.setSizePolicy(sizePolicy)
-        self.widget_editor.setObjectName(_fromUtf8("widget_editor"))
-        self.formLayout_5 = QtGui.QFormLayout(self.widget_editor)
-        self.formLayout_5.setFieldGrowthPolicy(QtGui.QFormLayout.ExpandingFieldsGrow)
-        self.formLayout_5.setMargin(0)
-        self.formLayout_5.setObjectName(_fromUtf8("formLayout_5"))
-        self.label_editor = QtGui.QLabel(self.widget_editor)
-        self.label_editor.setMinimumSize(QtCore.QSize(140, 25))
-        self.label_editor.setMaximumSize(QtCore.QSize(140, 25))
-        self.label_editor.setObjectName(_fromUtf8("label_editor"))
-        self.formLayout_5.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_editor)
-        self.lineEdit_editor = QtGui.QLineEdit(self.widget_editor)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_editor.sizePolicy().hasHeightForWidth())
-        self.lineEdit_editor.setSizePolicy(sizePolicy)
-        self.lineEdit_editor.setMinimumSize(QtCore.QSize(250, 25))
-        self.lineEdit_editor.setMaximumSize(QtCore.QSize(16777215, 25))
-        self.lineEdit_editor.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.lineEdit_editor.setObjectName(_fromUtf8("lineEdit_editor"))
-        self.formLayout_5.setWidget(0, QtGui.QFormLayout.FieldRole, self.lineEdit_editor)
-        self.gridLayout_3.addWidget(self.widget_editor, 4, 0, 1, 1)
-        self.widget_buttons = QtGui.QWidget(self.centralwidget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget_buttons.sizePolicy().hasHeightForWidth())
-        self.widget_buttons.setSizePolicy(sizePolicy)
-        self.widget_buttons.setObjectName(_fromUtf8("widget_buttons"))
-        self.gridLayout = QtGui.QGridLayout(self.widget_buttons)
-        self.gridLayout.setMargin(0)
-        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.button_default = QtGui.QPushButton(self.widget_buttons)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.button_default.sizePolicy().hasHeightForWidth())
-        self.button_default.setSizePolicy(sizePolicy)
-        self.button_default.setMinimumSize(QtCore.QSize(125, 25))
-        self.button_default.setMaximumSize(QtCore.QSize(125, 25))
-        self.button_default.setDefault(True)
-        self.button_default.setObjectName(_fromUtf8("button_default"))
-        self.gridLayout.addWidget(self.button_default, 0, 0, 1, 1)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem1, 0, 1, 1, 1)
-        self.button_apply = QtGui.QPushButton(self.widget_buttons)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.button_apply.sizePolicy().hasHeightForWidth())
-        self.button_apply.setSizePolicy(sizePolicy)
-        self.button_apply.setMinimumSize(QtCore.QSize(100, 25))
-        self.button_apply.setMaximumSize(QtCore.QSize(25, 100))
-        self.button_apply.setDefault(True)
-        self.button_apply.setObjectName(_fromUtf8("button_apply"))
-        self.gridLayout.addWidget(self.button_apply, 0, 2, 1, 1)
-        self.button_close = QtGui.QPushButton(self.widget_buttons)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.button_close.sizePolicy().hasHeightForWidth())
-        self.button_close.setSizePolicy(sizePolicy)
-        self.button_close.setMinimumSize(QtCore.QSize(100, 25))
-        self.button_close.setMaximumSize(QtCore.QSize(100, 25))
-        self.button_close.setDefault(True)
-        self.button_close.setObjectName(_fromUtf8("button_close"))
-        self.gridLayout.addWidget(self.button_close, 0, 3, 1, 1)
-        self.gridLayout_3.addWidget(self.widget_buttons, 5, 0, 1, 1)
+        sizePolicy.setHeightForWidth(self.checkBox_sudo.sizePolicy().hasHeightForWidth())
+        self.checkBox_sudo.setSizePolicy(sizePolicy)
+        self.checkBox_sudo.setMinimumSize(QtCore.QSize(160, 25))
+        self.checkBox_sudo.setMaximumSize(QtCore.QSize(160, 25))
+        self.checkBox_sudo.setChecked(True)
+        self.checkBox_sudo.setObjectName(_fromUtf8("checkBox_sudo"))
+        self.gridLayout_4.addWidget(self.checkBox_sudo, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.widget_system, 4, 0, 1, 1)
         SettingsWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(SettingsWindow)
@@ -1393,23 +1526,26 @@ class Ui_SettingsWindow(object):
         SettingsWindow.setTabOrder(self.box_lang, self.lineEdit_service)
         SettingsWindow.setTabOrder(self.lineEdit_service, self.lineEdit_config)
         SettingsWindow.setTabOrder(self.lineEdit_config, self.button_browse)
-        SettingsWindow.setTabOrder(self.button_browse, self.lineEdit_editor)
+        SettingsWindow.setTabOrder(self.button_browse, self.checkBox_sudo)
+        SettingsWindow.setTabOrder(self.checkBox_sudo, self.lineEdit_editor)
         SettingsWindow.setTabOrder(self.lineEdit_editor, self.button_default)
         SettingsWindow.setTabOrder(self.button_default, self.button_apply)
         SettingsWindow.setTabOrder(self.button_apply, self.button_close)
 
     def retranslateUi(self, SettingsWindow):
         SettingsWindow.setWindowTitle(_translate("SettingsWindow", "Настройки", None))
-        self.label_lang.setText(_translate("SettingsWindow", "Язык", None))
-        self.box_lang.setItemText(0, _translate("SettingsWindow", "English", None))
-        self.box_lang.setItemText(1, _translate("SettingsWindow", "Русский", None))
-        self.label_service.setText(_translate("SettingsWindow", "Service", None))
-        self.label_config.setText(_translate("SettingsWindow", "Настройки git-etc", None))
-        self.button_browse.setText(_translate("SettingsWindow", "Обзор", None))
-        self.label_editor.setText(_translate("SettingsWindow", "Текстовый редактор", None))
         self.button_default.setText(_translate("SettingsWindow", "По умолчанию", None))
         self.button_apply.setText(_translate("SettingsWindow", "Применить", None))
         self.button_close.setText(_translate("SettingsWindow", "Закрыть", None))
+        self.label_lang.setText(_translate("SettingsWindow", "Язык", None))
+        self.box_lang.setItemText(0, _translate("SettingsWindow", "English", None))
+        self.box_lang.setItemText(1, _translate("SettingsWindow", "Русский", None))
+        self.button_browse.setText(_translate("SettingsWindow", "Обзор", None))
+        self.label_service.setText(_translate("SettingsWindow", "Service", None))
+        self.label_editor.setText(_translate("SettingsWindow", "Текстовый редактор", None))
+        self.label_config.setText(_translate("SettingsWindow", "Настройки git-etc", None))
+        self.label_system.setText(_translate("SettingsWindow", "Системные настройки", None))
+        self.checkBox_sudo.setText(_translate("SettingsWindow", "Использовать sudo", None))
 
 
 class Ui_NotFound(object):
@@ -1717,6 +1853,7 @@ def read_settings(string):
     editor = "gvim"
     service = "git-etc.service"
     lang = "ENG"
+    sudo = "sudo "
     
     if (os.path.exists(config_gui)):
         with open(config_gui, 'r') as config_gui_file:
@@ -1729,6 +1866,9 @@ def read_settings(string):
                     service = line.split("==")[1]
                 if (line.split("==")[0] == "LANGUAGE"):
                     lang = line.split("==")[1]
+                if (line.split("==")[0] == "SUDO"):
+                    if (line.split("==")[1] == "NO"):
+                        sudo = ""
     
     if (string == "config"):
         return config
@@ -1738,6 +1878,8 @@ def read_settings(string):
         return service
     elif (string == "lang"):
         return lang
+    elif (string == "sudo"):
+        return sudo
 
 
 
@@ -1784,6 +1926,7 @@ class CommitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         
         label = 0
         for path in os.environ["PATH"].split(os.pathsep):
@@ -1797,7 +1940,7 @@ class CommitWindow(QtGui.QMainWindow):
             return
         
         filename = os.path.join(directory, str(self.ui.box_file.currentText()))
-        command_line = editor+" "+filename
+        command_line = sudo+editor+" "+filename
         os.system(command_line)
     
     def set_diff(self):
@@ -1813,14 +1956,15 @@ class CommitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         
         current_directory = os.getcwd()
         os.chdir(directory)
-        command_line = "sudo git show "+self._commit+" "+file_name
+        command_line = sudo+"git show "+self._commit+" "+file_name
         file_diff = commands.getoutput(command_line)
         
         output_text = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
@@ -1864,14 +2008,15 @@ p, li { white-space: pre-wrap; }
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         
         current_directory = os.getcwd()
         os.chdir(directory)
-        command_line = "sudo git show "+self._commit+" --name-only"
+        command_line = sudo+"git show "+self._commit+" --name-only"
         commit_file = commands.getoutput(command_line)
         
         for line in commit_file.split("\n"):
@@ -1985,20 +2130,63 @@ class GitWindow(QtGui.QMainWindow):
         
         QtCore.QObject.connect(self.ui.box_old, QtCore.SIGNAL("currentIndexChanged(int)"), self.setup_box_files)
         QtCore.QObject.connect(self.ui.box_typeReset, QtCore.SIGNAL("currentIndexChanged(int)"), self.reset_setup)
+        QtCore.QObject.connect(self.ui.button_addIgnore, QtCore.SIGNAL("clicked()"), self.add_ignore)
+        QtCore.QObject.connect(self.ui.button_applyIgnore, QtCore.SIGNAL("clicked()"), self.apply_ignore)
         QtCore.QObject.connect(self.ui.button_applyPatch, QtCore.SIGNAL("clicked()"), self.apply_patch)
         QtCore.QObject.connect(self.ui.button_browseNew, QtCore.SIGNAL("clicked()"), self.browse_new)
         QtCore.QObject.connect(self.ui.button_browseOld, QtCore.SIGNAL("clicked()"), self.browse_old)
         QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close_win)
         QtCore.QObject.connect(self.ui.button_createCommit, QtCore.SIGNAL("clicked()"), self.create_commit)
+        QtCore.QObject.connect(self.ui.button_deleteIgnore, QtCore.SIGNAL("clicked()"), self.delete_ignore)
         QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
         QtCore.QObject.connect(self.ui.button_patch, QtCore.SIGNAL("clicked()"), self.create_patch)
         QtCore.QObject.connect(self.ui.button_refresh, QtCore.SIGNAL("clicked()"), self.reset_setup)
+        QtCore.QObject.connect(self.ui.button_refreshIgnore, QtCore.SIGNAL("clicked()"), self.refresh_ignore)
         QtCore.QObject.connect(self.ui.button_reset, QtCore.SIGNAL("clicked()"), self.reset_commit)
         QtCore.QObject.connect(self.ui.button_status, QtCore.SIGNAL("clicked()"), self.get_status)
         QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
+        QtCore.QObject.connect(self.ui.list_ignoreList, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.ui.list_ignoreList.openPersistentEditor)
         QtCore.QObject.connect(self.ui.tabWidget, QtCore.SIGNAL("currentChanged(int)"), self.set_tab)
         QtCore.QObject.connect(self.ui.tabWidget_merge, QtCore.SIGNAL("currentChanged(int)"), self.set_merge)
         QtCore.QObject.connect(self.ui.tabWidget_search, QtCore.SIGNAL("currentChanged(int)"), self.set_mode)
+    
+    def add_ignore(self):
+        """Function to add new string in ignore-list"""
+        if (self.ui.lineEdit_addIgnore.text().length() == 0):
+            not_found = NotFound(parent=self, text="nofile")
+            not_found.show()
+            return
+        else:
+            new_item = self.ui.lineEdit_addIgnore.text()
+            self.ui.list_ignoreList.addItem(new_item)
+            self.ui.lineEdit_addIgnore.clear()
+    
+    def apply_ignore(self):
+        """Function to save ignore list"""
+        config = read_settings("config")
+        if (os.path.exists(config) == False):
+            not_found = NotFound(parent=self, text="conf")
+            not_found.show()
+            return
+        directory = read_config("directory")        
+        if (os.path.exists(directory) == False):
+            not_found = NotFound(parent=self, text="dir")
+            not_found.show()
+            return
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
+            not_found = NotFound(parent=self, text="gitdir")
+            not_found.show()
+            return
+        sudo = read_settings("sudo")
+        items = []
+        for item in range(self.ui.list_ignoreList.count()):
+            if (self.ui.list_ignoreList.isItemHidden(self.ui.list_ignoreList.item(item)) == False):
+                items = items + str(self.ui.list_ignoreList.item(item).text()).split("\n")
+        items = '\n'.join(items)
+        
+        command_line = sudo+"sh -c \"echo \'"+items+"\' > "+os.path.join(directory, ".git/info/exclude")+"\""
+        os.system(command_line)
+        self.refresh_ignore
     
     def apply_patch(self):
         """Function to apply created patch in MergeTab"""
@@ -2012,17 +2200,18 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         
         current_directory = os.getcwd()
         os.chdir(directory)
-        command_line = "sudo git apply < "+self._patch_name
+        command_line = sudo+"git apply < "+self._patch_name
         os.system(command_line)
         os.remove(self._patch_name)
-        command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
+        command_line = sudo+"git add -A . && "+sudo+"git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
         os.system(command_line)
         os.chdir(current_directory)
         
@@ -2041,7 +2230,7 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
@@ -2066,7 +2255,7 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
@@ -2092,6 +2281,8 @@ class GitWindow(QtGui.QMainWindow):
         self.ui.list_commit.clear()
         
         self.ui.text_status.clear()
+        
+        self.ui.list_ignoreList.clear()
         
         self.ui.tabWidget_merge.setCurrentIndex(0)
         self.ui.box_old.clear()
@@ -2128,16 +2319,17 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         
         current_directory = os.getcwd()
         os.chdir(directory)
-        command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
+        command_line = sudo+"git add -A . && "+sudo+"git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
         os.system(command_line)
-        command_line = "sudo git status --column"
+        command_line = sudo+"git status --column"
         self.ui.text_status.setText(commands.getoutput(command_line))
                 
         os.chdir(current_directory)
@@ -2157,7 +2349,7 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
@@ -2172,6 +2364,7 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="editor")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         
         if (self.ui.tabWidget_merge.currentIndex() == 0):
             new_file = os.path.join(directory, str(self.ui.box_new.currentText()))
@@ -2192,21 +2385,26 @@ class GitWindow(QtGui.QMainWindow):
                     
         current_directory = os.getcwd()
         os.chdir(directory)
-        os.system("sudo git checkout master > /dev/null")
-        command_line = "sudo git add -A . && sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
+        os.system(sudo+"git checkout master > /dev/null")
+        command_line = sudo+"git add -A . && "+sudo+"git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
         os.system(command_line)
-        last_commit = commands.getoutput("sudo git log -1 | grep commit | awk {'print $2'}")
-        os.system("sudo git checkout experimental > /dev/null")
-        command_line = "sudo cp "+old_file+" "+new_file
+        last_commit = commands.getoutput(sudo+"git log -1 | grep commit | awk {'print $2'}")
+        os.system(sudo+"git checkout experimental > /dev/null")
+        command_line = sudo+"cp "+old_file+" "+new_file
         os.system(command_line)
-        command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
+        command_line = sudo+"git add -A . && "+sudo+"git commit -m `date +%Y%m%d%H%M%S-%N` > /dev/null"
         os.system(command_line)
-        command_line = "sudo git diff "+last_commit+" HEAD "+new_file+" > "+self._patch_name
+        command_line = sudo+"git diff "+last_commit+" HEAD "+new_file+" > "+self._patch_name
         os.system(command_line)
-        os.system("sudo git checkout master > /dev/null")
+        os.system(sudo+"git checkout master > /dev/null")
         os.system(editor+" "+self._patch_name)
         os.chdir(current_directory)
         self.ui.button_applyPatch.setEnabled(1)
+    
+    def delete_ignore(self):
+        """Function to delete items in ignore list"""
+        delete_item = self.ui.list_ignoreList.currentItem()
+        self.ui.list_ignoreList.setItemHidden(delete_item, True)
     
     def get_status(self):
         """Function to get current status in git repository in StatusTab"""
@@ -2221,14 +2419,15 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         
         current_directory = os.getcwd()
         os.chdir(directory)
-        command_line = "sudo git status --column"
+        command_line = sudo+"git status --column"
         gitlog_file = commands.getoutput(command_line)
         self.ui.text_status.setText(gitlog_file)
                 
@@ -2247,10 +2446,11 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         
         if (self.ui.tabWidget_search.currentIndex() == 0):
             time_now = datetime.datetime.now()        
@@ -2266,7 +2466,7 @@ class GitWindow(QtGui.QMainWindow):
         
             current_directory = os.getcwd()
             os.chdir(directory)
-            command_line = "sudo git log --oneline "
+            command_line = sudo+"git log --oneline "
             command_line = command_line+"--since=\""+tif[0]+" days "+tif[1]+" hours "+tif[2]+" minutes\" "
             command_line = command_line+"--until=\""+tit[0]+" days "+tit[1]+" hours "+tit[2]+" minutes\" "
             gitlog_file = commands.getoutput(command_line)
@@ -2275,7 +2475,7 @@ class GitWindow(QtGui.QMainWindow):
             
             current_directory = os.getcwd()
             os.chdir(directory)
-            command_line = "sudo git log --oneline -"+times
+            command_line = sudo+"git log --oneline -"+times
             gitlog_file = commands.getoutput(command_line)
         elif (self.ui.tabWidget_search.currentIndex() == 2):
             date_now = datetime.date.today()        
@@ -2283,7 +2483,7 @@ class GitWindow(QtGui.QMainWindow):
         
             current_directory = os.getcwd()
             os.chdir(directory)
-            command_line = "sudo git log --oneline "
+            command_line = sudo+"git log --oneline "
             command_line = command_line+"--since=\""+str(date_interval.days+1)+" days\" "
             command_line = command_line+"--until=\""+str(date_interval.days)+" days\""
             gitlog_file = commands.getoutput(command_line)
@@ -2302,6 +2502,32 @@ class GitWindow(QtGui.QMainWindow):
             
         os.chdir(current_directory)
     
+    def refresh_ignore(self):
+        """Function to refresh ignore list in IgnoreTab"""
+        self.ui.list_ignoreList.clear()
+        self.ui.lineEdit_addIgnore.clear()
+        config = read_settings("config")
+        if (os.path.exists(config) == False):
+            not_found = NotFound(parent=self, text="conf")
+            not_found.show()
+            return
+        directory = read_config("directory")        
+        if (os.path.exists(directory) == False):
+            not_found = NotFound(parent=self, text="dir")
+            not_found.show()
+            return
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
+            not_found = NotFound(parent=self, text="gitdir")
+            not_found.show()
+            return
+        sudo = read_settings("sudo")
+        
+        command_line = sudo+"cat "+os.path.join(directory, ".git/info/exclude")
+        ignoreList = commands.getoutput(command_line).split("\n")
+        
+        self.ui.list_ignoreList.addItems(ignoreList)
+        self.ui.list_ignoreList.setCurrentRow(0)
+    
     def reset_commit(self):
         """Function to reset commit (or file changes) in ResetTab"""
         self.ui.text_reset.clear()
@@ -2315,10 +2541,11 @@ class GitWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
         if (len(str(self.ui.lineEdit_id.text())) < 7):
             not_found = NotFound(parent=self, text="id")
             not_found.show()
@@ -2332,9 +2559,9 @@ class GitWindow(QtGui.QMainWindow):
         os.chdir(directory)
         
         if (self.ui.box_typeReset.currentIndex() == 0):
-            command_line = "sudo git log --oneline"
+            command_line = sudo+"git log --oneline"
             list_commit = commands.getoutput(command_line)
-            command_line = "sudo git reset --hard "+commit
+            command_line = sudo+"git reset --hard "+commit
             output = commands.getoutput(command_line)
             
             self.ui.lineEdit_id.clear()
@@ -2351,22 +2578,22 @@ class GitWindow(QtGui.QMainWindow):
             patch = "tmp."+str(now.hour)+str(now.minute)+str(now.second)+str(now.microsecond)+".patch"
             
             self.ui.text_reset.setText("[II] Creating commit")
-            command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N`"
+            command_line = sudo+"git add -A . && "+sudo+"git commit -m `date +%Y%m%d%H%M%S-%N`"
             output = commands.getoutput(command_line)
             self.ui.text_reset.append(output)
             
             self.ui.text_reset.append("[II] Creating patch")
-            command_line = "sudo git diff HEAD "+commit+" "+filename+" > "+patch
+            command_line = sudo+"git diff HEAD "+commit+" "+filename+" > "+patch
             os.system(command_line)
             
             self.ui.text_reset.append("[II] Patching")
-            command_line = "sudo git apply < "+patch
+            command_line = sudo+"git apply < "+patch
             output = commands.getoutput(command_line)
             os.remove(patch)
             self.ui.text_reset.append(output+"[II] Done!")
             
             self.ui.text_reset.append("[II] Creating commit")
-            command_line = "sudo git add -A . && sudo git commit -m `date +%Y%m%d%H%M%S-%N`"
+            command_line = sudo+"git add -A . && "+sudo+"git commit -m `date +%Y%m%d%H%M%S-%N`"
             output = commands.getoutput(command_line)
             self.ui.text_reset.append(output)
             
@@ -2398,7 +2625,7 @@ class GitWindow(QtGui.QMainWindow):
                 self.ui.lineEdit_id.clear()
                 self.ui.box_typeReset.setCurrentIndex(0)
                 return
-            if (os.path.exists(directory+"/.git") == False):
+            if (os.path.exists(os.path.join(directory, ".git")) == False):
                 not_found = NotFound(parent=self, text="gitdir")
                 not_found.show()
                 self.ui.lineEdit_id.clear()
@@ -2414,10 +2641,11 @@ class GitWindow(QtGui.QMainWindow):
                 return
             else:
                 commit = str(self.ui.lineEdit_id.text())
+            sudo = read_settings("sudo")
             
             current_directory = os.getcwd()
             os.chdir(directory)
-            command_line = "sudo git show "+commit+" --name-only"
+            command_line = sudo+"git show "+commit+" --name-only"
             commit_file = commands.getoutput(command_line)
             
             if (commit_file[0:6] == "fatal:"):
@@ -2459,11 +2687,12 @@ class GitWindow(QtGui.QMainWindow):
                 not_found = NotFound(parent=self, text="dir")
                 not_found.show()
                 return
-            if (os.path.exists(directory+"/.git") == False):
+            if (os.path.exists(os.path.join(directory, ".git")) == False):
                 not_found = NotFound(parent=self, text="gitdir")
                 not_found.show()
                 return
-            command_line = "sudo ls -lARp --format=single-column "+directory
+            sudo = read_settings("sudo")
+            command_line = sudo+"ls -lARp --format=single-column "+directory
             list_files = commands.getoutput(command_line)
             preffix = directory
             for files in list_files.split("\n"):
@@ -2502,15 +2731,17 @@ class GitWindow(QtGui.QMainWindow):
     def set_tab(self):
         """Function to set tab"""
         if (self.ui.tabWidget.currentIndex() == 0):
-            self.ui.tabWidget.setCurrentIndex(0)
+            self.ui.tabWidget_search.setCurrentIndex(0)
             self.set_mode()
         elif (self.ui.tabWidget.currentIndex() == 1):
             self.ui.text_status.clear()
         elif (self.ui.tabWidget.currentIndex() == 2):
+            self.refresh_ignore()
+        elif (self.ui.tabWidget.currentIndex() == 3):
             self.ui.button_applyPatch.setDisabled(1)
             self.ui.tabWidget_merge.setCurrentIndex(0)
             self.set_merge()
-        elif (self.ui.tabWidget.currentIndex() == 3):
+        elif (self.ui.tabWidget.currentIndex() == 4):
             self.ui.box_typeReset.setCurrentIndex(0)
             self.ui.label_filename.hide()
             self.ui.box_filename.hide()
@@ -2539,7 +2770,9 @@ class NotFound(QtGui.QMainWindow):
         if (lang == "RUS"):
             self.setWindowTitle(u"Ошибка!")
             self.ui.button_ok.setText(u"Ok")
-            if (text == "commitnf"):
+            if (text == "ad"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Ошибка доступа</p></body></html>")
+            elif (text == "commitnf"):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанные коммиты не найдены</p></body></html>")
             elif (text == "conf"):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанный файл настроек не существует</p></body></html>")
@@ -2609,6 +2842,7 @@ class SettingsWindow(QtGui.QMainWindow):
         self.ui.lineEdit_config.setText("/etc/conf.d/git-etc.conf")
         self.ui.lineEdit_editor.setText("gvim")
         self.ui.box_lang.setCurrentIndex(0)
+        self.ui.checkBox_sudo.setCheckState(2)
         
         self.save_config()
     
@@ -2645,7 +2879,12 @@ class SettingsWindow(QtGui.QMainWindow):
                 config_gui_file.write("LANGUAGE==ENG==\n")
             else:
                 config_gui_file.write("LANGUAGE==RUS==\n")
+            if (self.ui.checkBox_sudo.checkState() == 2):
+                config_gui_file.write("SUDO==YES==""")
+            else:
+                config_gui_file.write("SUDO==NO==""")
         
+        self._parent.signals()
         self._parent.set_status()
         self._parent.ui.list_commit.clear()
         self.close()
@@ -2661,6 +2900,10 @@ class SettingsWindow(QtGui.QMainWindow):
                 self.ui.box_lang.setCurrentIndex(1)
             else:
                 self.ui.box_lang.setCurrentIndex(0)
+            if (read_settings("sudo") == "sudo "):
+                self.ui.checkBox_sudo.setCheckState(2)
+            else:
+                self.ui.checkBox_sudo.setCheckState(0)
         else:
             self.create_config()
     
@@ -2678,25 +2921,23 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.setupUi(self)
         
         self.setup()
+        self.signals()
         self.set_status()
         self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
         self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
         
         about_window = AboutWindow(parent=self)
         config_window = ConfigWindow(parent=self)
-        git_window = GitWindow(parent=self)
+        #git_window = GitWindow(parent=self)
         settings_window = SettingsWindow(parent=self)
-        
+            
         QtCore.QObject.connect(self.ui.action_about, QtCore.SIGNAL("triggered()"), about_window.show)
         QtCore.QObject.connect(self.ui.action_configure, QtCore.SIGNAL("triggered()"), config_window.show)
-        QtCore.QObject.connect(self.ui.action_git, QtCore.SIGNAL("triggered()"), git_window.show)
         QtCore.QObject.connect(self.ui.action_settings, QtCore.SIGNAL("triggered()"), settings_window.show)
         QtCore.QObject.connect(self.ui.action_exit, QtCore.SIGNAL("triggered()"), self.close)
-        QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
         QtCore.QObject.connect(self.ui.button_startService, QtCore.SIGNAL("clicked()"), self.start_service)
         QtCore.QObject.connect(self.ui.button_stopService, QtCore.SIGNAL("clicked()"), self.stop_service)
-        QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
-    
+        
     def commit_details(self):
         """Function to show CommitWindow"""
         commit = str(self.ui.list_commit.currentItem().text())[8:15]
@@ -2717,10 +2958,11 @@ class MainWindow(QtGui.QMainWindow):
             not_found = NotFound(parent=self, text="dir")
             not_found.show()
             return
-        if (os.path.exists(directory+"/.git") == False):
+        if (os.path.exists(os.path.join(directory, ".git")) == False):
             not_found = NotFound(parent=self, text="gitdir")
             not_found.show()
             return
+        sudo = read_settings("sudo")
                 
         time_now = datetime.datetime.now()        
         time_to = self.ui.timeEdit_to.dateTime().toPyDateTime()
@@ -2735,7 +2977,7 @@ class MainWindow(QtGui.QMainWindow):
         
         current_directory = os.getcwd()
         os.chdir(directory)
-        command_line = "sudo git log --oneline "
+        command_line = sudo+"git log --oneline "
         command_line = command_line+"--since=\""+tif[0]+" days "+tif[1]+" hours "+tif[2]+" minutes\" "
         command_line = command_line+"--until=\""+tit[0]+" days "+tit[1]+" hours "+tit[2]+" minutes\" "
         gitlog_file = commands.getoutput(command_line)
@@ -2757,8 +2999,9 @@ class MainWindow(QtGui.QMainWindow):
     def set_status(self):
         """Function to set service status"""
         service = read_settings("service")
+        sudo = read_settings("sudo")
         
-        command_line = "systemctl status "+service+" | grep Active" 
+        command_line = sudo+"systemctl status "+service+" | grep Active" 
         status_service = ' '.join(commands.getoutput(command_line).split()[1:3])
         
         self.ui.label_statusService.setText(status_service)
@@ -2775,20 +3018,48 @@ class MainWindow(QtGui.QMainWindow):
             config_gui_file.write("CONFIG==/etc/conf.d/git-etc.conf==\n")
             config_gui_file.write("EDITOR==gvim==\n")
             config_gui_file.write("LANGUAGE==ENG==\n")
+            config_gui_file.write("SUDO==YES==\n")
+        
+    def signals(self):
+        """Function to setup signals that enable"""
+        directory = read_config("directory")
+        sudo = read_settings("sudo")
+        git_window = GitWindow(parent=self)
+        
+        QtCore.QObject.disconnect(self.ui.action_git, QtCore.SIGNAL("triggered()"), git_window.show)
+        QtCore.QObject.disconnect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
+        QtCore.QObject.disconnect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
+        
+        if (os.path.exists(os.path.join(directory, ".git"))):
+            command_line = "ls "+os.path.join(directory, ".git")
+            access = commands.getoutput(command_line)
+            if ((access[0:3] == "ls:") and (sudo == "")):
+                not_found = NotFound(parent=self, text="ad")
+                not_found.show()
+            else:
+                QtCore.QObject.connect(self.ui.action_git, QtCore.SIGNAL("triggered()"), git_window.show)
+                QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
+                QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
+        else:
+            not_found = NotFound(parent=self, text="gitdir")
+            not_found.show()
+            return
     
     def start_service(self):
         """Function to start service"""
         service = read_settings("service")
+        sudo = read_settings("sudo")
         
-        command_line = "sudo systemctl start "+service
+        command_line = sudo+"systemctl start "+service
         os.system(command_line)
         self.set_status()
     
     def stop_service(self):
         """Function to stop service"""
         service = read_settings("service")
+        sudo = read_settings("sudo")
         
-        command_line = "sudo systemctl stop "+service
+        command_line = sudo+"systemctl stop "+service
         os.system(command_line)
         self.set_status()
 
