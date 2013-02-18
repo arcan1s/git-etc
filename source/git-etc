@@ -108,7 +108,7 @@ fi
 
 # Adding files in ignore-list
 echo "[II]: Cheching ignore-list"
-if [[ $IGNORELIST != NULL ]]; then
+if [[ -z "$IGNORELIST" ]]; then
   for IGNORE in $( echo $IGNORELIST ); do
     label=0
     for ITEMS in $( cat $GITDIR/info/exclude ); do
