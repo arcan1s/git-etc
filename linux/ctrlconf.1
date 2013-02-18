@@ -1,0 +1,29 @@
+.TH ctrlconf 1  "February 18, 2012" "version 2.0.0" "USER COMMANDS"
+.SH NAME
+ctrlconf - GUI for git-etc daemon
+.SH SYNOPSIS
+.B ctrlconf
+[--default] [-h|--help] [-v|--version]
+.SH DESCRIPTION
+.B ctrlconf
+is GUI for git-etc daemon written on Python2.7/PyQt4. This application allows you to view a list of commits and changes to files recorded in commit messages. Also, this application allows you to roll back to a specific commit all files or individual files. You may merge old and new configuration files.
+.SH OPTIONS
+.TP
+--default
+Create default configuration file.
+.TP
+-h | --help
+Show help and exit.
+.TP
+-v | --version
+Show version and exit.
+.SH FILES
+.TP
+~/.config/ctrlconf.conf
+Configuration file.
+.SH NOTES
+The application may need root privileges. Make sure that sudo-package is installed.
+.SH SEE ALSO
+.BR git-etc (1)
+.SH AUTHOR
+Evgeniy Alexeev aka arcanis <\fIesalexeev@gmail.com\fR>
