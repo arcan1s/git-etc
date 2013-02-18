@@ -1,28 +1,31 @@
-.TH git-etc 1  "February 13, 2012" "version 1.0a" "USER COMMANDS"
+.TH git-etc 1  "February 18, 2012" "version 2.0.0" "USER COMMANDS"
 .SH NAME
 git-etc - simple daemon
 .SH SYNOPSIS
 .B git-etc
-[-h | --help] [-v | --version] /path/to/directory time-to-sleep [ignore-list]
+[--for-all] [-i ignore-list] [-h|--help] [-v|--version] -d /path/to/directory -t time-to-sleep
 .SH DESCRIPTION
 .B git-etc
-is a simple daemon that automatically creates git repository in the given directory and creates commit at the specified time interval.
+is a simple daemon written on BASH that automatically creates git repository in the given directory and creates commit at the specified time interval.
 .SH OPTIONS
+.TP
+-d | --directory /path/to/directory
+Full path to working directory with observed files.
+.TP
+-t | --timesleep time-to-sleep
+Time interval between updates. It must be integer and >=1.
+.TP
+--for-all
+Do not change rights to .git during creation repository.
+.TP
+ignore-list
+List of files that will not be observed. Separator is ";;".
 .TP
 -h | --help
 Show help and exit.
 .TP
 -v | --version
 Show version and exit.
-.TP
-/path/to/directory
-Full path to working directory with observed files.
-.TP
-time-to-sleep
-Time interval between updates. It must be integer and >=1.
-.TP
-ignore-list
-List of files that will not be observed. Separator is ";;".
 .SH FILES
 .TP
 /usr/lib/systemd/system/git-etc.service
@@ -32,7 +35,7 @@ Systemd service file.
 Configuration file.
 .SH EXAMPLES
 .TP
-# git-etc /etc 12 mtab;;*[bB]ak;;*pacnew
+# git-etc -d /etc -t 12 -i mtab;;*[bB]ak;;*pacnew
 Start daemon in directory
 .B /etc
 with time interval between updates of 
@@ -86,5 +89,6 @@ to determine errors:
 .fi
 .SH SEE ALSO
 .BR git-etc.conf (5)
+.BR ctrlconf (1)
 .SH AUTHOR
 Evgeniy Alexeev aka arcanis <\fIesalexeev@gmail.com\fR>

@@ -1,5 +1,4 @@
 #!/bin/bash
-
 func_help() {
   echo -e "Simple daemon written on BASH for monitoring changes in files"
   echo -e "\nUsage: git-etc [ --for-all ] [ -i ignore-list ] [ -h | --help ] [ -v | --version ] -d /path/to/directory -t time-to-sleep" 
@@ -26,36 +25,37 @@ isnum () {
     (t=$(( 0$1+0 ))) 2>/dev/null
 }
 
-
 FORALL="1"
 until [ -z $1 ]; do
-  if [[ "$1" == "-h" ]]; then
+  if [ "$1" = "-h" ]; then
     func_help; fi
-  if [[ "$1" == "--help" ]]; then
+  if [ "$1" = "--help" ]; then
     func_help; fi
-  if [[ "$1" == "-v" ]]; then
+  if [ "$1" = "-v" ]; then
     func_ver; fi
-  if [[ "$1" == "--version" ]]; then
+  if [ "$1" = "--version" ]; then
     func_ver; fi
-  if [[ "$1" == "-d" ]]; then
+  if [ "$1" = "-d" ]; then
     DIRECTORY="$2"
     shift; fi
-  if [[ "$1" == "--directory" ]]; then
+  if [ "$1" = "--directory" ]; then
     DIRECTORY="$2"
     shift; fi
-  if [[ "$1" == "-t" ]]; then
+  if [ "$1" = "-t" ]; then
     TIMESLEEP="$2"
     shift; fi
-  if [[ "$1" == "--timesleep" ]]; then
+  if [ "$1" = "--timesleep" ]; then
     TIMESLEEP="$2"
     shift; fi
-  if [[ "$1" == "-i" ]]; then
+  if [ "$1" = "-i" ]; then
+    echo "good"
     IGNORELIST=`echo $2 | sed -e 's/;;/ /g'`
     shift; fi
-  if [[ "$1" == "--ignorelist" ]]; then
+  if [ "$1" = "--ignorelist" ]; then
+    echo "good"
     IGNORELIST=`echo $2 | sed -e 's/;;/ /g'`
     shift; fi
-  if [[ "$1" == "--for-all" ]]; then
+  if [ "$1" = "--for-all" ]; then
     FORALL="0"; fi
   shift
 done
@@ -99,16 +99,21 @@ if [ ! -d "$GITDIR" ]; then
   echo "[II]: Creating git repository"
   cd $DIRECTORY
   git init
-  cd /
   if [[ $FORALL == "1" ]]; then
     echo "[II]: Changing rights to '$GITDIR'"
     chmod -R o-rwx $GITDIR
   fi
+  echo "[II]: Creating initial commit"
+  git add -A .
+  git commit -m `date +%Y%m%d%H%M%S-%N`
+  cd /
 fi
 
 # Adding files in ignore-list
 echo "[II]: Cheching ignore-list"
-if [[ -z "$IGNORELIST" ]]; then
+if [ -z "$IGNORELIST" ]; then
+  echo "[WW]: IGNORELIST isn't set"
+else
   for IGNORE in $( echo $IGNORELIST ); do
     label=0
     for ITEMS in $( cat $GITDIR/info/exclude ); do
@@ -121,8 +126,6 @@ if [[ -z "$IGNORELIST" ]]; then
       echo $IGNORE >> $GITDIR/info/exclude
     fi
   done
-else
-  echo "[WW]: IGNORELIST isn't set"
 fi
 
 # Creating experimental branch
