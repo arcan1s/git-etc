@@ -48,7 +48,6 @@ until [ -z $1 ]; do
     TIMESLEEP="$2"
     shift; fi
   if [ "$1" = "-i" ]; then
-    echo "good"
     IGNORELIST=`echo $2 | sed -e 's/;;/ /g'`
     shift; fi
   if [ "$1" = "--ignorelist" ]; then
