@@ -1,38 +1,69 @@
 #!/bin/bash
 
-case "$1" in
-  -h | --help ) echo -e "Simple daemon for monitoring changes in files";\
-    echo -e "\nUsage: git-etc [ -h | --help ] [ -v | --version ] /path/to/directory time-to-sleep [ ignore-list ]";\
-    echo -e "\n  -v  --version - show version and exit";\
-    echo -e "  -h  --help    - show this help and exit";\
-    echo -e "\nSee \"man 1 git-etc\" for more details";\
-    exit 1;;
-  -v | --version ) echo -e "                   git-etc                   ";\
-    echo -e "Simple daemon for monitoring changes in files";\
-    echo -e "Version : 1.0a                  License : GPL";\
-    echo -e "Author :          Evgeniy Alexeev aka arcanis";\
-    echo -e "E-mail :             esalexeev (at) gmail.com";\
-    exit 1;;
-esac
-
-
+func_help() {
+  echo -e "Simple daemon written on BASH for monitoring changes in files"
+  echo -e "\nUsage: git-etc [ --for-all ] [ -i ignore-list ] [ -h | --help ] [ -v | --version ] -d /path/to/directory -t time-to-sleep" 
+  echo -e "\nRequired parameters:"
+  echo -e "  -d  --directory   - path to GIT repository"
+  echo -e "  -t  --timesleep   - time to sleep"
+  echo -e "\nAdditional parametrs:"
+  echo -e "      --for-all     - do not change rights to .git"
+  echo -e "  -i  --ignorelist  - files in ignore list"
+  echo -e "  -h  --help        - show this help and exit"
+  echo -e "  -v  --version     - show version and exit"
+  echo -e "\nSee \"man 1 git-etc\" for more details"
+  exit 1
+}
+func_ver() {
+  echo -e "                   git-etc                   "
+  echo -e "Simple daemon for monitoring changes in files"
+  echo -e "Version : 2.0.0                 License : GPL"
+  echo -e "Author :          Evgeniy Alexeev aka arcanis"
+  echo -e "E-mail :             esalexeev (at) gmail.com"
+  exit 1
+}
 isnum () {
     (t=$(( 0$1+0 ))) 2>/dev/null
 }
 
 
-if [[ -z "$1" || -z "$2" ]]; then
-  echo "[EE]: Parametrs aren't set"
-  exit 1
-else
-  DIRECTORY=$1
-  TIMESLEEP=$2
-fi
+FORALL="1"
+until [ -z $1 ]; do
+  if [[ "$1" == "-h" ]]; then
+    func_help; fi
+  if [[ "$1" == "--help" ]]; then
+    func_help; fi
+  if [[ "$1" == "-v" ]]; then
+    func_ver; fi
+  if [[ "$1" == "--version" ]]; then
+    func_ver; fi
+  if [[ "$1" == "-d" ]]; then
+    DIRECTORY="$2"
+    shift; fi
+  if [[ "$1" == "--directory" ]]; then
+    DIRECTORY="$2"
+    shift; fi
+  if [[ "$1" == "-t" ]]; then
+    TIMESLEEP="$2"
+    shift; fi
+  if [[ "$1" == "--timesleep" ]]; then
+    TIMESLEEP="$2"
+    shift; fi
+  if [[ "$1" == "-i" ]]; then
+    IGNORELIST=`echo $2 | sed -e 's/;;/ /g'`
+    shift; fi
+  if [[ "$1" == "--ignorelist" ]]; then
+    IGNORELIST=`echo $2 | sed -e 's/;;/ /g'`
+    shift; fi
+  if [[ "$1" == "--for-all" ]]; then
+    FORALL="0"; fi
+  shift
+done
 
-if [[ -z "$3" ]]; then
-  IGNORELIST=NULL
-else
-  IGNORELIST=`echo $3 | sed -e 's/;;/ /g'`
+if [[ -z "$DIRECTORY" || -z "$TIMESLEEP" ]]; then
+  echo "[EE]: Parametrs aren't set"
+  echo "Usage: git-etc [ --for-all ] [ -i ignore-list ] [ -h | --help ] [ -v | --version ] -d /path/to/directory -t time-to-sleep" 
+  exit 1
 fi
 
 if [ ! -d "$DIRECTORY" ]; then
@@ -69,18 +100,43 @@ if [ ! -d "$GITDIR" ]; then
   cd $DIRECTORY
   git init
   cd /
-  echo "[II]: Changing rights to '$GITDIR'"
-  chmod -R o-rwx $GITDIR
-  if [[ $IGNORELIST != NULL ]]; then
-    echo "[II]: Adding files in ingore-list"
-    for IGNORE in $( echo $IGNORELIST ); do
-      echo $IGNORE >> $GITDIR/info/exclude
-    done
-  else
-    echo "[WW]: IGNORELIST isn't set"
+  if [[ $FORALL == "1" ]]; then
+    echo "[II]: Changing rights to '$GITDIR'"
+    chmod -R o-rwx $GITDIR
   fi
 fi
 
+# Adding files in ignore-list
+echo "[II]: Cheching ignore-list"
+if [[ -z "$IGNORELIST" ]]; then
+  for IGNORE in $( echo $IGNORELIST ); do
+    label=0
+    for ITEMS in $( cat $GITDIR/info/exclude ); do
+      if [[ "$IGNORE" == $ITEMS ]]; then
+        label=1
+      fi
+    done
+    if [[ "$label" == 0 ]]; then
+      echo "[II]: Adding $IGNORE in ignore-list"
+      echo $IGNORE >> $GITDIR/info/exclude
+    fi
+  done
+else
+  echo "[WW]: IGNORELIST isn't set"
+fi
+
+# Creating experimental branch
+cd $DIRECTORY
+EXPERIMENTAL=`git branch | grep experimental`
+if [ -z "$EXPERIMENTAL" ]; then
+  echo "[II]: Creating experimental branch"
+  git branch experimental
+else
+  echo "[II]: Experimental branch already exists"
+fi
+cd /
+
+   
 
 # Forking
 (

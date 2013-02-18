@@ -64,7 +64,7 @@ class Ui_AboutWindow(object):
         self.gridLayout.addWidget(self.text_about, 0, 0, 1, 3)
         AboutWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(AboutWindow)
+        #self.retranslateUi(AboutWindow)
         QtCore.QMetaObject.connectSlotsByName(AboutWindow)
         AboutWindow.setTabOrder(self.text_about, self.button_close)
 
@@ -75,10 +75,10 @@ class Ui_AboutWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Droid Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">git2etc 2.0.0</p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config 2.0.0</p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Лицензия: GPL</p>\n"
 "<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">GUI интерфейс к демону git-etc, написанный на python2.7/PyQt4. Позволяет посмотреть список коммитов и изменения в файлах, записанные в коммитах. Также данное приложение позволяет откатить к определенному коммиту все файлы (git reset --hard) или отдельно взятые (git diff &amp;&amp; git apply). Дополнительно предусмотрена возможность слияния старых и новых конфигурационных файлов (используются две ветки репозитория - master и experimental).</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">GUI к демону git-etc, написанный на python2.7/PyQt4. Позволяет посмотреть список коммитов и изменения в файлах, записанные в коммитах. Также данное приложение позволяет откатить к определенному коммиту все файлы (git reset --hard) или отдельно взятые (git diff &amp;&amp; git apply). Дополнительно предусмотрена возможность слияния старых и новых конфигурационных файлов (используются две ветки репозитория - master и experimental).</p>\n"
 "<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Автор: Евгений Алексеев aka arcanis</p>\n"
 "<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">e-mail: esalexeev@gmail.com</p>\n"
@@ -199,7 +199,7 @@ class Ui_CommitWindow(object):
         self.gridLayout.addWidget(self.button_open, 5, 0, 1, 2)
         CommitWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(CommitWindow)
+        #self.retranslateUi(CommitWindow)
         QtCore.QMetaObject.connectSlotsByName(CommitWindow)
         CommitWindow.setTabOrder(self.box_file, self.text_filediff)
         CommitWindow.setTabOrder(self.text_filediff, self.button_open)
@@ -340,7 +340,7 @@ class Ui_ConfigureWindow(object):
         self.gridLayout.addWidget(self.label_ignoreList, 2, 0, 1, 4)
         ConfigureWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(ConfigureWindow)
+        #self.retranslateUi(ConfigureWindow)
         QtCore.QMetaObject.connectSlotsByName(ConfigureWindow)
         ConfigureWindow.setTabOrder(self.lineEdit_directory, self.lineEdit_timeSleep)
         ConfigureWindow.setTabOrder(self.lineEdit_timeSleep, self.lineEdit_ignoreList)
@@ -1177,7 +1177,7 @@ class Ui_GitWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         GitWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(GitWindow)
+        #self.retranslateUi(GitWindow)
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget_search.setCurrentIndex(0)
         self.tabWidget_merge.setCurrentIndex(0)
@@ -1521,7 +1521,7 @@ class Ui_SettingsWindow(object):
         self.gridLayout_3.addWidget(self.widget_system, 4, 0, 1, 1)
         SettingsWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(SettingsWindow)
+        #self.retranslateUi(SettingsWindow)
         QtCore.QMetaObject.connectSlotsByName(SettingsWindow)
         SettingsWindow.setTabOrder(self.box_lang, self.lineEdit_service)
         SettingsWindow.setTabOrder(self.lineEdit_service, self.lineEdit_config)
@@ -1790,7 +1790,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_main.menuAction())
         self.menubar.addAction(self.menu_help.menuAction())
 
-        self.retranslateUi(MainWindow)
+        #self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.button_startService, self.button_stopService)
         MainWindow.setTabOrder(self.button_stopService, self.timeEdit_from)
@@ -1799,7 +1799,7 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.button_get, self.list_commit)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "git2etc", None))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Control Config", None))
         self.timeEdit_from.setDisplayFormat(_translate("MainWindow", "HH:mm dd.MM.yyyy", None))
         self.label_timeFrom.setText(_translate("MainWindow", "с", None))
         self.timeEdit_to.setDisplayFormat(_translate("MainWindow", "H:mm dd.MM.yyyy", None))
@@ -1816,7 +1816,7 @@ class Ui_MainWindow(object):
         self.action_about.setText(_translate("MainWindow", "&О программе", None))
         self.action_configure.setText(_translate("MainWindow", "Настроить &сервис", None))
         self.action_configure.setShortcut(_translate("MainWindow", "Ctrl+S", None))
-        self.action_settings.setText(_translate("MainWindow", "&Настроить git2etc", None))
+        self.action_settings.setText(_translate("MainWindow", "&Настроить Control Config", None))
         self.action_settings.setShortcut(_translate("MainWindow", "Ctrl+P", None))
         self.action_git.setText(_translate("MainWindow", "Работа с &git", None))
         self.action_git.setShortcut(_translate("MainWindow", "Ctrl+G", None))
@@ -1848,7 +1848,7 @@ def read_config(string):
 
 def read_settings(string):
     """Function to reading GUI configuration file"""
-    config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+    config_gui = os.path.abspath(os.path.expanduser('~/.config/ctrlconf.conf'))
     config = "/etc/conf.d/git-etc.conf"
     editor = "gvim"
     service = "git-etc.service"
@@ -1890,7 +1890,44 @@ class AboutWindow(QtGui.QMainWindow):
         self.ui = Ui_AboutWindow()
         self.ui.setupUi(self)
         
+        self.load_text()
+        
         QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close)
+    
+    def load_text(self):
+        """Function to load text"""
+        lang = read_settings("lang")
+        self.setWindowTitle(_translate("AboutWindow", "About", None))
+        if (lang == "RUS"):
+            self.ui.button_close.setText(_translate("AboutWindow", "Закрыть", None))
+            self.ui.text_about.setHtml(_translate("AboutWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Droid Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config 2.0.0</p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Лицензия: GPL</p>\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">GUI к демону git-etc, написанный на Python2.7/PyQt4. Позволяет посмотреть список коммитов и изменения в файлах, записанные в коммитах. Также данное приложение позволяет откатить к определенному коммиту все файлы (git reset --hard) или отдельно взятые (git diff &amp;&amp; git apply). Дополнительно предусмотрена возможность слияния старых и новых конфигурационных файлов (используются две ветки репозитория - master и experimental).</p>\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Автор: Евгений Алексеев aka arcanis</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">e-mail: esalexeev@gmail.com</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Jabber: arcanis@jabber.ru</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">ICQ: 407-398-235</p></body></html>", None))
+        else:
+            self.ui.button_close.setText(_translate("AboutWindow", "Close", None))
+            self.ui.text_about.setHtml(_translate("AboutWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Droid Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config 2.0.0</p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">License: GPL</p>\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config is GUI for git-etc daemon written on Python2.7/PyQt4. This application allows you to view a list of commits and changes to files recorded in commit messages. Also, this application allows you to roll back to a specific commit all files (git reset --hard) or individual files (git diff && git apply). You may merge old and new configuration files (used two branches repository - master and experimental).</p>\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Author: Evgeniy Alexeev aka arcanis</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">e-mail: esalexeev@gmail.com</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Jabber: arcanis@jabber.ru</p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">ICQ: 407-398-235</p></body></html>", None))
         
     def keyPressEvent(self, event):
         """Esc-pressed event"""
@@ -1905,6 +1942,7 @@ class CommitWindow(QtGui.QMainWindow):
         self.ui = Ui_CommitWindow()
         self.ui.setupUi(self)
         
+        self.load_text()
         self._commit = commit
         self.setWindowTitle("Commit: "+commit)
         self.set_text()
@@ -1912,6 +1950,27 @@ class CommitWindow(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.box_file, QtCore.SIGNAL("currentIndexChanged(int)"), self.set_diff)        
         QtCore.QObject.connect(self.ui.button_close, QtCore.SIGNAL("clicked()"), self.close)
         QtCore.QObject.connect(self.ui.button_open, QtCore.SIGNAL("clicked()"), self.open_file)
+    
+    def load_text(self):
+        """Function to load text"""
+        lang = read_settings("lang")
+        self.setWindowTitle(_translate("CommitWindow", "Commit: ", None))
+        self.ui.label_date_name.setText(_translate("CommitWindow", "Date:", None))
+        self.ui.text_filediff.setHtml(_translate("CommitWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Monospace\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+        self.ui.label_commit_name.setText(_translate("CommitWindow", "Commit:", None))
+        self.ui.label_commit.setText(_translate("CommitWindow", "(unknown)", None))
+        self.ui.label_date.setText(_translate("CommitWindow", "(unknown)", None))
+        self.ui.label_file_name.setText(_translate("CommitWindow", "File:", None))
+        if (lang == "RUS"):
+            self.ui.button_close.setText(_translate("CommitWindow", "Закрыть", None))
+            self.ui.button_open.setText(_translate("CommitWindow", "Открыть в редакторе", None))
+        else:
+            self.ui.button_close.setText(_translate("CommitWindow", "Close", None))
+            self.ui.button_open.setText(_translate("CommitWindow", "Open in editor", None))
     
     def open_file(self):
         """Function to open file in graphical editor"""
@@ -2044,6 +2103,7 @@ class ConfigWindow(QtGui.QMainWindow):
         self.ui = Ui_ConfigureWindow()
         self.ui.setupUi(self)
         
+        self.load_text()
         self.read_config()
         
         QtCore.QObject.connect(self.ui.button_apply, QtCore.SIGNAL("clicked()"), self.setup_config)
@@ -2054,6 +2114,26 @@ class ConfigWindow(QtGui.QMainWindow):
         """Function to close window"""
         self.read_config()
         self.close()
+    
+    def load_text(self):
+        """Function to load text"""
+        lang = read_settings("lang")
+        if (lang == "RUS"):
+            self.setWindowTitle(_translate("ConfigureWindow", "Настроить сервис", None))
+            self.ui.label_directory.setText(_translate("ConfigureWindow", "Рабочая директория:", None))
+            self.ui.button_refresh.setText(_translate("ConfigureWindow", "Обновить", None))
+            self.ui.button_close.setText(_translate("ConfigureWindow", "Закрыть", None))
+            self.ui.button_apply.setText(_translate("ConfigureWindow", "Применить", None))
+            self.ui.label_timeSleep.setText(_translate("ConfigureWindow", "Интервал обновления, ч:", None))
+            self.ui.label_ignoreList.setText(_translate("ConfigureWindow", "Список игнорируемых файлов:", None))
+        else:
+            self.setWindowTitle(_translate("ConfigureWindow", "Configure service", None))
+            self.ui.label_directory.setText(_translate("ConfigureWindow", "Working directory:", None))
+            self.ui.button_refresh.setText(_translate("ConfigureWindow", "Refresh", None))
+            self.ui.button_close.setText(_translate("ConfigureWindow", "Close", None))
+            self.ui.button_apply.setText(_translate("ConfigureWindow", "Apply", None))
+            self.ui.label_timeSleep.setText(_translate("ConfigureWindow", "Time interval, hours:", None))
+            self.ui.label_ignoreList.setText(_translate("ConfigureWindow", "Ignore list:", None))
         
     def read_config(self):
         """Function to read service configuration file"""
@@ -2125,6 +2205,7 @@ class GitWindow(QtGui.QMainWindow):
         self.ui = Ui_GitWindow()
         self.ui.setupUi(self)
         
+        self.load_text()
         self.ui.tabWidget.setCurrentIndex(0)
         self.set_tab()
         
@@ -2502,6 +2583,111 @@ class GitWindow(QtGui.QMainWindow):
             
         os.chdir(current_directory)
     
+    def load_text(self):
+        """Function to load text"""
+        lang = read_settings("lang")
+        self.ui.timeEdit_from.setDisplayFormat(_translate("GitWindow", "HH:mm dd.MM.yyyy", None))
+        self.ui.timeEdit_to.setDisplayFormat(_translate("GitWindow", "H:mm dd.MM.yyyy", None))
+        self.ui.dateEdit_date.setDisplayFormat(_translate("GitWindow", "dd.MM.yyyy", None))
+        if (lang == "RUS"):
+            self.setWindowTitle(_translate("GitWindow", "Работа с git", None))
+            self.ui.button_close.setText(_translate("GitWindow", "Закрыть", None))
+            self.ui.label_timeFrom.setText(_translate("GitWindow", "с", None))
+            self.ui.label_timeTo.setText(_translate("GitWindow", "по", None))
+            self.ui.label_titleInt.setText(_translate("GitWindow", "В указанный интервал", None))
+            self.ui.tabWidget_search.setTabText(self.ui.tabWidget_search.indexOf(self.ui.tab_search_01), _translate("GitWindow", "В интервал", None))
+            self.ui.label_times.setText(_translate("GitWindow", "Число коммитов", None))
+            self.ui.label_titleTimes.setText(_translate("GitWindow", "По количеству коммитов", None))
+            self.ui.tabWidget_search.setTabText(self.ui.tabWidget_search.indexOf(self.ui.tab_search_02), _translate("GitWindow", "По числу коммитов", None))
+            self.ui.label_date.setText(_translate("GitWindow", "Дата коммита", None))
+            self.ui.label_titleDate.setText(_translate("GitWindow", "По дате коммита", None))
+            self.ui.tabWidget_search.setTabText(self.ui.tabWidget_search.indexOf(self.ui.tab_search_03), _translate("GitWindow", "По дате", None))
+            self.ui.button_get.setText(_translate("GitWindow", "Вывести", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_search), _translate("GitWindow", "Поиск", None))
+            self.ui.button_createCommit.setText(_translate("GitWindow", "Создать коммит", None))
+            self.ui.button_status.setText(_translate("GitWindow", "Показать статус", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_status), _translate("GitWindow", "Статус", None))
+            self.ui.button_refreshIgnore.setText(_translate("GitWindow", "Обновить", None))
+            self.ui.button_addIgnore.setText(_translate("GitWindow", "Добавить", None))
+            self.ui.button_deleteIgnore.setText(_translate("GitWindow", "Удалить строку", None))
+            self.ui.button_applyIgnore.setText(_translate("GitWindow", "Применить", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_ignore), _translate("GitWindow", "Игнор-лист", None))
+            self.ui.label_merge.setText(_translate("GitWindow", "<html><head/><body><p align=\"center\">Изменения будут применены от <span style=\" font-weight:600; color:#ff0000;\">СТАРОГО</span> файла к <span style=\" font-weight:600; color:#ff0000;\">НОВОМУ</span>.</p><p align=\"center\"><span style=\" font-weight:600; color:#ff0000;\">НОВЫЙ</span> файл будет <span style=\" font-weight:600;\">ПЕРЕЗАПИСАН</span>.</p></body></html>", None))
+            self.ui.label_titleSearch.setText(_translate("GitWindow", "Поиск файлов", None))
+            self.ui.label_old01.setText(_translate("GitWindow", "Старый файл", None))
+            self.ui.label_new01.setText(_translate("GitWindow", "Новый файл", None))
+            self.ui.tabWidget_merge.setTabText(self.ui.tabWidget_merge.indexOf(self.ui.tab_merge_01), _translate("GitWindow", "Поиск", None))
+            self.ui.label_old02.setText(_translate("GitWindow", "Старый файл", None))
+            self.ui.button_browseOld.setText(_translate("GitWindow", "Обзор", None))
+            self.ui.label_new02.setText(_translate("GitWindow", "Новый файл", None))
+            self.ui.button_browseNew.setText(_translate("GitWindow", "Обзор", None))
+            self.ui.label_titleBrowse.setText(_translate("GitWindow", "Указать файл вручную", None))
+            self.ui.tabWidget_merge.setTabText(self.ui.tabWidget_merge.indexOf(self.ui.tab_merge_02), _translate("GitWindow", "Указать", None))
+            self.ui.button_patch.setText(_translate("GitWindow", "Редактировать патч", None))
+            self.ui.button_applyPatch.setText(_translate("GitWindow", "Принять", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_merge), _translate("GitWindow", "Слияние", None))
+            self.ui.label_text1.setText(_translate("GitWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ff0000;\">Внимание!</span></p></body></html>", None))
+            self.ui.label_text2.setText(_translate("GitWindow", "Откат изменений может нарушить работу Вашей системы.", None))
+            self.ui.label_text3.setText(_translate("GitWindow", "Откат к другим версиям осуществляйте", None))
+            self.ui.label_text4.setText(_translate("GitWindow", "на свой страх и риск.", None))
+            self.ui.label_id.setText(_translate("GitWindow", "Идентификатор коммита", None))
+            self.ui.label_typeReset.setText(_translate("GitWindow", "Тип отката", None))
+            self.ui.box_typeReset.setItemText(0, _translate("GitWindow", "Откат всех файлов", None))
+            self.ui.box_typeReset.setItemText(1, _translate("GitWindow", "Откат одного файла", None))
+            self.ui.label_filename.setText(_translate("GitWindow", "Выберете файл", None))
+            self.ui.button_refresh.setText(_translate("GitWindow", "Обновить список", None))
+            self.ui.button_reset.setText(_translate("GitWindow", "Откатить", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_reset), _translate("GitWindow", "Откат изменений", None))
+        else:
+            self.setWindowTitle(_translate("GitWindow", "git", None))
+            self.ui.button_close.setText(_translate("GitWindow", "Close", None))
+            self.ui.label_timeFrom.setText(_translate("GitWindow", "from", None))
+            self.ui.label_timeTo.setText(_translate("GitWindow", "to", None))
+            self.ui.label_titleInt.setText(_translate("GitWindow", "In time interval", None))
+            self.ui.tabWidget_search.setTabText(self.ui.tabWidget_search.indexOf(self.ui.tab_search_01), _translate("GitWindow", "In interval", None))
+            self.ui.label_times.setText(_translate("GitWindow", "Number of commits", None))
+            self.ui.label_titleTimes.setText(_translate("GitWindow", "By number of commits", None))
+            self.ui.tabWidget_search.setTabText(self.ui.tabWidget_search.indexOf(self.ui.tab_search_02), _translate("GitWindow", "By number of commits", None))
+            self.ui.label_date.setText(_translate("GitWindow", "Date commit", None))
+            self.ui.label_titleDate.setText(_translate("GitWindow", "By date commit", None))
+            self.ui.tabWidget_search.setTabText(self.ui.tabWidget_search.indexOf(self.ui.tab_search_03), _translate("GitWindow", "By date", None))
+            self.ui.button_get.setText(_translate("GitWindow", "Display", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_search), _translate("GitWindow", "Search", None))
+            self.ui.button_createCommit.setText(_translate("GitWindow", "Create commit", None))
+            self.ui.button_status.setText(_translate("GitWindow", "Show status", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_status), _translate("GitWindow", "Status", None))
+            self.ui.button_refreshIgnore.setText(_translate("GitWindow", "Refresh", None))
+            self.ui.button_addIgnore.setText(_translate("GitWindow", "Add", None))
+            self.ui.button_deleteIgnore.setText(_translate("GitWindow", "Delete string", None))
+            self.ui.button_applyIgnore.setText(_translate("GitWindow", "Apply", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_ignore), _translate("GitWindow", "Ignore list", None))
+            self.ui.label_merge.setText(_translate("GitWindow", "<html><head/><body><p align=\"center\">Changes will be applied from <span style=\" font-weight:600; color:#ff0000;\">OLD</span> file to <span style=\" font-weight:600; color:#ff0000;\">NEW</span> file.</p><p align=\"center\"><span style=\" font-weight:600; color:#ff0000;\">NEW</span> file will be <span style=\" font-weight:600;\">OVERWRITTEN</span>.</p></body></html>", None))
+            self.ui.label_titleSearch.setText(_translate("GitWindow", "Search files", None))
+            self.ui.label_old01.setText(_translate("GitWindow", "Old file", None))
+            self.ui.label_new01.setText(_translate("GitWindow", "New file", None))
+            self.ui.tabWidget_merge.setTabText(self.ui.tabWidget_merge.indexOf(self.ui.tab_merge_01), _translate("GitWindow", "Search", None))
+            self.ui.label_old02.setText(_translate("GitWindow", "Jld file", None))
+            self.ui.button_browseOld.setText(_translate("GitWindow", "Browse", None))
+            self.ui.label_new02.setText(_translate("GitWindow", "New file", None))
+            self.ui.button_browseNew.setText(_translate("GitWindow", "Browse", None))
+            self.ui.label_titleBrowse.setText(_translate("GitWindow", "Set path to file", None))
+            self.ui.tabWidget_merge.setTabText(self.ui.tabWidget_merge.indexOf(self.ui.tab_merge_02), _translate("GitWindow", "Set path", None))
+            self.ui.button_patch.setText(_translate("GitWindow", "Edit patch", None))
+            self.ui.button_applyPatch.setText(_translate("GitWindow", "Apply", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_merge), _translate("GitWindow", "Merge", None))
+            self.ui.label_text1.setText(_translate("GitWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ff0000;\">Warning!</span></p></body></html>", None))
+            self.ui.label_text2.setText(_translate("GitWindow", "Revert changes may affect operation of your system.", None))
+            self.ui.label_text3.setText(_translate("GitWindow", "Rolling back to the other versions", None))
+            self.ui.label_text4.setText(_translate("GitWindow", "at your own risk.", None))
+            self.ui.label_id.setText(_translate("GitWindow", "Commit ID", None))
+            self.ui.label_typeReset.setText(_translate("GitWindow", "Merge type", None))
+            self.ui.box_typeReset.setItemText(0, _translate("GitWindow", "Full reset", None))
+            self.ui.box_typeReset.setItemText(1, _translate("GitWindow", "Оne file reset", None))
+            self.ui.label_filename.setText(_translate("GitWindow", "Choose file", None))
+            self.ui.button_refresh.setText(_translate("GitWindow", "Refresh list", None))
+            self.ui.button_reset.setText(_translate("GitWindow", "Reset", None))
+            self.ui.tabWidget.setTabText(self.ui.tabWidget.indexOf(self.ui.tab_reset), _translate("GitWindow", "Reset changes", None))
+    
     def refresh_ignore(self):
         """Function to refresh ignore list in IgnoreTab"""
         self.ui.list_ignoreList.clear()
@@ -2804,6 +2990,43 @@ class NotFound(QtGui.QMainWindow):
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Указанное значение не число</p></body></html>")
             else:
                 self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Неизвестная ошибка</p></body></html>")
+        else:
+            self.setWindowTitle(u"Error!")
+            self.ui.button_ok.setText(u"Ok")
+            if (text == "ad"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Access denied</p></body></html>")
+            elif (text == "commitnf"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Commits not found</p></body></html>")
+            elif (text == "conf"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Configuration file doesn't exists</p></body></html>")
+            elif (text == "dir"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Directory doesn't exists</p></body></html>")
+            elif (text == "editor"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Editor doesn't exists</p></body></html>")
+            elif (text == "fnf"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">File not found</p></body></html>")
+            elif (text == "gitdir"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Git repository not found</p></body></html>")
+            elif (text == "id"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">ID is too short</p></body></html>")
+            elif (text == "lone"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Value less than 1</p></body></html>")
+            elif (text == "noconfig"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">File name isn't set</p></body></html>")
+            elif (text == "nodir"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Directory isn't set</p></body></html>")
+            elif (text == "noeditor"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Editor isn't set</p></body></html>")
+            elif (text == "nofile"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">File isn't set</p></body></html>")
+            elif (text == "noservice"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Service isn't set</p></body></html>")
+            elif (text == "notime"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Time interval isn't set</p></body></html>")
+            elif (text == "notnum"):
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Value isn't a number</p></body></html>")
+            else:
+                self.ui.label_textError.setText(u"<html><head/><body><p align=\"center\">Unknown error</p></body></html>")
 
 
 class SettingsWindow(QtGui.QMainWindow):
@@ -2813,6 +3036,7 @@ class SettingsWindow(QtGui.QMainWindow):
         self.ui = Ui_SettingsWindow()
         self.ui.setupUi(self)
         
+        self.load_text()
         self._parent = parent        
         self.set_text()
         
@@ -2846,9 +3070,38 @@ class SettingsWindow(QtGui.QMainWindow):
         
         self.save_config()
     
+    def load_text(self):
+        """Function to load text"""
+        self.ui.box_lang.setItemText(0, _translate("SettingsWindow", "English", None))
+        self.ui.box_lang.setItemText(1, _translate("SettingsWindow", "Русский", None))
+        self.ui.label_service.setText(_translate("SettingsWindow", "Service", None))
+        lang = read_settings("lang")
+        if (lang == "RUS"):
+            self.setWindowTitle(_translate("SettingsWindow", "Настройки", None))
+            self.ui.button_default.setText(_translate("SettingsWindow", "По умолчанию", None))
+            self.ui.button_apply.setText(_translate("SettingsWindow", "Применить", None))
+            self.ui.button_close.setText(_translate("SettingsWindow", "Закрыть", None))
+            self.ui.label_lang.setText(_translate("SettingsWindow", "Язык", None))
+            self.ui.button_browse.setText(_translate("SettingsWindow", "Обзор", None))
+            self.ui.label_editor.setText(_translate("SettingsWindow", "Текстовый редактор", None))
+            self.ui.label_config.setText(_translate("SettingsWindow", "Настройки сервиса", None))
+            self.ui.label_system.setText(_translate("SettingsWindow", "Системные настройки", None))
+            self.ui.checkBox_sudo.setText(_translate("SettingsWindow", "Использовать sudo", None))
+        else:
+            self.setWindowTitle(_translate("SettingsWindow", "Settings", None))
+            self.ui.button_default.setText(_translate("SettingsWindow", "Default", None))
+            self.ui.button_apply.setText(_translate("SettingsWindow", "Apply", None))
+            self.ui.button_close.setText(_translate("SettingsWindow", "Close", None))
+            self.ui.label_lang.setText(_translate("SettingsWindow", "Language", None))
+            self.ui.button_browse.setText(_translate("SettingsWindow", "Browse", None))
+            self.ui.label_editor.setText(_translate("SettingsWindow", "Editor", None))
+            self.ui.label_config.setText(_translate("SettingsWindow", "Service settings", None))
+            self.ui.label_system.setText(_translate("SettingsWindow", "System settings", None))
+            self.ui.checkBox_sudo.setText(_translate("SettingsWindow", "Enable sudo", None))
+    
     def save_config(self):
         """Function to save configuration file"""
-        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/ctrlconf.conf'))
         if (os.path.exists(config_gui)):
             os.remove(config_gui)
         
@@ -2885,13 +3138,20 @@ class SettingsWindow(QtGui.QMainWindow):
                 config_gui_file.write("SUDO==NO==""")
         
         self._parent.signals()
+        
+        self.load_text()
+        self._parent.load_text()
+        self._parent.about_window.load_text()
+        self._parent.git_window.load_text()
+        self._parent.config_window.load_text()
+        
         self._parent.set_status()
         self._parent.ui.list_commit.clear()
         self.close()
 
     def set_text(self):
         """Function to load configuration file"""
-        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/ctrlconf.conf'))
         if (os.path.exists(config_gui)):
             self.ui.lineEdit_service.setText(read_settings("service"))
             self.ui.lineEdit_config.setText(read_settings("config"))
@@ -2920,20 +3180,21 @@ class MainWindow(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
+        self.about_window = AboutWindow(parent=self)
+        self.config_window = ConfigWindow(parent=self)
+        self.git_window = GitWindow(parent=self)
+        self.settings_window = SettingsWindow(parent=self)
+        
         self.setup()
+        self.load_text()
         self.signals()
         self.set_status()
         self.ui.timeEdit_to.setDate(QtCore.QDate.currentDate())
         self.ui.timeEdit_to.setTime(QtCore.QTime.currentTime())
-        
-        about_window = AboutWindow(parent=self)
-        config_window = ConfigWindow(parent=self)
-        #git_window = GitWindow(parent=self)
-        settings_window = SettingsWindow(parent=self)
             
-        QtCore.QObject.connect(self.ui.action_about, QtCore.SIGNAL("triggered()"), about_window.show)
-        QtCore.QObject.connect(self.ui.action_configure, QtCore.SIGNAL("triggered()"), config_window.show)
-        QtCore.QObject.connect(self.ui.action_settings, QtCore.SIGNAL("triggered()"), settings_window.show)
+        QtCore.QObject.connect(self.ui.action_about, QtCore.SIGNAL("triggered()"), self.about_window.show)
+        QtCore.QObject.connect(self.ui.action_configure, QtCore.SIGNAL("triggered()"), self.config_window.show)
+        QtCore.QObject.connect(self.ui.action_settings, QtCore.SIGNAL("triggered()"), self.settings_window.show)
         QtCore.QObject.connect(self.ui.action_exit, QtCore.SIGNAL("triggered()"), self.close)
         QtCore.QObject.connect(self.ui.button_startService, QtCore.SIGNAL("clicked()"), self.start_service)
         QtCore.QObject.connect(self.ui.button_stopService, QtCore.SIGNAL("clicked()"), self.stop_service)
@@ -2996,6 +3257,50 @@ class MainWindow(QtGui.QMainWindow):
                
         os.chdir(current_directory)
     
+    def load_text(self):
+        """Function to load text"""
+        lang = read_settings("lang")
+        self.setWindowTitle(_translate("MainWindow", "Control Config", None))
+        self.ui.timeEdit_from.setDisplayFormat(_translate("MainWindow", "HH:mm dd.MM.yyyy", None))
+        self.ui.timeEdit_to.setDisplayFormat(_translate("MainWindow", "H:mm dd.MM.yyyy", None))
+        self.ui.label_statusService.setText(_translate("MainWindow", "(unknown)", None))
+        if (lang == "RUS"):
+            self.ui.label_timeFrom.setText(_translate("MainWindow", "с", None))
+            self.ui.label_timeTo.setText(_translate("MainWindow", "по", None))
+            self.ui.button_get.setText(_translate("MainWindow", "Вывести", None))
+            self.ui.label_statusText.setText(_translate("MainWindow", "Статус:", None))
+            self.ui.button_stopService.setText(_translate("MainWindow", "Стоп", None))
+            self.ui.button_startService.setText(_translate("MainWindow", "Запуск", None))
+            self.ui.menu_main.setTitle(_translate("MainWindow", "&Меню", None))
+            self.ui.menu_help.setTitle(_translate("MainWindow", "&Справка", None))
+            self.ui.action_exit.setText(_translate("MainWindow", "&Выход", None))
+            self.ui.action_exit.setShortcut(_translate("MainWindow", "Ctrl+Q", None))
+            self.ui.action_about.setText(_translate("MainWindow", "&О программе", None))
+            self.ui.action_configure.setText(_translate("MainWindow", "Настроить &сервис", None))
+            self.ui.action_configure.setShortcut(_translate("MainWindow", "Ctrl+S", None))
+            self.ui.action_settings.setText(_translate("MainWindow", "&Настройки", None))
+            self.ui.action_settings.setShortcut(_translate("MainWindow", "Ctrl+P", None))
+            self.ui.action_git.setText(_translate("MainWindow", "Работа с &git", None))
+            self.ui.action_git.setShortcut(_translate("MainWindow", "Ctrl+G", None))
+        else:
+            self.ui.label_timeFrom.setText(_translate("MainWindow", "from", None))
+            self.ui.label_timeTo.setText(_translate("MainWindow", "to", None))
+            self.ui.button_get.setText(_translate("MainWindow", "Display", None))
+            self.ui.label_statusText.setText(_translate("MainWindow", "Status:", None))
+            self.ui.button_stopService.setText(_translate("MainWindow", "Stop", None))
+            self.ui.button_startService.setText(_translate("MainWindow", "Start", None))
+            self.ui.menu_main.setTitle(_translate("MainWindow", "&Menu", None))
+            self.ui.menu_help.setTitle(_translate("MainWindow", "&Help", None))
+            self.ui.action_exit.setText(_translate("MainWindow", "&Quit", None))
+            self.ui.action_exit.setShortcut(_translate("MainWindow", "Ctrl+Q", None))
+            self.ui.action_about.setText(_translate("MainWindow", "&About", None))
+            self.ui.action_configure.setText(_translate("MainWindow", "Service setup", None))
+            self.ui.action_configure.setShortcut(_translate("MainWindow", "Ctrl+S", None))
+            self.ui.action_settings.setText(_translate("MainWindow", "&Settings", None))
+            self.ui.action_settings.setShortcut(_translate("MainWindow", "Ctrl+P", None))
+            self.ui.action_git.setText(_translate("MainWindow", "&git", None))
+            self.ui.action_git.setShortcut(_translate("MainWindow", "Ctrl+G", None))
+    
     def set_status(self):
         """Function to set service status"""
         service = read_settings("service")
@@ -3008,12 +3313,12 @@ class MainWindow(QtGui.QMainWindow):
     
     def setup(self):
         """Function to create configuration file if it doesn't exists"""
-        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/ctrlconf.conf'))
         if (os.path.exists(config_gui)):
             return
         
         with open(config_gui, 'w') as config_gui_file:
-            config_gui_file.write("# Automatically generated by git2etc\n")
+            config_gui_file.write("# Automatically generated by Control Config\n")
             config_gui_file.write("SERVICE==git-etc.service==\n")
             config_gui_file.write("CONFIG==/etc/conf.d/git-etc.conf==\n")
             config_gui_file.write("EDITOR==gvim==\n")
@@ -3024,9 +3329,8 @@ class MainWindow(QtGui.QMainWindow):
         """Function to setup signals that enable"""
         directory = read_config("directory")
         sudo = read_settings("sudo")
-        git_window = GitWindow(parent=self)
         
-        QtCore.QObject.disconnect(self.ui.action_git, QtCore.SIGNAL("triggered()"), git_window.show)
+        QtCore.QObject.disconnect(self.ui.action_git, QtCore.SIGNAL("triggered()"), self.git_window.show)
         QtCore.QObject.disconnect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
         QtCore.QObject.disconnect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
         
@@ -3037,7 +3341,7 @@ class MainWindow(QtGui.QMainWindow):
                 not_found = NotFound(parent=self, text="ad")
                 not_found.show()
             else:
-                QtCore.QObject.connect(self.ui.action_git, QtCore.SIGNAL("triggered()"), git_window.show)
+                QtCore.QObject.connect(self.ui.action_git, QtCore.SIGNAL("triggered()"), self.git_window.show)
                 QtCore.QObject.connect(self.ui.button_get, QtCore.SIGNAL("clicked()"), self.get_text)
                 QtCore.QObject.connect(self.ui.list_commit, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.commit_details)
         else:
@@ -3065,8 +3369,8 @@ class MainWindow(QtGui.QMainWindow):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='GUI interface for git-etc daemon', 
-            epilog='See "man 1 git2etc" for more details')
+    parser = argparse.ArgumentParser(description='GUI for git-etc daemon', 
+            epilog='See "man 1 ctrlconf" for more details')
     parser.add_argument('-v','--version', dest='ver',
             help = 'Show version and exit',
             action='store_true', default = False)
@@ -3076,14 +3380,14 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     if (args.ver):
-        print ("                          git2etc")
-        print ("GUI interface for git-etc daemon to work with GIT repository")
-        print ("Version : 2.0                                  License : GPL")
-        print ("                                                  by arcanis")
-        print ("                                E-mail : esalexeev@gmail.com")
+        print ("                    Control Config")
+        print ("GUI for git-etc daemon to work with GIT repository")
+        print ("Version : 2.0                        License : GPL")
+        print ("                                        by arcanis")
+        print ("                      E-mail : esalexeev@gmail.com")
         sys.exit()
     if (args.createDefault):
-        config_gui = os.path.abspath(os.path.expanduser('~/.config/git2etc.conf'))
+        config_gui = os.path.abspath(os.path.expanduser('~/.config/ctrlconf.conf'))
         if (os.path.exists(config_gui)):
             os.remove(config_gui)
     
@@ -3091,6 +3395,6 @@ if __name__ == "__main__":
     codec = QtCore.QTextCodec.codecForName("UTF-8")
     QtCore.QTextCodec.setCodecForCStrings(codec)
     
-    git2etc = MainWindow()
-    git2etc.show()
+    ctrlconf = MainWindow()
+    ctrlconf.show()
     sys.exit(app.exec_())

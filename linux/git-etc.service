@@ -4,7 +4,7 @@ Description=git-etc daemon
 [Service]
 EnvironmentFile=/etc/conf.d/git-etc.conf
 Type=forking
-ExecStart=/usr/bin/git-etc $DIRECTORY $TIMESLEEP $IGNORELIST
+ExecStart=/usr/bin/git-etc -d $DIRECTORY -t $TIMESLEEP -i $IGNORELIST
 RemainAfterExit=yes
 
 [Install]
