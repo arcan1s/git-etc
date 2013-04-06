@@ -144,6 +144,9 @@ cd /
   while true; do
 # Creating commit
     cd $DIRECTORY
+    echo "[II]: Set username and e-mail"
+    git config user.name "git-etc"
+    git config user.email "git-etc@mail"
     echo "[II]: Adding files" 
     git add -A .
     echo "[II]: Creating new commit"
