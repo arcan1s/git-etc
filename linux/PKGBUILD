@@ -2,8 +2,8 @@
 # Maintainer: Evgeniy "arcanis" Alexeev <esalexeev@gmail.com>
 
 pkgname=git-etc
-pkgver=2.1.1
-pkgrel=2
+pkgver=2.1.2
+pkgrel=1
 pkgdesc=" Simple daemon for monitoring changes in files "
 url="https://github.com/arcan1s/git-etc"
 license=("GPL")

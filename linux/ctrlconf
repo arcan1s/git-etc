@@ -13,7 +13,7 @@ func_help() {
 func_ver() {
   echo -e "                    Control Config"
   echo -e "GUI for git-etc daemon to work with GIT repository"
-  echo -e "Version : 2.1.1                      License : GPL"
+  echo -e "Version : 2.1.2                      License : GPL"
   echo -e "                                        by arcanis"
   echo -e "                      E-mail : esalexeev@gmail.com"
   exit 1
