@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Control Config
+Comment=GUI for git-etc daemon
+Exec=ctrlconf
+Icon=system
+Terminal=false
+Encoding=UTF-8
+Type=Application
+Categories=Qt;System;

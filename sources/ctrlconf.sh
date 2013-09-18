@@ -34,4 +34,4 @@ until [ -z $1 ]; do
   shift
 done
 
-xterm -e /usr/lib/ctrlconf.py
+xterm -e "cd /usr/lib/python2.7/site-packages/ && ./ctrlconf.py"
