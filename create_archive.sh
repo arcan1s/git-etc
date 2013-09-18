@@ -23,6 +23,6 @@ cp sources/ctrlconf/*.py* git-etc/usr/lib/python2.7/site-packages/ctrlconf/
 cp install.sh git-etc/
 
 cd git-etc
-tar -cf - * | xz -9 -c - > ../git-etc-2.2.0.tar.xz
+tar -cf - * | xz -9 -c - > ../git-etc-2.2.1.tar.xz
 cd ..
 rm -r git-etc

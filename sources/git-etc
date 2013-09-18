@@ -16,7 +16,7 @@ func_help() {
 func_ver() {
   echo -e "                   git-etc                   "
   echo -e "Simple daemon for monitoring changes in files"
-  echo -e "Version : 2.2.0                 License : GPL"
+  echo -e "Version : 2.2.1                 License : GPL"
   echo -e "Author :          Evgeniy Alexeev aka arcanis"
   echo -e "E-mail :             esalexeev (at) gmail.com"
   exit 1

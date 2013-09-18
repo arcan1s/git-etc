@@ -2,7 +2,7 @@
 # Maintainer: Evgeniy "arcanis" Alexeev <esalexeev@gmail.com>
 
 pkgname=git-etc
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="Simple daemon for monitoring changes in files"
 arch=('x86_64')
