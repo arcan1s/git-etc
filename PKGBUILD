@@ -12,7 +12,7 @@ depends=('bash' 'git')
 optdepends=('python2-pyqt4: for GUI'
             'xterm: for GUI')
 source=(https://github.com/arcan1s/git-etc/releases/download/V.${pkgver}/${pkgname}-${pkgver}.tar.xz)
-md5sums=('502081640d842ca9a2c8ec77a99b7349')
+md5sums=('32374e9285bc0cc330a4aea6932bbeb4')
 backup=('etc/conf.d/git-etc.conf')
 
 package()
