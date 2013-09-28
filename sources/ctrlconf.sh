@@ -13,7 +13,7 @@ func_help() {
 func_ver() {
   echo -e "                    Control Config"
   echo -e "GUI for git-etc daemon to work with GIT repository"
-  echo -e "Version : 2.2.1                      License : GPL"
+  echo -e "Version : 2.2.2                      License : GPL"
   echo -e "                                        by arcanis"
   echo -e "                      E-mail : esalexeev@gmail.com"
   exit 1
@@ -30,8 +30,8 @@ until [ -z $1 ]; do
     func_ver; fi
   if [ "$1" = "--default" ]; then
     if [ -f "~/.config/ctrlconf.conf" ]; then
-      rm ~/.config/ctrlconf.conf; fi; fi
+      rm $HOME/.config/ctrlconf.conf; fi; fi
   shift
 done
 
-xterm -e "cd /usr/lib/python2.7/site-packages/ && ./ctrlconf.py"
+xterm -e "python2 /usr/lib/python2.7/site-packages/ctrlconf.py"
