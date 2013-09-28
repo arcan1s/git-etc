@@ -11,7 +11,7 @@ func_help() {
   echo -e "  -h  --help        - show this help and exit"
   echo -e "  -v  --version     - show version and exit"
   echo -e "\nSee \"man 1 git-etc\" for more details"
-  exit 1
+  exit 0
 }
 func_ver() {
   echo -e "                   git-etc                   "
@@ -19,7 +19,7 @@ func_ver() {
   echo -e "Version : 2.2.2                 License : GPL"
   echo -e "Author :          Evgeniy Alexeev aka arcanis"
   echo -e "E-mail :             esalexeev (at) gmail.com"
-  exit 1
+  exit 0
 }
 isnum () {
     (t=$(( 0$1+0 ))) 2>/dev/null
@@ -140,7 +140,7 @@ else
 fi
 cd /
 
-   
+
 
 # Forking
 (

@@ -8,7 +8,7 @@ func_help() {
   echo -e "  -h  --help        - show this help and exit"
   echo -e "  -v  --version     - show version and exit"
   echo -e "\nSee \"man 1 ctrlconf\" for more details"
-  exit 1
+  exit 0
 }
 func_ver() {
   echo -e "                    Control Config"
@@ -16,7 +16,7 @@ func_ver() {
   echo -e "Version : 2.2.2                      License : GPL"
   echo -e "                                        by arcanis"
   echo -e "                      E-mail : esalexeev@gmail.com"
-  exit 1
+  exit 0
 }
 
 until [ -z $1 ]; do
