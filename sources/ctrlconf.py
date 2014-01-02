@@ -56,22 +56,22 @@ def read_config(string):
     config = read_settings("config")
     if (config == 0):
         return 0
-    
     directory = "/etc/"
     timesleep = "12"
     ignorelist = "mtab;;*.Bak;;*.bak;;*.pacnew;;*.pacsave;;*.pacorig;;*.new;;*.old;;*.bckp;;ld.so.cache"
     forall = "1"
-    with open(config, 'r') as config_file:
-        for line in config_file:
-            if (line[0] != "#"):
-                if (line.split("=")[0] == "DIRECTORY"):
-                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
-                elif (line.split("=")[0] == "TIMESLEEP"):
-                    timesleep = str(line.split("=")[1][:-1])
-                elif (line.split("=")[0] == "IGNORELIST"):
-                    ignorelist = line.split("=")[1]
-                elif (line.split("=")[0] == "FORALL"):
-                    forall = line.split("=")[1]
+    if (os.path.exists(config)):
+        with open(config, 'r') as config_file:
+            for line in config_file:
+                if (line[0] != "#"):
+                    if (line.split("=")[0] == "DIRECTORY"):
+                        directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+                    elif (line.split("=")[0] == "TIMESLEEP"):
+                        timesleep = str(line.split("=")[1][:-1])
+                    elif (line.split("=")[0] == "IGNORELIST"):
+                        ignorelist = line.split("=")[1]
+                    elif (line.split("=")[0] == "FORALL"):
+                        forall = line.split("=")[1]
     
     if (string == "directory"):
         return directory
