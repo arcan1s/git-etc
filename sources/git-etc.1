@@ -1,25 +1,16 @@
-.TH git-etc 1  "September 29, 2013" "version 2.2.2" "USER COMMANDS"
+.TH git-etc 1  "January 3, 2014" "version 2.3.0" "USER COMMANDS"
 .SH NAME
 git-etc - simple daemon
 .SH SYNOPSIS
 .B git-etc
-[--for-all] [-i ignore-list] [-h|--help] [-v|--version] -d /path/to/directory -t time-to-sleep
+[ -c | --config /etc/git-etc.conf ] [ -h | --help ] [ -v | --version ]
 .SH DESCRIPTION
 .B git-etc
 is a simple daemon written on BASH that automatically creates git repository in the given directory and creates commit at the specified time interval.
 .SH OPTIONS
 .TP
--d | --directory /path/to/directory
-Full path to working directory with observed files.
-.TP
--t | --timesleep time-to-sleep
-Time interval between updates. It must be integer and >=1.
-.TP
---for-all
-Do not change rights to .git during creation repository.
-.TP
-ignore-list
-List of files that will not be observed. Separator is ";;".
+-c | --config /etc/git-etc.conf
+Full path to configuration file.
 .TP
 -h | --help
 Show help and exit.
@@ -31,18 +22,12 @@ Show version and exit.
 /usr/lib/systemd/system/git-etc.service
 Systemd service file.
 .TP
-/etc/conf.d/git-etc.conf
+/etc/git-etc.conf
 Configuration file.
 .SH EXAMPLES
 .TP
-# git-etc -d /etc -t 12 -i mtab;;*[bB]ak;;*pacnew
-Start daemon in directory
-.B /etc
-with time interval between updates of 
-.B 12 
-hours. Files 
-.B mtab, *bak, *Bak and *pacnew 
-will be ignored.
+# git-etc
+Start daemon with default settings.
 .TP
 # systemctl start git-etc.service
 Start daemon with parameters that are described in configuration file.
@@ -60,17 +45,17 @@ Then replace path to configuration file to your option. For example,
 .PP
 .B from:
 .nf
-EnvironmentFile=/etc/conf.d/git-etc.conf
+ExecStart=/usr/bin/git-etc -c /etc/git-etc.conf
 .fi
 .B to
 .nf
-EnvironmentFile=/etc/conf.d/git-etc-my-profile.conf
+ExecStart=/usr/bin/git-etc -c /etc/git-etc-my-profile.conf
 .fi
 .PP
 Copy configuration file and edit it:
 .PP
 .nf
-# cp /etc/conf.d/git-etc.conf /etc/conf.d/git-etc-my-profile.conf
+# cp /etc/git-etc.conf /etc/git-etc-my-profile.conf
 .fi
 .PP
 Then start service:

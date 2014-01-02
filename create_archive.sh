@@ -1,29 +1,31 @@
 #!/bin/bash
 
-if [ -d git-etc ]; then
-  rm -rf git-etc
-fi
-mkdir git-etc
+ARCHIVE="git-etc"
+[ -d ${ARCHIVE} ] && rm -rf ${ARCHIVE}
 
-mkdir -p git-etc/usr/{bin,lib,share/applications}
-mkdir -p git-etc/ctrlconf
-mkdir -p git-etc/usr/lib/systemd/system
-mkdir -p git-etc/usr/share/man/{man1,man5}
-mkdir -p git-etc/etc/conf.d
+mkdir -p ${ARCHIVE}/usr/{bin,lib/systemd/system,share/applications}
+mkdir -p ${ARCHIVE}/usr/share/man/{man1,man5}
+mkdir -p ${ARCHIVE}/ctrlconf
+mkdir -p ${ARCHIVE}/etc
 
-cp sources/git-etc git-etc/usr/bin/
-cp sources/git-etc.service git-etc/usr/lib/systemd/system/
-cp sources/git-etc.conf git-etc/etc/conf.d/
-cp sources/ctrlconf.sh git-etc/usr/bin/ctrlconf
-cp sources/setup.py git-etc/
-cp sources/ctrlconf.py git-etc/ctrlconf.py
-cp sources/ctrlconf/*.py git-etc/ctrlconf/
-cp sources/*.desktop git-etc/usr/share/applications/
-cp sources/*.1 git-etc/usr/share/man/man1/
-cp sources/*.5 git-etc/usr/share/man/man5/
-cp install.sh git-etc/
+cp sources/git-etc ${ARCHIVE}/usr/bin/
+cp sources/git-etc.service ${ARCHIVE}/usr/lib/systemd/system/
+cp sources/git-etc.conf ${ARCHIVE}/etc/
+cp sources/ctrlconf.sh ${ARCHIVE}/usr/bin/ctrlconf
+cp sources/setup.py ${ARCHIVE}/
+cp sources/ctrlconf.py ${ARCHIVE}/ctrlconf.py
+cp sources/ctrlconf/*.py ${ARCHIVE}/ctrlconf/
+cp sources/*.desktop ${ARCHIVE}/usr/share/applications/
+cp sources/*.1 ${ARCHIVE}/usr/share/man/man1/
+cp sources/*.5 ${ARCHIVE}/usr/share/man/man5/
+cp install.sh ${ARCHIVE}/
+cp {AUTHORS,COPYING} ${ARCHIVE}/
 
-cd git-etc
-tar -cf - * | xz -9 -c - > ../git-etc-2.2.2.tar.xz
-cd ..
-rm -r git-etc
+VERSION=$(grep Version sources/git-etc | awk '{printf $5;}')
+tar -cf - ${ARCHIVE} | xz -9 -c - > ${ARCHIVE}-${VERSION}-src.tar.xz
+rm -r ${ARCHIVE}
+
+# update PKGBUILD
+MD5SUMS=$(md5sum ${ARCHIVE}-${VERSION}-src.tar.xz | awk '{print $1}')
+sed -i "s/md5sums=('[0-9a-f]\{32\}')/md5sums=('${MD5SUMS}')/" PKGBUILD
+sed -i "s/pkgver=[0-9.]\{5\}/pkgver=${VERSION}/" PKGBUILD

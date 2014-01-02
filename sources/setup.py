@@ -5,7 +5,7 @@ os.putenv('TAR_OPTIONS', '--owner root --group root --mode a+rX')
 
 setup(
     name = 'ctrlconf',
-    version = '2.2.2',
+    version = '2.3.0',
     license = 'GPL',
     description = 'GUI for git-etc daemon',
     url = 'https://github.com/arcan1s/git-etc',

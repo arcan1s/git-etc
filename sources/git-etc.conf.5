@@ -2,19 +2,22 @@
 .SH NAME
 git-etc.conf - git-etc configuration file
 .SH SYNOPSIS
-/etc/conf.d/git-etc.conf
+/etc/git-etc.conf
 .SH DESCRIPTION
 This file configures various parameters of 
 .BR git-etc (1).
 .SH OPTIONS
 .TP
 .I DIRECTORY=
-Full path to working directory with observed files.
+Full path to working directory with observed files. Default is "/etc/"
 .TP
 .I TIMESLEEP=
-Time interval between updates. It must be integer and >=1.
+Time interval between updates. It must be integer and >=1. Default is "12"
 .TP
 .I IGNORELIST=
-List of files that will not be observed. Separator is ";;". May be empty.
+List of files that will not be observed. Separator is ";;". May be empty. Default is "mtab;;*.Bak;;*.bak;;*.pacnew;;*.pacsave;;*.pacorig;;*.new;;*.old;;*.bckp;;ld.so.cache"
+.TP
+.I FORALL=
+"1" will enable access for normal user. Default is "1"
 .SH SEE ALSO
 .BR git-etc (1)

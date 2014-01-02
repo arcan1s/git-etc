@@ -1,8 +1,26 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
+#     git-etc simple daemon written on BASH for monitoring changes in files
+#     Copyright (C) 2013 Evgeniy Alekseev
+# 
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 3 of the License, or
+#     (at your option) any later version.
+# 
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+# 
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, see http://www.gnu.org/licenses
+#     or write to the Free Software Foundation,Inc., 51 Franklin Street,
+#     Fifth Floor, Boston, MA 02110-1301  USA
 
+
+# Magic!
 # Do not touch!
-# Magick!
 
  
 import argparse, commands, datetime, os, sys
@@ -39,14 +57,21 @@ def read_config(string):
     if (config == 0):
         return 0
     
+    directory = "/etc/"
+    timesleep = "12"
+    ignorelist = "mtab;;*.Bak;;*.bak;;*.pacnew;;*.pacsave;;*.pacorig;;*.new;;*.old;;*.bckp;;ld.so.cache"
+    forall = "1"
     with open(config, 'r') as config_file:
         for line in config_file:
-            if (line.split("=")[0] == "DIRECTORY"):
-                directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
-            elif (line.split("=")[0] == "TIMESLEEP"):
-                timesleep = str(line.split("=")[1][:-1])
-            elif (line.split("=")[0] == "IGNORELIST"):
-                ignorelist = line.split("=")[1]
+            if (line[0] != "#"):
+                if (line.split("=")[0] == "DIRECTORY"):
+                    directory = os.path.abspath(os.path.expanduser(str(line.split("=")[1][:-1])))
+                elif (line.split("=")[0] == "TIMESLEEP"):
+                    timesleep = str(line.split("=")[1][:-1])
+                elif (line.split("=")[0] == "IGNORELIST"):
+                    ignorelist = line.split("=")[1]
+                elif (line.split("=")[0] == "FORALL"):
+                    forall = line.split("=")[1]
     
     if (string == "directory"):
         return directory
@@ -54,12 +79,14 @@ def read_config(string):
         return timesleep
     elif (string == "ignorelist"):
         return ignorelist
+    elif (string == "forall"):
+        return forall;
 
 
 def read_settings(string):
     """Function to reading GUI configuration file"""
     config_gui = os.path.abspath(os.path.expanduser('~/.config/ctrlconf.conf'))
-    config = "/etc/conf.d/git-etc.conf"
+    config = "/etc/git-etc.conf"
     editor = "gvim"
     service = "git-etc.service"
     lang = "ENG"
@@ -114,7 +141,7 @@ class AboutWindow(QtGui.QMainWindow):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Droid Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config 2.2.2</p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config 2.3.0</p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Лицензия: GPL</p>\n"
 "<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">GUI к демону git-etc, написанный на Python2.7/PyQt4. Позволяет посмотреть список коммитов и изменения в файлах, записанные в коммитах. Также данное приложение позволяет откатить к определенному коммиту все файлы (git reset --hard) или отдельно взятые (git diff &amp;&amp; git apply). Дополнительно предусмотрена возможность слияния старых и новых конфигурационных файлов (используются две ветки репозитория - master и experimental).</p>\n"
@@ -129,7 +156,7 @@ class AboutWindow(QtGui.QMainWindow):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Droid Sans\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config 2.2.2</p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config 2.3.0</p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">License: GPL</p>\n"
 "<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Control Config is GUI for git-etc daemon written on Python2.7/PyQt4. This application allows you to view a list of commits and changes to files recorded in commit messages. Also, this application allows you to roll back to a specific commit all files (git reset --hard) or individual files (git diff && git apply). You may merge old and new configuration files (used two branches repository - master and experimental).</p>\n"
