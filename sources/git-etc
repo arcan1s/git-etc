@@ -96,13 +96,12 @@ if [ ! -d "${GITDIR}" ]; then
   git add -A .
   git commit -m $(date +%Y%m%d%H%M%S-%N)
   cd /
-fi
-
-# check rights
-if [[ ${FORALL} == 1 ]]; then
-  echo "[II]: Changing rights to '${GITDIR}'"
-  find "${GITDIR}" -type d -exec chmod 755 {} \;
-  find "${GITDIR}" -type f -exec chmod 644 {} \;
+  # check rights
+  if [[ ${FORALL} == 1 ]]; then
+    echo "[II]: Changing rights to '${GITDIR}'"
+    find "${GITDIR}" -type d -exec chmod 755 {} \;
+    find "${GITDIR}" -type f -exec chmod 644 {} \;
+  fi
 fi
 
 # adding files in ignore-list
