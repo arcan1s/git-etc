@@ -1,0 +1,7 @@
+sources/build
+sources/usr
+*src.tar.[gx]z
+*pkg.tar.[gx]z
+build
+src
+pkg
