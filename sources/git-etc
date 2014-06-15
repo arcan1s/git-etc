@@ -1,17 +1,17 @@
 #!/bin/bash
 #     git-etc simple daemon written on BASH for monitoring changes in files
 #     Copyright (C) 2013 Evgeniy Alekseev
-# 
+#
 #     This program is free software; you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
 #     the Free Software Foundation; either version 3 of the License, or
 #     (at your option) any later version.
-# 
+#
 #     This program is distributed in the hope that it will be useful,
 #     but WITHOUT ANY WARRANTY; without even the implied warranty of
 #     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #     GNU General Public License for more details.
-# 
+#
 #     You should have received a copy of the GNU General Public License
 #     along with this program; if not, see http://www.gnu.org/licenses
 #     or write to the Free Software Foundation,Inc., 51 Franklin Street,
@@ -41,13 +41,13 @@ func_help() {
 func_ver() {
   echo -e "                   git-etc                   "
   echo -e "Simple daemon for monitoring changes in files"
-  echo -e "Version : 2.3.0               License : GPLv3"
+  echo -e "Version : 2.3.1               License : GPLv3"
   echo -e "Author :          Evgeniy Alexeev aka arcanis"
   echo -e "E-mail :             esalexeev (at) gmail.com"
   exit 0
 }
 isnum() {
-    (t=$(( 0$1+0 ))) 2>/dev/null
+    (t=$((0$1+0))) 2> /dev/null
 }
 
 CONF_FILE="/etc/git-etc.conf"
@@ -66,16 +66,16 @@ DIRECTORY="/etc/"
 IGNORELIST="mtab;;*.Bak;;*.bak;;*.pacnew;;*.pacsave;;*.pacorig;;*.new;;*.old;;*.bckp;;ld.so.cache"
 FORALL=1
 TIMESLEEP=12
-echo "[II] Reading configuration from '$CONF_FILE'"
-[ -e "$CONF_FILE" ] || error_mes "config"
-for VAR in "$(cat "$CONF_FILE")"; do eval "$VAR"; done
-IGNORELIST=$(echo $IGNORELIST | sed -e 's/;;/ /g')
+echo "[II] Reading configuration from '${CONF_FILE}'"
+[ -e "${CONF_FILE}" ] || error_mes "config"
+. "${CONF_FILE}"
+IGNORELIST=$(echo ${IGNORELIST} | sed -e 's/;;/ /g')
 
 # error check
-[ -d "$DIRECTORY" ] && echo "[II]: Set DIRECTORY to '$DIRECTORY'" || error_mess "directory" "$DIRECTORY"
-isnum "$TIMESLEEP" || error_mes "number" "$TIMESLEEP"
-[ $TIMESLEEP -ge 1 ] && TIMESLEEP=$(($TIMESLEEP*3600)) || error_mes "number" "$TIMESLEEP"
-echo "[II]: Set TIMESLEEP to '$TIMESLEEP' sec"
+[ -d "${DIRECTORY}" ] && echo "[II]: Set DIRECTORY to '${DIRECTORY}'" || error_mess "directory" "${DIRECTORY}"
+isnum "${TIMESLEEP}" || error_mes "number" "${TIMESLEEP}"
+[ ${TIMESLEEP} -ge 1 ] && TIMESLEEP=$((${TIMESLEEP}*3600)) || error_mes "number" "${TIMESLEEP}"
+echo "[II]: Set TIMESLEEP to '${TIMESLEEP}' sec"
 
 
 # work block
@@ -84,15 +84,11 @@ cd /
 < /dev/null > /dev/null 2>&1 &
 
 # creating git repository
-GITDIR="$DIRECTORY/.git"
-if [ ! -d "$GITDIR" ]; then
+GITDIR="${DIRECTORY}/.git"
+if [ ! -d "${GITDIR}" ]; then
   echo "[II]: Creating git repository"
-  cd "$DIRECTORY"
+  cd "${DIRECTORY}"
   git init
-  if [[ $FORALL == 1 ]]; then
-    echo "[II]: Changing rights to '$GITDIR'"
-    chmod -R o-rwx "$GITDIR"
-  fi
   echo "[II]: Set username and e-mail"
   git config user.name "git-etc"
   git config user.email "git-etc@mail"
@@ -102,29 +98,30 @@ if [ ! -d "$GITDIR" ]; then
   cd /
 fi
 
+# check rights
+if [[ ${FORALL} == 1 ]]; then
+  echo "[II]: Changing rights to '${GITDIR}'"
+  find "${GITDIR}" -type d -exec chmod 755 {} \;
+  find "${GITDIR}" -type f -exec chmod 644 {} \;
+fi
+
 # adding files in ignore-list
 echo "[II]: Cheching ignore-list"
-if [ -z "$IGNORELIST" ]; then
+if [ -z "${IGNORELIST}" ]; then
   echo "[WW]: IGNORELIST isn't set"
 else
-  for IGNORE in $(echo $IGNORELIST); do
-    label=0
-    for ITEM in $(cat "$GITDIR/info/exclude"); do
-      if [[ "$IGNORE" == "$ITEM" ]]; then
-        label=1
-      fi
-    done
-    if [[ "$label" == 0 ]]; then
+  for IGNORE in $(echo ${IGNORELIST}); do
+    if ! grep "${IGNORE}" "${GITDIR}/info/exclude" -q; then
       echo "[II]: Adding '$IGNORE' to ignore-list"
-      echo "$IGNORE" >> "$GITDIR/info/exclude"
+      echo "${IGNORE}" >> "${GITDIR}/info/exclude"
     fi
   done
 fi
 
 # creating experimental branch
-cd "$DIRECTORY"
+cd "${DIRECTORY}"
 EXPERIMENTAL=$(git branch | grep experimental)
-if [ -z "$EXPERIMENTAL" ]; then
+if [ -z "${EXPERIMENTAL}" ]; then
   echo "[II]: Creating experimental branch"
   git branch experimental
 else
@@ -136,19 +133,18 @@ cd /
 # forking
 (
   while true; do
-# Creating commit
-    cd "$DIRECTORY"
+# creating commit
+    cd "${DIRECTORY}"
     echo "[II]: Set username and e-mail"
     git config user.name "git-etc"
     git config user.email "git-etc@mail"
-    echo "[II]: Adding files" 
+    echo "[II]: Adding files"
     git add -A .
     echo "[II]: Creating new commit"
-    git commit -m `date +%Y%m%d%H%M%S-%N`
+    git commit -m $(date +%Y%m%d%H%M%S-%N)
     cd /
-
-# waiting $TIMESLEEP hours
-    echo "[II]: Waiting '$TIMESLEEP' sec"
-    sleep $TIMESLEEP
+# waiting ${TIMESLEEP} hours
+    echo "[II]: Waiting '${TIMESLEEP}' sec"
+    sleep ${TIMESLEEP}
   done
 ) &

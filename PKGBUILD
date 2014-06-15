@@ -2,7 +2,7 @@
 # Maintainer: Evgeniy "arcanis" Alexeev <esalexeev@gmail.com>
 
 pkgname=git-etc
-pkgver=2.3.0
+pkgver=2.3.1
 pkgrel=1
 pkgdesc="Simple daemon for monitoring changes in files"
 arch=('i686' 'x86_64')
@@ -13,7 +13,7 @@ makedeps=('python2')
 optdepends=('python2-pyqt4: for GUI'
             'xterm: for GUI')
 source=(https://github.com/arcan1s/git-etc/releases/download/V.${pkgver}/${pkgname}-${pkgver}-src.tar.xz)
-md5sums=('b889107af9871d73830e72524ef20ec9')
+md5sums=('196e03491d7e1528fd09d02e15013ebc')
 backup=('etc/git-etc.conf')
 
 package() {
