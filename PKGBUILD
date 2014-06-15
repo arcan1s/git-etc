@@ -3,13 +3,13 @@
 
 pkgname=git-etc
 pkgver=2.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple daemon for monitoring changes in files"
-arch=('i686' 'x86_64')
+arch=('any')
 url="http://arcan1s.github.io/projects/git-etc"
-license=("GPLv3")
+license=("GPL3")
 depends=('git')
-makedeps=('python2')
+makedepends=('python2')
 optdepends=('python2-pyqt4: for GUI'
             'xterm: for GUI')
 source=(https://github.com/arcan1s/git-etc/releases/download/V.${pkgver}/${pkgname}-${pkgver}-src.tar.xz)
