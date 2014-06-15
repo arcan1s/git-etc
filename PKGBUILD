@@ -13,7 +13,7 @@ makedeps=('python2')
 optdepends=('python2-pyqt4: for GUI'
             'xterm: for GUI')
 source=(https://github.com/arcan1s/git-etc/releases/download/V.${pkgver}/${pkgname}-${pkgver}-src.tar.xz)
-md5sums=('196e03491d7e1528fd09d02e15013ebc')
+md5sums=('934c8154db80eccaf9c39102c2c35bbb')
 backup=('etc/git-etc.conf')
 
 package() {
